@@ -1,0 +1,35 @@
+.menu {
+  width: 12.5rem;
+  height: 90vh;
+  background-color: #c77dff;
+  float: left;
+  transition: all 0.5s ease-in;
+  transform: translateX(-12.5rem);
+  z-index: 5;
+}
+
+.menuMoveOut {
+  transform: translateX(0);
+  transition: all 0.5s ease-out;
+}
+.testButtonClicked {
+  transform: translateX(0);
+  transition: all 0.5s ease-out;
+  z-index: 100;
+}
+.menuButton {
+  width: 3.5rem;
+  height: 5rem;
+  max-width: 3.5rem;
+  max-height: 5rem;
+
+  color: #e0aaff;
+  background-color: #7b2cbf;
+  border: none;
+  margin-left: 1rem;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  transform: translate(-27.5%, 50%);
+  z-index: 10;
+}

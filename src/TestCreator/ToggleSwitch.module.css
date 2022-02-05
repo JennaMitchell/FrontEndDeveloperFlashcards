@@ -1,0 +1,55 @@
+.toggleSwitchContainer {
+  display: grid;
+  grid-template-columns: auto max-content;
+  justify-content: space-between;
+  align-items: center;
+
+  width: min(100%, 100%);
+  height: min(100%, 100%);
+}
+
+.toggleSwitch {
+  position: relative;
+  width: min(max-content, max-content);
+  height: min(max-content, max-content);
+}
+
+.toggleLabel {
+  text-align: left;
+  color: #7b2cbf;
+  font-size: 2.2rem;
+
+  width: min(100%, 100%);
+  height: min(100%, 100%);
+}
+.slider {
+  display: flex;
+  cursor: pointer;
+  width: 50px;
+  height: 25px;
+  border-radius: 100px;
+  background-color: #bfbfbf;
+  position: relative;
+  transition: all 0.2s;
+  padding: auto;
+  align-self: right;
+}
+.sliderBtn {
+  content: "";
+  position: absolute;
+  top: 1.5px;
+  left: 2px;
+  width: 21px;
+  height: 21px;
+  border-radius: 21px;
+  transition: all 0.2s;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.344);
+}
+
+.sliderClicked {
+  background-color: #7b2cbf;
+}
+.moveBtn {
+  left: 27px;
+}

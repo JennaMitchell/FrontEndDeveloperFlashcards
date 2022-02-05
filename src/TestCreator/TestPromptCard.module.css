@@ -1,0 +1,46 @@
+.testCard {
+  width: max(100%, 100%);
+  height: max(4.4rem, 2.2rem);
+  background-color: white;
+  display: grid;
+  grid-template-columns: min-content min-content;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #7b2cbf;
+}
+.testCardTitle {
+  font-size: 2rem;
+  color: #7b2cbf;
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 1;
+  height: max(3.4rem, 3.4rem);
+  width: min(15rem, 15rem);
+  align-self: left;
+}
+.buttonsContainer {
+  height: max(4.4rem, 4.4rem);
+  width: max(4.4rem, 4.4rem);
+  display: grid;
+  grid-template-columns: min-content min-content;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+}
+.checkMarkButton {
+  height: max(2rem, 2rem);
+  width: max(2rem, 2rem);
+  border: 2px solid #7b2cbf;
+  border-radius: 50%;
+}
+.moreInfoButton {
+  height: max(2rem, 2rem);
+  width: max(2rem, 2rem);
+  color: #7b2cbf;
+  border: none;
+  background-color: white;
+}
+.checkMarkIcon {
+  color: #7b2cbf;
+  background-color: white;
+  border-radius: 50%;
+}

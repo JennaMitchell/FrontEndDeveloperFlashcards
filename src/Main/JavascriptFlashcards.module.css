@@ -1,0 +1,48 @@
+.flashcardContainer {
+  width: 100rem;
+  height: 90vh;
+  background-color: #e0aaff;
+  perspective: 1500rem;
+  position: relative;
+  transition: all 2s;
+  z-index: 1;
+}
+
+.flashcardButton {
+  height: 3.5rem;
+  max-height: 3.5rem;
+  width: 3.5rem;
+  max-width: 3.5rem;
+  color: #e0aaff;
+  background-color: #7b2cbf;
+  border: 1px solid white;
+  border-radius: 1.75rem;
+}
+.leftButton {
+  position: absolute;
+  top: 50%;
+  left: 7%;
+  transform: translate(0%, -100%);
+  z-index: -1;
+}
+.rightButton {
+  position: absolute;
+  top: 50%;
+  right: 2%;
+  transform: translate(0%, -100%);
+}
+.HttpRequestError {
+  text-align: center;
+  color: red;
+}
+.FlashcardsLoading {
+  text-align: center;
+  color: white;
+}
+.pageCounter {
+  position: absolute;
+  display: inline-block;
+  bottom: 7.5%;
+  left: 50%;
+  font-size: 2.4rem;
+}

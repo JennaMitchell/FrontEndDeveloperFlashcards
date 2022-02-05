@@ -1,0 +1,194 @@
+.testPromptWindow {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(30%, 60rem);
+  height: min(65%, 80rem);
+  background-color: #f3f3f3;
+  padding: 5rem 6rem;
+  box-shadow: 4rem 4rem 4rem rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  transition: all 0.5s;
+  border-radius: 2.5rem;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(5, min-content);
+  align-items: center;
+  justify-content: center;
+
+  overflow: scroll;
+}
+
+.blurBackground {
+  min-width: 100rem;
+  width: 100rem;
+  max-width: 100rem;
+  min-height: 100%;
+  height: 100%;
+  max-height: 100%;
+  position: absolute;
+  z-index: 5;
+  background-color: #0000006e;
+}
+.closingIcon {
+  min-width: 3rem;
+  width: 3rem;
+  max-width: 3rem;
+  min-height: 3rem;
+  height: 3rem;
+  max-height: 3rem;
+  border-radius: 50%;
+  background-color: #7b2cbf;
+  color: white;
+  border: none;
+
+  position: fixed;
+  top: 2.5rem;
+  right: 2.5rem;
+  transform: translate(50%, -50%);
+}
+.cardTypeSelectionContianer {
+  grid-row: 1 / span 1;
+  height: max(14rem, 14rem);
+  width: max(100%, 100%);
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: min-content min-content min-content;
+}
+.testOptionsTitle {
+  grid-row: 1 / span 1;
+  color: #7b2cbf;
+  border-bottom: 2px solid #7b2cbf;
+}
+.reactToggleSwitch {
+  width: max(100%, 100%);
+  height: max(100%, 100%);
+}
+.javascriptToggleSwitch {
+  width: max(100%, 100%);
+  height: max(100%, 100%);
+}
+.cardSelectionSection {
+  grid-row: 2 / 3;
+  height: max(20rem, 20rem);
+  width: max(100%, 100%);
+
+  display: grid;
+  grid-template-rows: max-content max-content;
+  grid-template-columns: 100%;
+  align-items: center;
+  justify-content: center;
+  overflow: scroll;
+}
+.cardSelectorTitle {
+  color: #7b2cbf;
+  width: max(100%, 100%);
+  height: max(100%, 100%);
+  border-bottom: 2px solid #7b2cbf;
+  grid-row: 1 / span 1;
+  text-align: center;
+  font-size: 2.4rem;
+}
+.cardSelector {
+  grid-row: 2 / span 1;
+
+  width: max(100%, 100%);
+  height: max(100%, 100%);
+  display: grid;
+}
+
+.testOptionsContainer {
+  grid-row: 3 / span 1;
+  width: max(100%, 100%);
+  height: max(100%, 100%);
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: repeat(4, auto);
+  color: #7b2cbf;
+  font-size: 2.2rem;
+}
+.testOptionsTitle {
+  border-bottom: 2px solid #7b2cbf;
+  width: min(100%, 100%);
+  height: min(100%, 100%);
+  text-align: center;
+  font-size: 2.4rem;
+}
+.trueOrFalseSwitch {
+  width: min(100%, 100%);
+  height: min(100%, 100%);
+}
+.multipleChoiceSwitch {
+  width: min(100%, 100%);
+  height: min(100%, 100%);
+}
+.matchingSwitch {
+  width: min(100%, 100%);
+  height: min(100%, 100%);
+}
+.numberOfCardsSelectedHolder {
+  grid-row: 4 / span 1;
+  width: min(100%, 100%);
+  height: min(100%, 100%);
+  color: #7b2cbf;
+  display: grid;
+  grid-template-columns: max-content max-content;
+  grid-template-rows: repeat(3, max-content);
+  justify-content: space-between;
+  align-items: center;
+}
+.testTitle {
+  grid-column: 1 / span 2;
+  grid-row: 1 / span 1;
+  text-align: center;
+  min-width: 100%;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  height: 100%;
+  max-height: 100%;
+  color: #7b2cbf;
+  border-bottom: 2px solid #7b2cbf;
+  padding: 0;
+  font-size: 2.4rem;
+}
+.numberSelectedTitle {
+  margin-left: 0;
+  justify-self: left;
+  font-size: 2rem;
+  font-weight: normal;
+  font-size: 2.2rem;
+}
+.numberOfSelected {
+  font-size: 2.2rem;
+  font-weight: normal;
+  width: min(100%, 100%);
+  height: min(100%, 100%);
+}
+
+.dropDownMenu {
+  font-size: 2rem;
+  padding: 1rem 1.5rem;
+  background-color: white;
+  color: #7b2cbf;
+  border: none;
+  font-weight: normal;
+}
+.submit {
+  grid-row: 5 / span 1;
+  width: min(100%, 100%);
+  height: min(100%, 100%);
+  margin-top: 4rem;
+  background-color: #7b2cbf;
+  color: white;
+  border-radius: 1rem;
+  border: none;
+  font-size: 2.2rem;
+}
+.submit:hover {
+  background-color: #e0aaff;
+  color: black;
+  box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.3);
+}

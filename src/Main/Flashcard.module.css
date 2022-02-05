@@ -1,0 +1,54 @@
+.card {
+  backface-visibility: hidden;
+  height: 60%;
+  max-height: 60%;
+  width: 80%;
+  max-width: 80%;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 1.5rem 4rem rgba(black, 0.15);
+  position: absolute;
+  top: 18.5%;
+  left: 12.5%;
+
+  transition: all 1s;
+  transform: translate(-50%, -50%);
+}
+.cardFront {
+  background-color: #7b2cbf;
+}
+.cardBack {
+  background-color: #7b2cbf;
+}
+.textFrontSide {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  font-size: 2.2rem;
+  height: 60%;
+  max-height: 60%;
+  width: 80%;
+  max-width: 80%;
+  margin: 22.5% 10% 22.5% 10%;
+}
+.textBackSide {
+  display: inline-block;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  font-size: 2.2rem;
+
+  height: 60%;
+  max-height: 60%;
+  width: 80%;
+  max-width: 80%;
+  margin: 20% 10% 20% 10%;
+}
+.cardFlip180 {
+  transform: rotateY(-180deg);
+}
+.cardFlip0 {
+  transform: rotateY(0deg);
+}
+.hidden {
+  display: none;
+}
