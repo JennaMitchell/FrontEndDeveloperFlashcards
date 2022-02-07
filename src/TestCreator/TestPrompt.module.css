@@ -10,7 +10,7 @@
   box-shadow: 4rem 4rem 4rem rgba(0, 0, 0, 0.3);
   z-index: 100;
   transition: all 0.5s;
-  border-radius: 2.5rem;
+  border-radius: 0.5rem;
 
   display: grid;
   grid-template-columns: 1fr;
@@ -181,13 +181,30 @@
   width: min(100%, 100%);
   height: min(100%, 100%);
   margin-top: 4rem;
-  background-color: #7b2cbf;
+  background-color: grey;
   color: white;
   border-radius: 1rem;
   border: none;
   font-size: 2.2rem;
 }
-.submit:hover {
+.submitNavlink {
+  grid-row: 5 / span 1;
+  width: min(100%, 100%);
+  height: min(6.6rem, 6.6rem);
+  margin-top: 4rem;
+  background-color: #7b2cbf;
+  color: white;
+  border-radius: 1rem;
+  border: none;
+  font-size: 2.2rem;
+  text-align: center;
+  text-decoration: none;
+
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+.submitNavlink:hover {
   background-color: #e0aaff;
   color: black;
   box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.3);

@@ -1,6 +1,6 @@
 import classes from "./ReactFlashcards.module.css";
-import { useState, useEffect } from "react";
-import { ref, child, get } from "firebase/database";
+import { useEffect } from "react";
+
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/outline";
 
 import Flashcard from "./Flashcard";
@@ -8,6 +8,7 @@ import { flashcardStoreActions } from "../Store/flashcardSlice";
 import { useSelector, useDispatch } from "react-redux";
 import Menu from "./Menu";
 import TestPrompt from "../TestCreator/TestPrompt";
+import NavBar from "../Navigation/Header";
 
 const ReactFlashcards = () => {
   const currentCard = useSelector((state) => state.currentCard);
@@ -40,7 +41,9 @@ const ReactFlashcards = () => {
 
   return (
     <>
-      {testButtonClicked && <TestPrompt />}
+      <NavBar />
+
+      {testButtonClicked && <TestPrompt cardType="react" />}
       <div className={classes.flashcardContainer}>
         <Menu flashcardData={reactFlashcards}></Menu>
         <button

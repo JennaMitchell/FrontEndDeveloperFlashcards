@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Menu from "./Menu";
 import TestPrompt from "../TestCreator/TestPrompt";
 import { useEffect } from "react";
+import NavBar from "../Navigation/Header";
 
 const JavascriptFlashcards = () => {
   const currentCard = useSelector((state) => state.currentCard);
@@ -48,7 +49,8 @@ const JavascriptFlashcards = () => {
 
   return (
     <>
-      {testButtonClicked && <TestPrompt />}
+      <NavBar />
+      {testButtonClicked && <TestPrompt cardType="javascript" />}
       <div className={classes.flashcardContainer}>
         <Menu flashcardData={javascriptFlashcards}></Menu>
         <button

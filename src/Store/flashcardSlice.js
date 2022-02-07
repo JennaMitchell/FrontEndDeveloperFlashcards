@@ -1,5 +1,4 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
-import { startAfter } from "firebase/database";
 
 const initialState = {
   reactFlashcardData: [],
@@ -19,6 +18,8 @@ const initialState = {
   trueOrFalseSwitch: false,
   multipuleChoiceSwitch: false,
   matchingSwitch: false,
+  loadTestPageNav: false,
+  dropDownMenuValue: 0,
 };
 
 const flashcardSlice = createSlice({
@@ -73,7 +74,12 @@ const flashcardSlice = createSlice({
     setMatchingSwitch(state, { payload }) {
       state.matchingSwitch = payload;
     },
-
+    setLoadTestPageNav(state, { payload }) {
+      state.loadTestPageNav = payload;
+    },
+    setDropDownMenuValue(state,{payload}){
+      state.dropDownMenuValue =payload;
+    },
     prevFlashcard(state) {
       if (state.currentCard === 0) {
         state.currentCard = state.maxNumberOfFlashcards - 1;

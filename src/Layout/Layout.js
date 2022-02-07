@@ -1,14 +1,13 @@
 import { Fragment } from "react";
 
-import NavBar from "../Navigation/Header";
 import LocalDatabaseSetup from "../Main/LocalDatabaseSetup";
+import { useSelector } from "react-redux";
 
 const Layout = (props) => {
   return (
     <Fragment>
       <LocalDatabaseSetup></LocalDatabaseSetup>
 
-      <NavBar />
       {props.children}
     </Fragment>
   );

@@ -1,7 +1,7 @@
 import { ref, child, get } from "firebase/database";
 import databaseTest from "./Firebase";
 import { flashcardStoreActions } from "../Store/flashcardSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import classes from "./LocalDatabaseSetup.module.css";
 

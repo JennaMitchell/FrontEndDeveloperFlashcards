@@ -5,11 +5,30 @@ import { XIcon } from "@heroicons/react/outline";
 import ToggleSwitch from "./ToggleSwitch";
 import { flashcardStoreActions } from "../Store/flashcardSlice";
 import TestPromptCard from "./TestPromptCard";
+import { NavLink } from "react-router-dom";
 
-const TestPrompt = () => {
+const TestPrompt = ({ cardType }) => {
   const dispatch = useDispatch();
   const exitButtonHandler = () => {
     dispatch(flashcardStoreActions.setTestButtonClicked(false));
+    dispatch(flashcardStoreActions.setReactFlashcardTestSwitch(false));
+    dispatch(flashcardStoreActions.setJavascriptFlashcardTestSwitch(false));
+    dispatch(flashcardStoreActions.setMultipuleChoiceSwitch(false));
+    dispatch(flashcardStoreActions.setTrueOrFalseSwitch(false));
+    dispatch(flashcardStoreActions.setMatchingSwitch(false));
+    dispatch(flashcardStoreActions.setTestFlashcardData(null));
+    setDisplayedTestSelectorCards(null);
+    if (cardType === "react") {
+      dispatch(
+        flashcardStoreActions.setMaxNumberOfFlashcards(reactFlashcards.length)
+      );
+    } else if (cardType === "javascript") {
+      dispatch(
+        flashcardStoreActions.setMaxNumberOfFlashcards(
+          javascriptFlashcards.length
+        )
+      );
+    }
   };
 
   const totalNumberOfFlashcards = useSelector(
@@ -30,23 +49,6 @@ const TestPrompt = () => {
   const javascriptFlashcardTestSwitch = useSelector(
     (state) => state.javascriptFlashcardTestSwitch
   );
-  const multipuleChoiceSwitch = useSelector(
-    (state) => state.multipuleChoiceSwitch
-  );
-  const trueOrFalseSwitch = useSelector((state) => state.trueOrFalseSwitch);
-  const matchingSwitch = useSelector((state) => state.matchingSwitch);
-
-  const multipleChoiceSwitchHandler = () => {
-    dispatch(
-      flashcardStoreActions.setMultipuleChoiceSwitch(!multipuleChoiceSwitch)
-    );
-  };
-  const trueOrFalseSwitchHandler = () => {
-    dispatch(flashcardStoreActions.setTrueOrFalseSwitch(!trueOrFalseSwitch));
-  };
-  const matchingSwitchHandler = () => {
-    dispatch(flashcardStoreActions.setMatchingSwitch(!matchingSwitch));
-  };
 
   const testButtonClicked = useSelector((state) => state.testButtonClicked);
 
@@ -69,6 +71,56 @@ const TestPrompt = () => {
       )
     );
   };
+
+  const multipuleChoiceSwitch = useSelector(
+    (state) => state.multipuleChoiceSwitch
+  );
+  const trueOrFalseSwitch = useSelector((state) => state.trueOrFalseSwitch);
+  const matchingSwitch = useSelector((state) => state.matchingSwitch);
+
+  const multipleChoiceSwitchHandler = () => {
+    dispatch(
+      flashcardStoreActions.setMultipuleChoiceSwitch(!multipuleChoiceSwitch)
+    );
+  };
+  const trueOrFalseSwitchHandler = () => {
+    dispatch(flashcardStoreActions.setTrueOrFalseSwitch(!trueOrFalseSwitch));
+  };
+  const matchingSwitchHandler = () => {
+    dispatch(flashcardStoreActions.setMatchingSwitch(!matchingSwitch));
+  };
+
+  const [dropDownValue, setDropDownValue] = useState(0);
+  const dropDownMenuHandler = (e) => {
+    setDropDownValue(e.target.value);
+    dispatch(flashcardStoreActions.setDropDownMenuValue(e.target.value));
+  };
+
+  const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
+  useEffect(() => {
+    console.log(reactFlashcardTestSwitch);
+    if (reactFlashcardTestSwitch || javascriptFlashcardTestSwitch) {
+      if (trueOrFalseSwitch || multipuleChoiceSwitch || matchingSwitch) {
+        if (dropDownValue) {
+          setSubmitButtonClicked(true);
+        } else {
+          setSubmitButtonClicked(false);
+        }
+      } else {
+        setSubmitButtonClicked(false);
+      }
+    } else {
+      setSubmitButtonClicked(false);
+    }
+  }, [
+    reactFlashcardTestSwitch,
+    javascriptFlashcardTestSwitch,
+    trueOrFalseSwitch,
+    multipuleChoiceSwitch,
+    matchingSwitch,
+    dropDownValue,
+  ]);
+
   useEffect(() => {
     let combinedData = [];
     let indexCounter2 = 0;
@@ -95,15 +147,12 @@ const TestPrompt = () => {
     let tempArray = [];
     let tempNumberOfQuestions = 0;
     if (matchingSwitch) {
-      console.log("matchingSwitch");
       tempNumberOfQuestions = maxNumberOfFlashcards + tempNumberOfQuestions;
     }
     if (trueOrFalseSwitch) {
-      console.log("trueOrFalse");
       tempNumberOfQuestions = maxNumberOfFlashcards + tempNumberOfQuestions;
     }
     if (multipuleChoiceSwitch) {
-      console.log("multipleChoiceSwitch");
       tempNumberOfQuestions = maxNumberOfFlashcards + tempNumberOfQuestions;
     }
 
@@ -127,6 +176,7 @@ const TestPrompt = () => {
       dispatch(
         flashcardStoreActions.setMaxNumberOfFlashcards(reactFlashcards.length)
       );
+      console.log(reactFlashcardTestSwitch);
       setDisplayedTestSelectorCards(
         reactFlashcards.map((flashcard, index) => (
           <TestPromptCard
@@ -139,6 +189,7 @@ const TestPrompt = () => {
         ))
       );
     } else if (javascriptFlashcardTestSwitch && reactFlashcardTestSwitch) {
+      console.log(reactFlashcardTestSwitch, javascriptFlashcardTestSwitch);
       dispatch(
         flashcardStoreActions.setTestFlashcardData(reactJavascriptCombinedData)
       );
@@ -152,7 +203,7 @@ const TestPrompt = () => {
           reactJavascriptCombinedData.length
         )
       );
-      console.log(reactJavascriptCombinedData);
+
       setDisplayedTestSelectorCards(
         reactJavascriptCombinedData.map((flashcard, index) => (
           <TestPromptCard
@@ -165,6 +216,7 @@ const TestPrompt = () => {
         ))
       );
     } else if (!reactFlashcardTestSwitch && javascriptFlashcardTestSwitch) {
+      console.log(javascriptFlashcardTestSwitch);
       dispatch(
         flashcardStoreActions.setTestFlashcardData(javascriptFlashcards)
       );
@@ -211,6 +263,10 @@ const TestPrompt = () => {
       dispatch(flashcardStoreActions.setTestFlashcardData(null));
     }
   }, [testButtonClicked, dispatch]);
+
+  const submitButtonHandler = () => {
+    dispatch(flashcardStoreActions.setLoadTestPageNav(true));
+  };
   return (
     <div className={classes.blurBackground}>
       <div className={classes.testPromptWindow}>
@@ -221,22 +277,18 @@ const TestPrompt = () => {
         {/* React and/or JV Card Selection */}
         <div className={classes.cardTypeSelectionContianer}>
           <h3 className={classes.testOptionsTitle}> Type Selection</h3>
-          <div
-            className={classes.reactToggleSwitch}
-            onClick={toggleReactFlashcards}
-          >
+          <div className={classes.reactToggleSwitch}>
             <ToggleSwitch
               name="React Flashcards"
               toggleLabel="React Flashcards"
+              toggleFunction={toggleReactFlashcards}
             ></ToggleSwitch>
           </div>
-          <div
-            className={classes.javascriptToggleSwitch}
-            onClick={toggleJavascriptFlashcards}
-          >
+          <div className={classes.javascriptToggleSwitch}>
             <ToggleSwitch
               name="Javascript Flashcards"
               toggleLabel="Javascript Flashcards "
+              toggleFunction={toggleJavascriptFlashcards}
             ></ToggleSwitch>
           </div>
         </div>
@@ -252,26 +304,26 @@ const TestPrompt = () => {
         {/* Question Type Selection */}
         <div className={classes.testOptionsContainer}>
           <h3 className={classes.testOptionsTitle}> Test Options</h3>
-          <div
-            className={classes.trueOrFalseSwitch}
-            onClick={trueOrFalseSwitchHandler}
-          >
-            <ToggleSwitch name="True or False" toggleLabel="True or False" />
+          <div className={classes.trueOrFalseSwitch}>
+            <ToggleSwitch
+              name="True or False"
+              toggleLabel="True or False"
+              toggleFunction={trueOrFalseSwitchHandler}
+            />
           </div>
-          <div
-            className={classes.multipleChoiceSwitch}
-            onClick={multipleChoiceSwitchHandler}
-          >
+          <div className={classes.multipleChoiceSwitch}>
             <ToggleSwitch
               name="Multiple Choice"
               toggleLabel="Multiple Choice"
+              toggleFunction={multipleChoiceSwitchHandler}
             ></ToggleSwitch>
           </div>
-          <div
-            className={classes.matchingSwitch}
-            onClick={matchingSwitchHandler}
-          >
-            <ToggleSwitch name="Matching" toggleLabel="Matching"></ToggleSwitch>
+          <div className={classes.matchingSwitch}>
+            <ToggleSwitch
+              name="Matching"
+              toggleLabel="Matching"
+              toggleFunction={matchingSwitchHandler}
+            ></ToggleSwitch>
           </div>
         </div>
         {/* Number Of Questions Selection */}
@@ -294,6 +346,7 @@ const TestPrompt = () => {
               name="numberOfQuestions"
               id="numberOfQuestions"
               className={classes.dropDownMenu}
+              onChange={dropDownMenuHandler}
             >
               {arrayOfQuestionNumbers.map((value, index) => (
                 <option key={index} value={value}>
@@ -304,7 +357,17 @@ const TestPrompt = () => {
           </div>
         </div>
 
-        <button className={classes.submit}>Submit</button>
+        {submitButtonClicked ? (
+          <NavLink
+            className={classes.submitNavlink}
+            to="/test"
+            onClick={submitButtonHandler}
+          >
+            Sumbit
+          </NavLink>
+        ) : (
+          <button className={classes.submit}>Submit</button>
+        )}
       </div>
     </div>
   );

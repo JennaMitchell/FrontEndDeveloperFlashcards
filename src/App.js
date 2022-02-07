@@ -1,9 +1,10 @@
-import { Route, Routes, Navigate, Link } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 import Layout from "./Layout/Layout";
 
 import ReactFlashcards from "./Main/ReactFlashcards";
 import JavascriptFlashcards from "./Main/JavascriptFlashcards";
+import Test from "./Test/Test";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           path="/javascript-flashcards"
           element={<JavascriptFlashcards></JavascriptFlashcards>}
         ></Route>
+        <Route path="/test" element={<Test></Test>}></Route>
       </Routes>
     </Layout>
   );

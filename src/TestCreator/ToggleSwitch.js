@@ -1,11 +1,11 @@
 import classes from "./ToggleSwitch.module.css";
 import { useState } from "react";
 
-const ToggleSwitch = ({ toggleLabel }) => {
+const ToggleSwitch = ({ toggleLabel, toggleFunction }) => {
   const [switchClickedStatus, setSwitchClickedStatus] = useState(false);
   const switchHandler = () => {
-    console.log(switchClickedStatus);
     setSwitchClickedStatus(!switchClickedStatus);
+    toggleFunction();
   };
 
   return (
