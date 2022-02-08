@@ -265,7 +265,7 @@ const TestPrompt = ({ cardType }) => {
   }, [testButtonClicked, dispatch]);
 
   const submitButtonHandler = () => {
-    dispatch(flashcardStoreActions.setLoadTestPageNav(true));
+    dispatch(flashcardStoreActions.setLoadTestPage(true));
   };
   return (
     <div className={classes.blurBackground}>

@@ -1,4 +1,6 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 const initialState = {
   reactFlashcardData: [],
@@ -18,7 +20,7 @@ const initialState = {
   trueOrFalseSwitch: false,
   multipuleChoiceSwitch: false,
   matchingSwitch: false,
-  loadTestPageNav: false,
+  loadTestPage: false,
   dropDownMenuValue: 0,
 };
 
@@ -74,11 +76,11 @@ const flashcardSlice = createSlice({
     setMatchingSwitch(state, { payload }) {
       state.matchingSwitch = payload;
     },
-    setLoadTestPageNav(state, { payload }) {
-      state.loadTestPageNav = payload;
+    setLoadTestPage(state, { payload }) {
+      state.loadTestPage = payload;
     },
-    setDropDownMenuValue(state,{payload}){
-      state.dropDownMenuValue =payload;
+    setDropDownMenuValue(state, { payload }) {
+      state.dropDownMenuValue = payload;
     },
     prevFlashcard(state) {
       if (state.currentCard === 0) {
@@ -147,9 +149,18 @@ const flashcardSlice = createSlice({
     },
   },
 });
+const persistConfig = {
+  key: "root",
+  storage,
+};
+const persistedReducer = persistReducer(persistConfig, {
+  reducer: flashcardSlice.reducer,
+});
+const store = configureStore(persistedReducer, {
+  reducer: flashcardSlice.reducer,
+});
 
-const store = configureStore({ reducer: flashcardSlice.reducer });
-
+const persistor = persistStore(store);
 export const flashcardStoreActions = flashcardSlice.actions;
 
 export default store;
