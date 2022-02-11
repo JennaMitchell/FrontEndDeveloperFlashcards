@@ -3,13 +3,15 @@
   height: min(7.5vh, 7.5vh);
   display: grid;
   grid-template-rows: 100%;
-  grid-template-columns: repeat(3, min-content);
-  margin-top: 1.25vh;
+  grid-template-columns: repeat(2, min-content);
+
   align-items: center;
   justify-content: space-between;
-  background-color: #7b2cbf;
+  background-color: rgb(4, 4, 48);
   overflow: hidden;
   transition: all 0.25s;
+  border-bottom: 1px solid white;
+  position: relative;
 }
 .icon {
   height: min(4.5vh, 4.5vh);
@@ -18,7 +20,7 @@
   color: white;
   border: white solid 1px;
   border-radius: 5px;
-  background-color: #7b2cbf;
+  background-color: rgb(4, 4, 48);
   margin-top: 5px;
 }
 .firstIcon {
@@ -35,12 +37,18 @@
   justify-content: center;
   align-items: center;
   font-size: 2vh;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .questionTracker {
   grid-row: 1 / span 1;
+  font-weight: bold;
 }
 .testTitle {
   grid-row: 2 / span 1;
+  color: rgba(255, 255, 255, 0.753);
 }
 .testEditContainer {
   display: grid;

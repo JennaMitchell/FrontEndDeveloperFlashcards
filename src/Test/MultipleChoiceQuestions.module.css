@@ -1,0 +1,81 @@
+.questionContainer {
+  height: max(24rem, 24rem);
+  width: max(40rem, 40rem);
+  background-color: rgba(36, 35, 35, 0.589);
+  box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.705);
+  color: rgb(211, 211, 211);
+  border-radius: 1.5rem;
+  margin-top: 4rem;
+  position: relative;
+  display: grid;
+  grid-template-rows: 10rem 2rem 12rem;
+  grid-template-columns: 100%;
+  align-items: center;
+  justify-content: right;
+}
+.questionNumber {
+  position: absolute;
+  top: 1.5rem;
+  right: 2.5rem;
+
+  transform: translate(50%, -50%);
+  display: block;
+  color: rgb(211, 211, 211);
+}
+.answerBlock {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+  width: max(100%, 100%);
+  height: max(100%, 100%);
+}
+.choiceAnswerOne,
+.choiceAnswerTwo,
+.choiceAnswerThree,
+.choiceAnswerFour {
+  border: 1.5px solid rgba(126, 124, 124, 0.823);
+  width: max(80%, 80%);
+  height: max(max-content, max-content);
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding-left: 0.5rem;
+  font-size: 1.2rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+.choiceAnswerOne:hover,
+.choiceAnswerTwo:hover,
+.choiceAnswerThree:hover,
+.choiceAnswerFour:hover {
+  border: 1.5px solid white;
+}
+.clickedAnswer {
+  background-color: rgba(48, 47, 47, 0.589);
+  border: 1.5px solid rgba(48, 83, 242, 0.864);
+
+  width: max(80%, 80%);
+  height: max(max-content, max-content);
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding-left: 0.5rem;
+  font-size: 1.2rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+.helperText {
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  width: max(100%, 100%);
+  height: max(max-content, max-content);
+  padding-left: 2rem;
+  color: rgb(211, 211, 211);
+}
+.answerSide {
+  font-size: 2.4rem;
+}

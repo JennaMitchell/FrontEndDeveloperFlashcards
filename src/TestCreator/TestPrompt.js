@@ -124,6 +124,7 @@ const TestPrompt = ({ cardType }) => {
   useEffect(() => {
     let combinedData = [];
     let indexCounter2 = 0;
+    localStorage.clear();
 
     for (
       let i = 0;

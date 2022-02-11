@@ -1,0 +1,9 @@
+.questionsHolder {
+  width: max(100%, 100%);
+  height: max(95rem, 95rem);
+  background-color: rgb(4, 4, 48);
+  margin-top: 0;
+  margin-bottom: 0;
+
+  overflow: scroll;
+}

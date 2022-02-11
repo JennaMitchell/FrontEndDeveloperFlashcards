@@ -6,23 +6,46 @@ import {
 } from "@heroicons/react/outline";
 import { XIcon } from "@heroicons/react/outline";
 import { useSelector } from "react-redux";
+import { useBeforeunload } from "react-beforeunload";
+import { useEffect, useState } from "react";
 
 const TestNavBar = () => {
-  let title = "";
+  const [title, setTitle] = useState();
+
   const reactFlashcardTestSwitch = useSelector(
     (state) => state.reactFlashcardTestSwitch
   );
   const javascriptFlashcardTestSwitch = useSelector(
     (state) => state.javascriptFlashcardTestSwitch
   );
+  const dropDownMenuValue = useSelector((state) => state.dropDownMenuValue);
+  const numberOfQuestionsAnswered = useSelector(
+    (state) => state.numberOfQuestionsAnswered
+  );
 
-  if (reactFlashcardTestSwitch && !javascriptFlashcardTestSwitch) {
-    title = "React Flashcard Test";
-  } else if (!reactFlashcardTestSwitch && javascriptFlashcardTestSwitch) {
-    title = "Javascript Flashcard Test ";
-  } else if (!reactFlashcardTestSwitch && !javascriptFlashcardTestSwitch) {
-    title = "React & Javascript Flashcard Test";
-  }
+  useEffect(() => {
+    let loadedTitle = localStorage.getItem("title");
+    console.log(loadedTitle);
+    if (localStorage.getItem("title")) {
+      setTitle(localStorage.getItem("title"));
+      console.log("localStorage");
+    } else {
+      if (reactFlashcardTestSwitch && !javascriptFlashcardTestSwitch) {
+        setTitle("React Flashcard Test");
+        console.log("React Title");
+      } else if (!reactFlashcardTestSwitch && javascriptFlashcardTestSwitch) {
+        setTitle("Javascript Flashcard Test");
+      } else if (!reactFlashcardTestSwitch && !javascriptFlashcardTestSwitch) {
+        setTitle("React & Javascript Flashcard Test");
+        console.log("Combined Data");
+      }
+    }
+    console.log(title);
+  }, []);
+  useBeforeunload(() => {
+    localStorage.setItem("title", title);
+    console.log("refreshed");
+  });
 
   return (
     <div className={classes.testNavBar}>
@@ -30,7 +53,9 @@ const TestNavBar = () => {
         <DocumentTextIcon className={classes.icon} />
       </div>
       <div className={classes.titleContainer}>
-        <p className={classes.questionTracker}> 1/3 </p>
+        <p className={classes.questionTracker}>
+          {numberOfQuestionsAnswered} / {dropDownMenuValue}
+        </p>
         <p className={classes.testTitle}>{title}</p>
       </div>
       <div className={classes.testEditContainer}>
