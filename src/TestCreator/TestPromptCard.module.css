@@ -6,11 +6,11 @@
   grid-template-columns: min-content min-content;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 2px solid #7b2cbf;
+  border-bottom: 2px solid rgb(48, 48, 155);
 }
 .testCardTitle {
   font-size: 2rem;
-  color: #7b2cbf;
+  color: rgb(48, 48, 155);
   grid-column: 1 / span 1;
   grid-row: 1 / span 1;
   height: max(3.4rem, 3.4rem);
@@ -29,18 +29,18 @@
 .checkMarkButton {
   height: max(2rem, 2rem);
   width: max(2rem, 2rem);
-  border: 2px solid #7b2cbf;
+  border: 2px solid rgb(48, 48, 155);
   border-radius: 50%;
 }
 .moreInfoButton {
   height: max(2rem, 2rem);
   width: max(2rem, 2rem);
-  color: #7b2cbf;
+  color: rgb(48, 48, 155);
   border: none;
   background-color: white;
 }
 .checkMarkIcon {
-  color: #7b2cbf;
+  color: rgb(48, 48, 155);
   background-color: white;
   border-radius: 50%;
 }

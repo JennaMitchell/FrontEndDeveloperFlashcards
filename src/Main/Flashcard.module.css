@@ -15,10 +15,10 @@
   transform: translate(-50%, -50%);
 }
 .cardFront {
-  background-color: #7b2cbf;
+  background-color: rgb(19, 19, 151);
 }
 .cardBack {
-  background-color: #7b2cbf;
+  background-color: rgb(19, 19, 151);
 }
 .textFrontSide {
   display: inline-block;

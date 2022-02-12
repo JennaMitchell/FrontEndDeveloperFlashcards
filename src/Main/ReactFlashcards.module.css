@@ -1,7 +1,7 @@
 .flashcardContainer {
   width: 100rem;
   height: 90vh;
-  background-color: #e0aaff;
+  background-color: rgb(4, 4, 48);
   perspective: 1500rem;
   position: relative;
   transition: all 2s;
@@ -13,8 +13,8 @@
   max-height: 3.5rem;
   width: 3.5rem;
   max-width: 3.5rem;
-  color: #e0aaff;
-  background-color: #7b2cbf;
+  color: white;
+  background-color: rgb(4, 4, 48);
   border: 1px solid white;
   border-radius: 1.75rem;
 }

@@ -83,7 +83,7 @@ const flashcardSlice = createSlice({
       state.dropDownMenuValue = payload;
     },
     setNumberOfQuestionsAnswered(state, { payload }) {
-      state.numberOfQuestionsAnswered = payload + 1;
+      state.numberOfQuestionsAnswered = payload;
     },
     prevFlashcard(state) {
       if (state.currentCard === 0) {

@@ -3,20 +3,16 @@ import TestNavBar from "./TestNavBar";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import MultipleChoiceQuestions from "./MultipleChoiceQuestions";
+import TrueOrFalseQuestions from "./TrueOrFalseQuestions";
 import { useBeforeunload } from "react-beforeunload";
 import { flashcardStoreActions } from "../Store/flashcardSlice";
+import MatchingQuestionsTerms from "./MatchingQuestions";
+import MatchingQuestionsAnswers from "./MatchingQuestionsAnswers";
 const Test = () => {
   const testFlashcardData = useSelector((state) => state.testFlashcardData);
-  const multipuleChoiceSwitch = useSelector(
-    (state) => state.multipuleChoiceSwitch
-  );
-  const dispatch = useDispatch();
-  const trueOrFalseSwitch = useSelector((state) => state.trueOrFalseSwitch);
-  const matchingSwitch = useSelector((state) => state.matchingSwitch);
 
-  const totalNumberOfFlashcards = useSelector(
-    (state) => state.totalNumberOfFlashcards
-  );
+  const dispatch = useDispatch();
+
   const maxNumberOfFlashcards = useSelector(
     (state) => state.maxNumberOfFlashcards
   );
@@ -39,14 +35,12 @@ const Test = () => {
 
   const dropDownMenuValue = useSelector((state) => state.dropDownMenuValue);
   const reactFlashcards = useSelector((state) => state.reactFlashcardData);
-  const loadTestPage = useSelector((state) => state.loadTestPage);
 
   const [multipleChoiceQuestions, setMultipleChoiceQuestions] = useState();
   const [trueOrFalseQuestions, setTrueOrFalseQuestions] = useState();
   const [matchingQuestions, setMatchingQuestions] = useState();
 
   useEffect(() => {
-    console.log("UseEffect Called");
     let overAllDatabase = [];
     let numberOfTrueOrFalseQuestions = 0;
     let numberOfMatchingQuestions = 0;
@@ -54,7 +48,6 @@ const Test = () => {
     let refreshed = JSON.parse(localStorage.getItem("refreshed"));
 
     if (refreshed) {
-      console.log(refreshed);
       setMultipleChoiceQuestions(
         JSON.parse(localStorage.getItem("multipleChoice"))
       );
@@ -94,7 +87,6 @@ const Test = () => {
       const multipuleChoiceQuestionGenerator = (
         numberOfQuestionsToGenerate
       ) => {
-        console.log("multple choice created");
         let completedQuestion = [];
         let numberOfPossibleQuestions = [];
         for (let i = 0; i < maxNumberOfFlashcards; i++) {
@@ -144,6 +136,7 @@ const Test = () => {
       /////////////////////Generating True or False Questions///
       const trueOrFalseQuestionGenerator = (numberOfQuestionsToGenerate) => {
         let completedToFQuestions = [];
+
         const numberOfPossibleQuestions = [];
         for (let i = 0; i < maxNumberOfFlashcards; i++) {
           numberOfPossibleQuestions[i] = i;
@@ -156,7 +149,6 @@ const Test = () => {
           const randomNumber1 = getRandomInt(maxNumberOfFlashcards);
           if (numberOfPossibleQuestions.includes(randomNumber1)) {
             let questionToTest = testFlashcardData[randomNumber1];
-            let questionTitle = `Question ${i}`;
 
             // Step 2 Decideing if the answer will be true or false
             let coinFlip = getRandomInt(2);
@@ -177,22 +169,16 @@ const Test = () => {
               }
 
               completedToFQuestions.push({
-                questionSelection: {
-                  answer: answer,
-                  displaySide: questionToTest.sideOne,
-                  displaySideTwo: randomAnswers[0],
-                },
+                answer: answer,
+                displaySideOne: questionToTest.sideOne,
+                displaySideTwo: randomAnswers[0],
               });
             } else {
               answer = true;
               completedToFQuestions.push({
-                [questionTitle]: {
-                  questionSelection: {
-                    answer: answer,
-                    displaySide: questionToTest.sideOne,
-                    displaySideTwo: questionToTest.sideTwo,
-                  },
-                },
+                answer: answer,
+                displaySideOne: questionToTest.sideOne,
+                displaySideTwo: questionToTest.sideTwo,
               });
             }
           } else {
@@ -249,16 +235,11 @@ const Test = () => {
           const randomNumber1 = getRandomInt(maxNumberOfFlashcards);
           if (numberOfPossibleQuestions.includes(randomNumber1)) {
             let questionToTest = testFlashcardData[randomNumber1];
-            let questionTitle = `Question ${i}`;
 
             completedMatchingQuestions.push({
-              [questionTitle]: {
-                questionSelection: {
-                  answer: lettersForMatching[randomNumber1],
-                  displaySide: questionToTest.sideOne,
-                  displaySideTwo: questionToTest.sideTwo,
-                },
-              },
+              answer: lettersForMatching[randomNumber1],
+              displaySideOne: questionToTest.sideOne,
+              displaySideTwo: questionToTest.sideTwo,
             });
             numberOfPossibleQuestions = numberOfPossibleQuestions.filter(
               (number) => number !== randomNumber1
@@ -270,10 +251,6 @@ const Test = () => {
         return completedMatchingQuestions;
       };
 
-      console.log("Rendered");
-      console.log(
-        multipuleChoiceQuestionGenerator(numberOfMultipleChoiceQuestions)
-      );
       setMultipleChoiceQuestions(
         multipuleChoiceQuestionGenerator(numberOfMultipleChoiceQuestions)
       );
@@ -300,23 +277,84 @@ const Test = () => {
   });
 
   //[`Question ${i}`].questionSelection
-  console.log(multipleChoiceQuestions);
+
   return (
     <>
       <TestNavBar />
-      {/* <div className={classes.questionsHolder}>
-        {multipleChoiceQuestions.map((question, index) => (
-          <MultipleChoiceQuestions
-            numberOfQuestions={dropDownMenuValue}
-            questionNumber={index}
-            answer={question.answer}
-            displaySide={question.displaySide}
-            wrongChoiceOne={question.wrongChoiceOne}
-            wrongChoiceTwo={question.wrongChoiceTwo}
-            wrongChoiceThree={question.wrongChoiceThree}
-          />
-        ))}
-      </div> */}
+      <div className={classes.questionsHolder}>
+        {multipleChoiceQuestions
+          ? multipleChoiceQuestions.map((question, index) => (
+              <MultipleChoiceQuestions
+                numberOfQuestions={dropDownMenuValue}
+                questionNumber={index + 1}
+                answer={question.answer}
+                displaySide={question.displaySide}
+                wrongChoiceOne={question.wrongChoiceOne}
+                wrongChoiceTwo={question.wrongChoiceTwo}
+                wrongChoiceThree={question.wrongChoiceThree}
+                index={index}
+                key={index}
+              />
+            ))
+          : "Loading"}
+        {trueOrFalseQuestions
+          ? trueOrFalseQuestions.map((question, index) => (
+              <TrueOrFalseQuestions
+                numberOfQuestions={dropDownMenuValue}
+                questionNumber={index + multipleChoiceQuestions.length + 1}
+                answer={question.answer}
+                displaySideOne={question.displaySideOne}
+                displaySideTwo={question.displaySideTwo}
+                index={index}
+                key={index}
+              />
+            ))
+          : ""}
+        <div className={classes.matchingContainer}>
+          <div className={classes.matchingTitleSection}>
+            <p className={classes.matchingTitle}>Matching Questions</p>
+            {!multipleChoiceQuestions ? (
+              ""
+            ) : (
+              <p className={classes.numberOfQuestions}>
+                {multipleChoiceQuestions.length +
+                  trueOrFalseQuestions.length +
+                  1}
+                -{dropDownMenuValue} of {dropDownMenuValue}
+              </p>
+            )}
+            <p className={classes.matchingHelperText}>
+              Drag a definition to match it with a term
+            </p>
+          </div>
+          <div className={classes.matchingSection}>
+            {matchingQuestions
+              ? matchingQuestions.map((question, index) => (
+                  <MatchingQuestionsTerms
+                    numberOfQuestions={dropDownMenuValue}
+                    questionNumber={index + multipleChoiceQuestions.length + 1}
+                    answer={question.answer}
+                    displaySideOne={question.displaySideOne}
+                    displaySideTwo={question.displaySideTwo}
+                    index={index}
+                    key={index}
+                  />
+                ))
+              : ""}
+          </div>
+          <div className={classes.matchingAnswerSection}>
+            {matchingQuestions
+              ? matchingQuestions.map((question, index) => (
+                  <MatchingQuestionsAnswers
+                    displaySideTwo={question.displaySideTwo}
+                    index={index}
+                    key={index}
+                  />
+                ))
+              : ""}
+          </div>
+        </div>
+      </div>
     </>
   );
 };

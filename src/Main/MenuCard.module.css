@@ -1,6 +1,6 @@
 .menuCardContainer {
   color: white;
-  background: #7b2cbf;
+  background: rgb(4, 4, 48);
   box-shadow: black;
   display: grid;
   grid-template-columns: 2.5rem fill;
@@ -16,13 +16,13 @@
 
   justify-content: space-evenly;
   align-items: center;
-  border: 1px black solid;
+  border: 1px white solid;
 
   margin-top: 2.5px;
 }
 
 .menuButton {
-  background: #7b2cbf;
+  background: rgb(4, 4, 48);
   color: white;
   border: none;
   min-width: 2rem;

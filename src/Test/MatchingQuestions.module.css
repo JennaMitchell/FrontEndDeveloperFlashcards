@@ -1,0 +1,17 @@
+.questionSection {
+  display: grid;
+  height: max(100%, 100%);
+  width: max(100%, 100%);
+  grid-template-columns: 1fr max-content;
+  grid-row: 100%;
+}
+.dragIntoSections {
+  height: max(100%, 100%);
+  width: max(100%, 100%);
+  border: 2px dotted rgb(169, 179, 235);
+}
+.answerSection {
+  height: max(100%, 100%);
+  width: max(100%, 100%);
+  color: white;
+}

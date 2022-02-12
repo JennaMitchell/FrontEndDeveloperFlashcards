@@ -25,26 +25,21 @@ const TestNavBar = () => {
 
   useEffect(() => {
     let loadedTitle = localStorage.getItem("title");
-    console.log(loadedTitle);
+
     if (localStorage.getItem("title")) {
       setTitle(localStorage.getItem("title"));
-      console.log("localStorage");
     } else {
       if (reactFlashcardTestSwitch && !javascriptFlashcardTestSwitch) {
         setTitle("React Flashcard Test");
-        console.log("React Title");
       } else if (!reactFlashcardTestSwitch && javascriptFlashcardTestSwitch) {
         setTitle("Javascript Flashcard Test");
       } else if (!reactFlashcardTestSwitch && !javascriptFlashcardTestSwitch) {
         setTitle("React & Javascript Flashcard Test");
-        console.log("Combined Data");
       }
     }
-    console.log(title);
   }, []);
   useBeforeunload(() => {
     localStorage.setItem("title", title);
-    console.log("refreshed");
   });
 
   return (

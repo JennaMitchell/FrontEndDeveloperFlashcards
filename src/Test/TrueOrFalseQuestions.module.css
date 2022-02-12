@@ -8,8 +8,8 @@
   margin-top: 4rem;
   position: relative;
   display: grid;
-  grid-template-rows: 10rem 2rem 12rem;
-  grid-template-columns: 40rem;
+  grid-template-rows: 16rem 2rem 6rem;
+  grid-template-columns: 20rem 20rem;
   align-items: center;
   justify-content: right;
 }
@@ -22,19 +22,54 @@
   display: block;
   color: rgb(211, 211, 211);
 }
-.answerBlock {
+.displaySideOne {
+  width: max(100%, 100%);
+  height: max(100%, 100%);
+  grid-row: 1 / span 1;
+  grid-column: 1 / span 1;
+  font-size: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 2px solid rgb(184, 182, 182);
+  border-radius: 0.1rem;
+  margin-top: 1rem;
+}
+.displaySideTwo {
+  grid-row: 1 / span 1;
+  grid-column: 2 / span 1;
+  width: max(100%, 100%);
+  height: max(100%, 100%);
+  font-size: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.choiceText {
+  grid-row: 2 / span 1;
+  grid-column: 1 / span 2;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  width: max(100%, 100%);
+  height: max(max-content, max-content);
+  padding-left: 2rem;
+  color: rgb(211, 211, 211);
+}
+.answerContainer {
+  grid-row: 3 / span 1;
+  grid-column: 1 / span 2;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 100%;
   align-items: center;
   justify-content: center;
   width: max(100%, 100%);
   height: max(100%, 100%);
 }
-.choiceAnswerOne,
-.choiceAnswerTwo,
-.choiceAnswerThree,
-.choiceAnswerFour {
+.answerTrue,
+.answerFalse {
   border: 1.5px solid rgba(126, 124, 124, 0.823);
   width: max(80%, 80%);
   height: max(max-content, max-content);
@@ -45,16 +80,18 @@
   font-size: 1.2rem;
   border-radius: 0.5rem;
   padding: 0.5rem;
+  background-color: inherit;
+  color: rgb(211, 211, 211);
 }
-.choiceAnswerOne:hover,
-.choiceAnswerTwo:hover,
-.choiceAnswerThree:hover,
-.choiceAnswerFour:hover {
+.answerTrue:hover,
+.answerFalse:hover {
   border: 1.5px solid white;
 }
-.clickedAnswer {
+
+.answerClicked {
   background-color: rgba(48, 47, 47, 0.589);
   border: 1.5px solid rgba(48, 83, 242, 0.864);
+  color: rgb(211, 211, 211);
 
   width: max(80%, 80%);
   height: max(max-content, max-content);
@@ -65,17 +102,4 @@
   font-size: 1.2rem;
   border-radius: 0.5rem;
   padding: 0.5rem;
-}
-.helperText {
-  text-align: left;
-  display: flex;
-  align-items: center;
-  justify-content: left;
-  width: max(100%, 100%);
-  height: max(max-content, max-content);
-  padding-left: 2rem;
-  color: rgb(211, 211, 211);
-}
-.answerSide {
-  font-size: 2.4rem;
 }

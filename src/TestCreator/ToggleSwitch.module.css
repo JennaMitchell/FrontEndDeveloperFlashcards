@@ -16,7 +16,7 @@
 
 .toggleLabel {
   text-align: left;
-  color: #7b2cbf;
+  color: rgb(48, 48, 155);
   font-size: 2.2rem;
 
   width: min(100%, 100%);
@@ -48,7 +48,7 @@
 }
 
 .sliderClicked {
-  background-color: #7b2cbf;
+  background-color: rgb(48, 48, 155);
 }
 .moveBtn {
   left: 27px;
