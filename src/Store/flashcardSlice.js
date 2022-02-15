@@ -22,6 +22,11 @@ const initialState = {
   dropDownMenuValue: 0,
   loadState: [],
   numberOfQuestionsAnswered: 1,
+  termNumberClicked: 0,
+  termSubmited: null,
+  firstMatchingRender: false,
+  activeMatchingElement: 0,
+  prevActiveElement: null,
 };
 
 const flashcardSlice = createSlice({
@@ -84,6 +89,21 @@ const flashcardSlice = createSlice({
     },
     setNumberOfQuestionsAnswered(state, { payload }) {
       state.numberOfQuestionsAnswered = payload;
+    },
+    setTermNumberClicked(state, { payload }) {
+      state.termNumberClicked = payload;
+    },
+    setTermSubmited(state, { payload }) {
+      state.termSubmited = payload;
+    },
+    setFirstMatchingRender(state, { payload }) {
+      state.firstMatchingRender = payload;
+    },
+    setActiveMatchingElement(state, { payload }) {
+      state.activeMatchingElement = payload;
+    },
+    setPrevActiveElement(state, { payload }) {
+      state.prevActiveElement = payload;
     },
     prevFlashcard(state) {
       if (state.currentCard === 0) {

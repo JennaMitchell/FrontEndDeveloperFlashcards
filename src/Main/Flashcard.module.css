@@ -1,24 +1,27 @@
 .card {
   backface-visibility: hidden;
-  height: 60%;
-  max-height: 60%;
-  width: 80%;
-  max-width: 80%;
+  height: max(60%, 60%);
+  width: max(60%, 60%);
+
   border-radius: 1.5rem;
   overflow: hidden;
   box-shadow: 0 1.5rem 4rem rgba(black, 0.15);
   position: absolute;
   top: 18.5%;
-  left: 12.5%;
+  left: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   transition: all 1s;
-  transform: translate(-50%, -50%);
 }
 .cardFront {
-  background-color: rgb(19, 19, 151);
+  background-color: rgba(48, 47, 47, 0.589);
+  box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.705);
 }
 .cardBack {
-  background-color: rgb(19, 19, 151);
+  background-color: rgba(48, 47, 47, 0.589);
+  box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.705);
 }
 .textFrontSide {
   display: inline-block;
@@ -30,6 +33,9 @@
   width: 80%;
   max-width: 80%;
   margin: 22.5% 10% 22.5% 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .textBackSide {
   display: inline-block;

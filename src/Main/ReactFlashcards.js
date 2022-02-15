@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Menu from "./Menu";
 import TestPrompt from "../TestCreator/TestPrompt";
 import NavBar from "../Navigation/Header";
+import { NavLink } from "react-router-dom";
 
 const ReactFlashcards = () => {
   const currentCard = useSelector((state) => state.currentCard);
@@ -16,6 +17,9 @@ const ReactFlashcards = () => {
   const maxNumberOfFlashcards = useSelector(
     (state) => state.maxNumberOfFlashcards
   );
+
+  const decksIconClicked = useSelector((state) => state.decksButtonClicked);
+
   // const deckTypeSelected = useSelector((state) => state.deckTypeSelected);
   const reactFlashcards = useSelector((state) => state.reactFlashcardData);
   const deckTypeSelected = useSelector((state) => state.deckTypeSelected);
@@ -38,20 +42,44 @@ const ReactFlashcards = () => {
     dispatch(flashcardStoreActions.nextFlashcard());
   };
   // dispatch(flashcardStoreActions.setDeckTypeSelected("react"));
-
+  const menuButtonClicked = useSelector((state) => state.menuClicked);
   return (
     <>
       <NavBar />
 
       {testButtonClicked && <TestPrompt cardType="react" />}
       <div className={classes.flashcardContainer}>
-        <Menu flashcardData={reactFlashcards}></Menu>
-        <button
-          className={`${classes.flashcardButton} ${classes.leftButton}`}
-          onClick={previousCardHandler}
+        <div
+          className={`${classes.decksMenu} ${
+            decksIconClicked ? classes.decksButtonClicked : ""
+          }`}
         >
-          <ChevronLeftIcon></ChevronLeftIcon>
-        </button>
+          <NavLink
+            className={classes.deckSelectorButtonText}
+            to="/react-flashcards"
+          >
+            React Flashcards
+          </NavLink>
+
+          <NavLink
+            className={classes.deckSelectorButtonText}
+            to="/javascript-flashcards"
+          >
+            Javascript Flashcards
+          </NavLink>
+        </div>
+
+        <Menu flashcardData={reactFlashcards}></Menu>
+        {menuButtonClicked ? (
+          ""
+        ) : (
+          <button
+            className={`${classes.flashcardButton} ${classes.leftButton}`}
+            onClick={previousCardHandler}
+          >
+            <ChevronLeftIcon></ChevronLeftIcon>
+          </button>
+        )}
         {reactFlashcards.map((flashcard, index) => (
           <Flashcard
             key={index}

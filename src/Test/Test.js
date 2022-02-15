@@ -6,7 +6,7 @@ import MultipleChoiceQuestions from "./MultipleChoiceQuestions";
 import TrueOrFalseQuestions from "./TrueOrFalseQuestions";
 import { useBeforeunload } from "react-beforeunload";
 import { flashcardStoreActions } from "../Store/flashcardSlice";
-import MatchingQuestionsTerms from "./MatchingQuestions";
+import MatchingQuestionsTerms from "./MatchingQuestionsTerms";
 import MatchingQuestionsAnswers from "./MatchingQuestionsAnswers";
 const Test = () => {
   const testFlashcardData = useSelector((state) => state.testFlashcardData);
@@ -331,11 +331,7 @@ const Test = () => {
             {matchingQuestions
               ? matchingQuestions.map((question, index) => (
                   <MatchingQuestionsTerms
-                    numberOfQuestions={dropDownMenuValue}
-                    questionNumber={index + multipleChoiceQuestions.length + 1}
-                    answer={question.answer}
                     displaySideOne={question.displaySideOne}
-                    displaySideTwo={question.displaySideTwo}
                     index={index}
                     key={index}
                   />

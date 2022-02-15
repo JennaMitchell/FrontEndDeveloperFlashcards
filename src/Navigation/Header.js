@@ -67,25 +67,7 @@ const NavBar = () => {
             Decks
           </button>
         </div>
-        <div
-          className={`${classes.decksMenu} ${
-            decksIconClicked ? classes.decksButtonClicked : ""
-          }`}
-        >
-          <NavLink
-            className={classes.deckSelectorButtonText}
-            to="/react-flashcards"
-          >
-            React Flashcards
-          </NavLink>
-
-          <NavLink
-            className={classes.deckSelectorButtonText}
-            to="/javascript-flashcards"
-          >
-            Javascript Flashcards
-          </NavLink>
-        </div>
+       
       </header>
     </>
   );

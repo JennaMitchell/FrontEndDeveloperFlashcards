@@ -36,6 +36,7 @@ const TrueOrFalseQuestions = ({
       setTrueClicked(false);
       setFalseClicked(false);
       setPossibleSecondTimeTrueClicked(false);
+      setFirstTimeClicked(false);
       dispatch(
         flashcardStoreActions.setNumberOfQuestionsAnswered(
           numberOfQuestionsAnswered - 1

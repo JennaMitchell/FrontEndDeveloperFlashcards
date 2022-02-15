@@ -1,7 +1,12 @@
-.draggableTerm {
+.answerTerm {
   background-color: rgba(48, 47, 47, 0.589);
   border: 1px solid rgb(169, 179, 235);
   height: max(max-content, max-content);
   width: max(max-content, max-content);
-  padding: 0.5rem;
+
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
 }

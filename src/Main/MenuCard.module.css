@@ -3,7 +3,7 @@
   background: rgb(4, 4, 48);
   box-shadow: black;
   display: grid;
-  grid-template-columns: 2.5rem fill;
+  grid-template-columns: 2.5rem max-content;
   grid-template-rows: 1fr;
 
   min-width: 100%;
@@ -14,7 +14,7 @@
   max-height: 10%;
   margin-right: 0;
 
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   border: 1px white solid;
 
@@ -22,22 +22,31 @@
 }
 
 .menuButton {
-  background: rgb(4, 4, 48);
+  background-color: rgba(48, 47, 47, 0.589);
+  border-radius: 0.5rem;
   color: white;
   border: none;
-  min-width: 2rem;
-  width: 2rem;
-  max-width: 2rem;
-  min-height: 2rem;
-  height: 2rem;
-  max-height: 2rem;
+  width: max(2.2rem, 2.2rem);
+
+  height: max(2.2rem, 2.2rem);
+
   grid-column: 1 / span 1;
   grid-row: 1 / span 1;
+  margin-left: 2rem;
+}
+.menuButton:hover {
+  box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.705);
 }
 .title {
   text-align: right;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   grid-column: 2 / span 1;
   grid-row: 1 / span 1;
   font-size: 2rem;
+  margin-right: 2rem;
+
+  height: max(100%, 100%);
+  width: max(10.5rem, 10.5rem);
 }
