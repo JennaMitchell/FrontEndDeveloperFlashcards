@@ -63,7 +63,7 @@ const Test = () => {
         overAllDatabase = reactFlashcards;
       } else if (!reactFlashcardTestSwitch && javascriptFlashcardTestSwitch) {
         overAllDatabase = javascriptFlashcards;
-      } else if (!reactFlashcardTestSwitch && !javascriptFlashcardTestSwitch) {
+      } else if (reactFlashcardTestSwitch && javascriptFlashcardTestSwitch) {
         overAllDatabase = reactJavascriptCombinedData;
       }
       if (dropDownMenuValue % 3 === 0) {

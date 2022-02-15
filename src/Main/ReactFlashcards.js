@@ -96,9 +96,13 @@ const ReactFlashcards = () => {
         >
           <ChevronRightIcon></ChevronRightIcon>
         </button>
-        <p className={classes.pageCounter}>{`${
-          maxNumberOfFlashcards === 0 ? 0 : currentCard + 1
-        } of ${maxNumberOfFlashcards}`}</p>
+        {testButtonClicked ? (
+          ""
+        ) : (
+          <p className={classes.pageCounter}>{`${
+            maxNumberOfFlashcards === 0 ? 0 : currentCard + 1
+          } of ${maxNumberOfFlashcards}`}</p>
+        )}
       </div>
     </>
   );

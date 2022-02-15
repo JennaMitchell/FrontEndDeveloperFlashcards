@@ -33,7 +33,7 @@ const TestNavBar = () => {
         setTitle("React Flashcard Test");
       } else if (!reactFlashcardTestSwitch && javascriptFlashcardTestSwitch) {
         setTitle("Javascript Flashcard Test");
-      } else if (!reactFlashcardTestSwitch && !javascriptFlashcardTestSwitch) {
+      } else if (reactFlashcardTestSwitch && javascriptFlashcardTestSwitch) {
         setTitle("React & Javascript Flashcard Test");
       }
     }

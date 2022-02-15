@@ -21,12 +21,14 @@ const initialState = {
   loadTestPage: false,
   dropDownMenuValue: 0,
   loadState: [],
-  numberOfQuestionsAnswered: 1,
+  numberOfQuestionsAnswered: 0,
   termNumberClicked: 0,
-  termSubmited: null,
-  firstMatchingRender: false,
-  activeMatchingElement: 0,
-  prevActiveElement: null,
+  termClickedText: null,
+
+  activeElementNumber: 0,
+  prevActiveMatchingElement: 0,
+  prevActiveMatchingElementTwo: null,
+  prevActiveMatchingSwitch: false,
 };
 
 const flashcardSlice = createSlice({
@@ -93,17 +95,20 @@ const flashcardSlice = createSlice({
     setTermNumberClicked(state, { payload }) {
       state.termNumberClicked = payload;
     },
-    setTermSubmited(state, { payload }) {
-      state.termSubmited = payload;
+    setTermClickedText(state, { payload }) {
+      state.termClickedText = payload;
     },
-    setFirstMatchingRender(state, { payload }) {
-      state.firstMatchingRender = payload;
+    setActiveElementNumber(state, { payload }) {
+      state.activeElementNumber = payload;
     },
-    setActiveMatchingElement(state, { payload }) {
-      state.activeMatchingElement = payload;
+    setPrevActiveMatchingElement(state, { payload }) {
+      state.prevActiveMatchingElement = payload;
     },
-    setPrevActiveElement(state, { payload }) {
-      state.prevActiveElement = payload;
+    setPrevActiveMatchingElementTwo(state, { payload }) {
+      state.prevActiveMatchingElementTwo = payload;
+    },
+    setPrevActiveMatchingSwitch(state, { payload }) {
+      state.prevActiveMatchingSwitch = payload;
     },
     prevFlashcard(state) {
       if (state.currentCard === 0) {

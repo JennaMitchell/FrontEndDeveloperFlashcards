@@ -1,6 +1,6 @@
 .flashcardContainer {
   width: 100rem;
-  height: 90vh;
+  height: 92.5vh;
   background-color: rgb(4, 4, 48);
   perspective: 1500rem;
   position: relative;
@@ -27,24 +27,25 @@
 .leftButton {
   position: absolute;
   top: 50%;
-  left: 7%;
-  transform: translate(0%, -100%);
+  left: 10%;
+  transform: translate(-50%, -50%);
   z-index: -1;
   display: relative;
 }
 .rightButton {
   position: absolute;
   top: 50%;
-  right: 2%;
-  transform: translate(0%, -100%);
+  right: 10%;
+  transform: translate(50%, -50%);
 }
 
 .pageCounter {
   position: absolute;
   display: inline-block;
-  bottom: 7.5%;
+  bottom: 2.5%;
   left: 50%;
   font-size: 2.4rem;
+  transform: translateX(-50%);
 }
 .decksMenu {
   height: max(8.5vh, 8.5vh);

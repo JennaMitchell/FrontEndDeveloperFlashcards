@@ -6,14 +6,26 @@ const MatchingQuestionsAnswers = ({ displaySideTwo, index }) => {
   const dispatch = useDispatch();
   const [termKey, setTermKey] = useState(index);
   const [termText, setTermText] = useState(displaySideTwo);
+  const [savedDisplaySideTwo, setSavedDisplaySideTwo] =
+    useState(displaySideTwo);
+  const [firstTimeClicked, setFirstTimeClicked] = useState(false);
 
   const termHandler = () => {
-    dispatch(flashcardStoreActions.setTermNumberClicked(termKey));
-    dispatch(flashcardStoreActions.setTermSubmited(termText));
+    if (!firstTimeClicked) {
+      dispatch(flashcardStoreActions.setTermNumberClicked(termKey));
+      dispatch(flashcardStoreActions.setTermClickedText(savedDisplaySideTwo));
+      setTermText("");
+      setFirstTimeClicked(true);
+    } else {
+      dispatch(flashcardStoreActions.setTermNumberClicked(termKey));
+      dispatch(flashcardStoreActions.setTermClickedText(""));
+      setTermText(savedDisplaySideTwo);
+      setFirstTimeClicked(false);
+    }
   };
   return (
     <div className={classes.answerTerm} onClick={termHandler}>
-      {displaySideTwo}
+      {termText}
     </div>
   );
 };

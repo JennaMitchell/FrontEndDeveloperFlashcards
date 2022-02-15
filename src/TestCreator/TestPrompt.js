@@ -98,7 +98,6 @@ const TestPrompt = ({ cardType }) => {
 
   const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
   useEffect(() => {
-    console.log(reactFlashcardTestSwitch);
     if (reactFlashcardTestSwitch || javascriptFlashcardTestSwitch) {
       if (trueOrFalseSwitch || multipuleChoiceSwitch || matchingSwitch) {
         if (dropDownValue) {
@@ -177,7 +176,7 @@ const TestPrompt = ({ cardType }) => {
       dispatch(
         flashcardStoreActions.setMaxNumberOfFlashcards(reactFlashcards.length)
       );
-      console.log(reactFlashcardTestSwitch);
+
       setDisplayedTestSelectorCards(
         reactFlashcards.map((flashcard, index) => (
           <TestPromptCard
@@ -190,7 +189,6 @@ const TestPrompt = ({ cardType }) => {
         ))
       );
     } else if (javascriptFlashcardTestSwitch && reactFlashcardTestSwitch) {
-      console.log(reactFlashcardTestSwitch, javascriptFlashcardTestSwitch);
       dispatch(
         flashcardStoreActions.setTestFlashcardData(reactJavascriptCombinedData)
       );
@@ -217,7 +215,6 @@ const TestPrompt = ({ cardType }) => {
         ))
       );
     } else if (!reactFlashcardTestSwitch && javascriptFlashcardTestSwitch) {
-      console.log(javascriptFlashcardTestSwitch);
       dispatch(
         flashcardStoreActions.setTestFlashcardData(javascriptFlashcards)
       );

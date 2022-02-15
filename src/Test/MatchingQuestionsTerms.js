@@ -10,54 +10,90 @@ const MatchingQuestionsTerms = ({
 }) => {
   const dispatch = useDispatch();
   const [answerKey, setAnswerKey] = useState(index);
+  const [nextAnswerKey, setNextAnswerKey] = useState(index + 1);
+  const [prevAnswerKey, setPrevAnswerKey] = useState(index - 1);
 
-  const termKey = useSelector((state) => state.termClicked);
+  const termKey = useSelector((state) => state.termNumberClicked);
   const termText = useSelector((state) => state.termClickedText);
-  const firstRender = useSelector((state) => state.firstMatchingRender);
-  const activeElementNumber = useSelector(
-    (state) => state.activeMatchingElement
+
+  const activeElementNumber = useSelector((state) => state.activeElementNumber);
+  const prevActiveMatchingElement = useSelector(
+    (state) => state.prevActiveMatchingElement
   );
-  const prevActiveElement = useSelector((state) => state.prevActiveElement);
-  const [activeElement, setActiveElement] = useState();
-  const [userSelectedAnswerNumber, setUserSelectedAnswerNumber] = useState();
+  const prevActiveMatchingElementTwo = useSelector(
+    (state) => state.prevActiveMatchingElementTwo
+  );
+  const prevActiveSwitch = useSelector(
+    (state) => state.prevActiveMatchingSwitch
+  );
+  const [activeElement, setActiveElement] = useState(false);
 
-  const [renderText, setRenderText] = useState();
+  const [renderText, setRenderText] = useState("");
+  const [firstRender, setFirstRender] = useState(false);
   useEffect(() => {
-    if (index === 0 && !firstRender) {
-      dispatch(flashcardStoreActions.setFirstMatchingRender(true));
+    if (index === 0) {
       setRenderText("Select from list below ");
       setActiveElement(true);
-      dispatch(flashcardStoreActions.setPrevActiveElement(0));
-    } else {
-      if (activeElementNumber === answerKey) {
-        setRenderText(termText);
-        setUserSelectedAnswerNumber(termKey);
-        dispatch(
-          flashcardStoreActions.setActiveMatchingElement(
-            activeElementNumber + 1
-          )
-        );
-        setActiveElement(false);
-      }
     }
-  }, [termKey]);
-  useEffect(() => {
-    if (answerKey === prevActiveElement) {
-      setRenderText();
-    }
-  }, [prevActiveElement]);
+  }, []);
 
-  const dragIntoSectionsHandler = () => {
-    if (!activeElement) {
-      dispatch(flashcardStoreActions.setActiveMatchingElement(answerKey));
-      setActiveElement(true);
-      setRenderText("Select from list below ");
-    } else {
-      dispatch(flashcardStoreActions.setActiveMatchingElement(null));
-      setActiveElement(false);
+  useEffect(() => {
+    if (
+      answerKey !== prevActiveMatchingElement &&
+      activeElement &&
+      prevActiveSwitch
+    ) {
       setRenderText("");
+      setActiveElement(false);
+
+      dispatch(flashcardStoreActions.setPrevActiveMatchingElement(null));
+    } else if (
+      activeElement &&
+      answerKey !== prevActiveMatchingElementTwo &&
+      !prevActiveSwitch
+    ) {
+      setRenderText("");
+      setActiveElement(false);
+      dispatch(flashcardStoreActions.setPrevActiveMatchingElementTwo(null));
+    }
+  }, [activeElementNumber]);
+  const dragIntoSectionsHandler = () => {
+    if (!activeElement && renderText === "") {
+      setActiveElement(true);
+
+      setRenderText("Select from list below");
+      if (prevActiveMatchingElementTwo === null) {
+        dispatch(
+          flashcardStoreActions.setPrevActiveMatchingElementTwo(answerKey)
+        );
+        dispatch(flashcardStoreActions.setPrevActiveMatchingSwitch(true));
+        // we are using two previous elements s that we can save one between the renders and erase the other
+      } else if (prevActiveMatchingElement === null) {
+        dispatch(flashcardStoreActions.setPrevActiveMatchingElement(answerKey));
+        dispatch(flashcardStoreActions.setPrevActiveMatchingSwitch(false));
+      }
+      dispatch(flashcardStoreActions.setActiveElementNumber(answerKey));
     }
   };
+  console.log(termText);
+  useEffect(() => {
+    if (!firstRender) {
+      setFirstRender(true);
+    } else {
+      setRenderText(termText);
+      if (
+        activeElementNumber + 1 === answerKey &&
+        renderText === "" &&
+        firstRender
+      ) {
+        setActiveElement(true);
+        console.log("Entered");
+
+        setRenderText("Select from list below ");
+        dispatch(flashcardStoreActions.setActiveElementNumber(answerKey));
+      }
+    }
+  }, [termText]);
 
   return (
     <div className={classes.questionSection}>
