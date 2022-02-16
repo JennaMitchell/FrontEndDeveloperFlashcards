@@ -24,11 +24,11 @@ const initialState = {
   numberOfQuestionsAnswered: 0,
   termNumberClicked: 0,
   termClickedText: null,
-
   activeElementNumber: 0,
-  prevActiveMatchingElement: 0,
-  prevActiveMatchingElementTwo: null,
-  prevActiveMatchingSwitch: false,
+  matchingTermClicked: false,
+  dottedBoxUpdated: false,
+  testAnswersArray: null,
+  lengthOfMultipleAndTrueOrFalseQuestions: 0,
 };
 
 const flashcardSlice = createSlice({
@@ -101,14 +101,17 @@ const flashcardSlice = createSlice({
     setActiveElementNumber(state, { payload }) {
       state.activeElementNumber = payload;
     },
-    setPrevActiveMatchingElement(state, { payload }) {
-      state.prevActiveMatchingElement = payload;
+    setMatchingTermClicked(state, { payload }) {
+      state.matchingTermClicked = payload;
     },
-    setPrevActiveMatchingElementTwo(state, { payload }) {
-      state.prevActiveMatchingElementTwo = payload;
+    setDottedBoxUpdated(state, { payload }) {
+      state.dottedBoxUpdated = payload;
     },
-    setPrevActiveMatchingSwitch(state, { payload }) {
-      state.prevActiveMatchingSwitch = payload;
+    setTestAnswersArray(state, { payload }) {
+      state.testAnswersArray = payload;
+    },
+    setLengthOfMultipleAndTrueOrFalseQuestions(state, { payload }) {
+      state.lengthOfMultipleAndTrueOrFalseQuestions = payload;
     },
     prevFlashcard(state) {
       if (state.currentCard === 0) {

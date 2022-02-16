@@ -32,13 +32,19 @@ const Test = () => {
   const javascriptFlashcardTestSwitch = useSelector(
     (state) => state.javascriptFlashcardTestSwitch
   );
-
+  const testAnswersArray = useSelector((state) => state.testAnswersArray);
   const dropDownMenuValue = useSelector((state) => state.dropDownMenuValue);
   const reactFlashcards = useSelector((state) => state.reactFlashcardData);
+  const lengthOfMultipleAndTrueOrFalseQuestions = useSelector(
+    (state) => state.lengthOfMultipleAndTrueOrFalseQuestions
+  );
+  const [testAnswersArrayInitial, setTestAnswersArrayInitial] = useState();
 
   const [multipleChoiceQuestions, setMultipleChoiceQuestions] = useState();
   const [trueOrFalseQuestions, setTrueOrFalseQuestions] = useState();
   const [matchingQuestions, setMatchingQuestions] = useState();
+  const [randomizedMatchingAnswers, setRandomizedMatchingAnswers] = useState();
+  const [initialRender, setInitialRender] = useState(false);
 
   useEffect(() => {
     let overAllDatabase = [];
@@ -53,6 +59,9 @@ const Test = () => {
       );
       setTrueOrFalseQuestions(JSON.parse(localStorage.getItem("trueOrFalse")));
       setMatchingQuestions(JSON.parse(localStorage.getItem("matching")));
+      setRandomizedMatchingAnswers(
+        JSON.parse(localStorage.getItem("randomizedMatchingAnswers"))
+      );
       dispatch(
         flashcardStoreActions.setDropDownMenuValue(
           JSON.parse(localStorage.getItem("dropDownValue"))
@@ -190,42 +199,11 @@ const Test = () => {
       const matchingQuestionGenerator = (numberOfQuestionsToGenerate) => {
         let completedMatchingQuestions = [];
         let numberOfPossibleQuestions = [];
-        const arrayOfLetters = [
-          "A",
-          "B",
-          "C",
-          "D",
-          "E",
-          "F",
-          "G",
-          "H",
-          "I",
-          "J",
-          "K",
-          "L",
-          "M",
-          "N",
-          "O",
-          "P",
-          "Q",
-          "R",
-          "S",
-          "T",
-          "U",
-          "V",
-          "W",
-          "X",
-          "Y",
-          "Z",
-        ];
+        let randomizedMatchingQuestionsAnswer = [];
 
         for (let i = 0; i < maxNumberOfFlashcards; i++) {
           numberOfPossibleQuestions[i] = i;
         }
-        const lettersForMatching = arrayOfLetters.slice(
-          -26,
-          maxNumberOfFlashcards
-        );
 
         // now that we have a  numbers array that symbols all the possible cards we could be testing on
         // we will use it to generate the questions based on how many questions were entered
@@ -237,9 +215,8 @@ const Test = () => {
             let questionToTest = testFlashcardData[randomNumber1];
 
             completedMatchingQuestions.push({
-              answer: lettersForMatching[randomNumber1],
               displaySideOne: questionToTest.sideOne,
-              displaySideTwo: questionToTest.sideTwo,
+              answer: questionToTest.sideTwo,
             });
             numberOfPossibleQuestions = numberOfPossibleQuestions.filter(
               (number) => number !== randomNumber1
@@ -248,7 +225,18 @@ const Test = () => {
             i--;
           }
         }
-        return completedMatchingQuestions;
+        for (let i = 0; i < numberOfQuestionsToGenerate; i++) {
+          randomizedMatchingQuestionsAnswer.push(
+            completedMatchingQuestions[i].answer
+          );
+        }
+        randomizedMatchingQuestionsAnswer =
+          randomizedMatchingQuestionsAnswer.sort(() => Math.random() - 0.5);
+
+        return {
+          completedMatchingQuestions,
+          randomizedMatchingQuestionsAnswer,
+        };
       };
 
       setMultipleChoiceQuestions(
@@ -259,11 +247,82 @@ const Test = () => {
         trueOrFalseQuestionGenerator(numberOfTrueOrFalseQuestions)
       );
 
-      setMatchingQuestions(
-        matchingQuestionGenerator(numberOfMatchingQuestions)
-      );
+      const { completedMatchingQuestions, randomizedMatchingQuestionsAnswer } =
+        matchingQuestionGenerator(numberOfMatchingQuestions);
+
+      setMatchingQuestions(completedMatchingQuestions);
+      setRandomizedMatchingAnswers(randomizedMatchingQuestionsAnswer);
+      setInitialRender(true);
     }
   }, []);
+  const testAnswersArrayGenerator = () => {
+    let indexOne = 0;
+
+    let tempTestAnswersArray = [];
+    for (let i = 0; i < multipleChoiceQuestions.length; i++) {
+      let tempObject = {
+        questionNumber: indexOne,
+        usersAnswer: "",
+        answer: multipleChoiceQuestions[i].answer,
+      };
+      tempTestAnswersArray[indexOne] = tempObject;
+      indexOne++;
+    }
+    for (let i = 0; i < trueOrFalseQuestions.length; i++) {
+      let tempObject = {
+        questionNumber: indexOne,
+        usersAnswer: "",
+        answer: trueOrFalseQuestions[i].answer,
+      };
+      tempTestAnswersArray[indexOne] = tempObject;
+      indexOne++;
+    }
+    for (let i = 0; i < matchingQuestions.length; i++) {
+      let tempObject = {
+        questionNumber: indexOne,
+        usersAnswer: "",
+        answer: matchingQuestions[i].answer,
+      };
+      tempTestAnswersArray[indexOne] = tempObject;
+      indexOne++;
+    }
+    return tempTestAnswersArray;
+  };
+
+  useEffect(() => {
+    let refreshed = JSON.parse(localStorage.getItem("refreshed"));
+    if (refreshed) {
+      dispatch(
+        flashcardStoreActions.setTestAnswersArray(
+          JSON.parse(localStorage.getItem("testAnswersArray"))
+        )
+      );
+      dispatch(
+        flashcardStoreActions.setLengthOfMultipleAndTrueOrFalseQuestions(
+          JSON.parse(
+            localStorage.getItem("lengthOfMultipleAndTrueOrFalseQuestions")
+          )
+        )
+      );
+      setTestAnswersArrayInitial(
+        JSON.parse(localStorage.getItem("testAnswersArray"))
+      );
+    } else {
+      if (initialRender) {
+        const tempTestAnswerArray = testAnswersArrayGenerator();
+        console.log(tempTestAnswerArray);
+        dispatch(
+          flashcardStoreActions.setTestAnswersArray(tempTestAnswerArray)
+        );
+        setTestAnswersArrayInitial(tempTestAnswerArray);
+        dispatch(
+          flashcardStoreActions.setLengthOfMultipleAndTrueOrFalseQuestions(
+            multipleChoiceQuestions.length + trueOrFalseQuestions.length
+          )
+        );
+      }
+    }
+  }, [initialRender]);
 
   useBeforeunload(() => {
     localStorage.setItem(
@@ -274,6 +333,18 @@ const Test = () => {
     localStorage.setItem("matching", JSON.stringify(matchingQuestions));
     localStorage.setItem("refreshed", "true");
     localStorage.setItem("dropDownValue", JSON.stringify(dropDownMenuValue));
+    localStorage.setItem(
+      "testAnswersArray",
+      JSON.stringify(testAnswersArrayInitial)
+    );
+    localStorage.setItem(
+      "lengthOfMultipleAndTrueOrFalseQuestions",
+      JSON.stringify(lengthOfMultipleAndTrueOrFalseQuestions)
+    );
+    localStorage.setItem(
+      "randomizedMatchingAnswers",
+      JSON.stringify(randomizedMatchingAnswers)
+    );
   });
 
   //[`Question ${i}`].questionSelection
@@ -339,10 +410,10 @@ const Test = () => {
               : ""}
           </div>
           <div className={classes.matchingAnswerSection}>
-            {matchingQuestions
-              ? matchingQuestions.map((question, index) => (
+            {randomizedMatchingAnswers
+              ? randomizedMatchingAnswers.map((question, index) => (
                   <MatchingQuestionsAnswers
-                    displaySideTwo={question.displaySideTwo}
+                    answer={question}
                     index={index}
                     key={index}
                   />

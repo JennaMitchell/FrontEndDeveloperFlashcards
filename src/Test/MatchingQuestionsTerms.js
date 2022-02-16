@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classes from "./MatchingQuestionsTerms.module.css";
 import { flashcardStoreActions } from "../Store/flashcardSlice";
+import JavascriptFlashcards from "../Main/JavascriptFlashcards";
 
 const MatchingQuestionsTerms = ({
   displaySideOne,
@@ -17,15 +18,13 @@ const MatchingQuestionsTerms = ({
   const termText = useSelector((state) => state.termClickedText);
 
   const activeElementNumber = useSelector((state) => state.activeElementNumber);
-  const prevActiveMatchingElement = useSelector(
-    (state) => state.prevActiveMatchingElement
+  const matchingTermClicked = useSelector((state) => state.matchingTermClicked);
+  const dottedBoxUpdated = useSelector((state) => state.dottedBoxUpdated);
+  const testAnswersArray = useSelector((state) => state.testAnswersArray);
+  const lengthOfMultipleAndTrueOrFalseQuestions = useSelector(
+    (state) => state.lengthOfMultipleAndTrueOrFalseQuestions
   );
-  const prevActiveMatchingElementTwo = useSelector(
-    (state) => state.prevActiveMatchingElementTwo
-  );
-  const prevActiveSwitch = useSelector(
-    (state) => state.prevActiveMatchingSwitch
-  );
+
   const [activeElement, setActiveElement] = useState(false);
 
   const [renderText, setRenderText] = useState("");
@@ -36,64 +35,74 @@ const MatchingQuestionsTerms = ({
       setActiveElement(true);
     }
   }, []);
-
   useEffect(() => {
-    if (
-      answerKey !== prevActiveMatchingElement &&
-      activeElement &&
-      prevActiveSwitch
-    ) {
-      setRenderText("");
+    if (answerKey !== +activeElementNumber) {
       setActiveElement(false);
 
-      dispatch(flashcardStoreActions.setPrevActiveMatchingElement(null));
-    } else if (
-      activeElement &&
-      answerKey !== prevActiveMatchingElementTwo &&
-      !prevActiveSwitch
-    ) {
-      setRenderText("");
-      setActiveElement(false);
-      dispatch(flashcardStoreActions.setPrevActiveMatchingElementTwo(null));
-    }
-  }, [activeElementNumber]);
-  const dragIntoSectionsHandler = () => {
-    if (!activeElement && renderText === "") {
-      setActiveElement(true);
-
-      setRenderText("Select from list below");
-      if (prevActiveMatchingElementTwo === null) {
-        dispatch(
-          flashcardStoreActions.setPrevActiveMatchingElementTwo(answerKey)
-        );
-        dispatch(flashcardStoreActions.setPrevActiveMatchingSwitch(true));
-        // we are using two previous elements s that we can save one between the renders and erase the other
-      } else if (prevActiveMatchingElement === null) {
-        dispatch(flashcardStoreActions.setPrevActiveMatchingElement(answerKey));
-        dispatch(flashcardStoreActions.setPrevActiveMatchingSwitch(false));
+      if (renderText !== "") {
+      } else {
+        setRenderText("");
       }
-      dispatch(flashcardStoreActions.setActiveElementNumber(answerKey));
     }
-  };
-  console.log(termText);
+    if (answerKey === +activeElementNumber) {
+      console.log("true");
+      if (matchingTermClicked) {
+        dispatch(flashcardStoreActions.setMatchingTermClicked(false));
+        setRenderText(termText);
+        setActiveElement(false);
+        dispatch(flashcardStoreActions.setDottedBoxUpdated(true));
+        let tempObject = testAnswersArray.map((item, index) => {
+          if (
+            index !==
+            activeElementNumber + lengthOfMultipleAndTrueOrFalseQuestions
+          ) {
+            return item;
+          }
+
+          return {
+            questionNumber: item.questionNumber,
+            userAnswer: termText,
+            answer: item.answer,
+          };
+        });
+        dispatch(flashcardStoreActions.setTestAnswersArray(tempObject));
+      }
+    }
+  }, [activeElementNumber, termText]);
+
   useEffect(() => {
+    // seperating into another useEffect so that we can get access to the newly
+    // dispatched testAnswerArray
     if (!firstRender) {
       setFirstRender(true);
     } else {
-      setRenderText(termText);
+      console.log(testAnswersArray);
       if (
+        testAnswersArray[
+          activeElementNumber + lengthOfMultipleAndTrueOrFalseQuestions + 1
+        ].usersAnswer === "" &&
         activeElementNumber + 1 === answerKey &&
-        renderText === "" &&
-        firstRender
+        testAnswersArray[
+          activeElementNumber + lengthOfMultipleAndTrueOrFalseQuestions + 1
+        ].usersAnswer !== null
       ) {
         setActiveElement(true);
-        console.log("Entered");
-
-        setRenderText("Select from list below ");
         dispatch(flashcardStoreActions.setActiveElementNumber(answerKey));
       }
     }
-  }, [termText]);
+  }, [testAnswersArray]);
+
+  const dottedSpaceHandler = (event) => {
+    dispatch(
+      flashcardStoreActions.setActiveElementNumber(
+        event.target.closest("div").dataset.matchingId
+      )
+    );
+
+    console.log(event.target.closest("div").dataset.matchingId);
+    //dataset.matchingId
+    // is how you select it
+  };
 
   return (
     <div className={classes.questionSection}>
@@ -101,7 +110,8 @@ const MatchingQuestionsTerms = ({
         className={`${classes.dragIntoSections} ${
           activeElement ? classes.activeElement : ""
         }`}
-        onClick={dragIntoSectionsHandler}
+        onClick={dottedSpaceHandler}
+        data-matching-id={index}
       >
         {renderText}
       </div>
