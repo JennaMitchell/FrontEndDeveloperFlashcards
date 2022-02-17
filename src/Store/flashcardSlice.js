@@ -29,6 +29,10 @@ const initialState = {
   dottedBoxUpdated: false,
   testAnswersArray: null,
   lengthOfMultipleAndTrueOrFalseQuestions: 0,
+  endOfQuestions: false,
+  returnedTerm: null,
+  returnedTermKey: null,
+  matchingTermClickedTwice: false,
 };
 
 const flashcardSlice = createSlice({
@@ -112,6 +116,18 @@ const flashcardSlice = createSlice({
     },
     setLengthOfMultipleAndTrueOrFalseQuestions(state, { payload }) {
       state.lengthOfMultipleAndTrueOrFalseQuestions = payload;
+    },
+    setEndOfQuestions(state, { payload }) {
+      state.endOfQuestions = payload;
+    },
+    setReturnedTerm(state, { payload }) {
+      state.returnedTerm = payload;
+    },
+    setReturnedTermKey(state, { payload }) {
+      state.returnedTermKey = payload;
+    },
+    setMatchingTermClickedTwice(state, { payload }) {
+      state.matchingTermClickedTwice = payload;
     },
     prevFlashcard(state) {
       if (state.currentCard === 0) {

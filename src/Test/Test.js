@@ -403,6 +403,7 @@ const Test = () => {
               ? matchingQuestions.map((question, index) => (
                   <MatchingQuestionsTerms
                     displaySideOne={question.displaySideOne}
+                    numberOfQuestions={matchingQuestions.length}
                     index={index}
                     key={index}
                   />
