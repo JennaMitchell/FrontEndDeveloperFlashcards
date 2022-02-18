@@ -5,6 +5,7 @@ import Layout from "./Layout/Layout";
 import ReactFlashcards from "./Main/ReactFlashcards";
 import JavascriptFlashcards from "./Main/JavascriptFlashcards";
 import Test from "./Test/Test";
+import TestResults from "./TestResults/TestResults";
 
 function App() {
   return (
@@ -23,6 +24,10 @@ function App() {
           element={<JavascriptFlashcards></JavascriptFlashcards>}
         ></Route>
         <Route path="/test" element={<Test></Test>}></Route>
+        <Route
+          path="/test-results"
+          element={<TestResults></TestResults>}
+        ></Route>
       </Routes>
     </Layout>
   );

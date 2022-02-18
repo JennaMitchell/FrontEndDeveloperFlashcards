@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classes from "./MatchingQuestionsTerms.module.css";
 import { flashcardStoreActions } from "../Store/flashcardSlice";
-import { set } from "firebase/database";
 
 const MatchingQuestionsTerms = ({
   displaySideOne,
@@ -23,7 +22,9 @@ const MatchingQuestionsTerms = ({
   const matchingTermClickedTwice = useSelector(
     (state) => state.matchingTermClickedTwice
   );
-
+  const allMatchingAnswersAnswered = useSelector(
+    (state) => state.allMatchingAnswersAnswered
+  );
   const lengthOfMultipleAndTrueOrFalseQuestions = useSelector(
     (state) => state.lengthOfMultipleAndTrueOrFalseQuestions
   );
@@ -107,20 +108,37 @@ const MatchingQuestionsTerms = ({
   useEffect(() => {
     // seperating into another useEffect so that we can get access to the newly
     // dispatched testAnswerArray
+
     if (!firstRender) {
       setFirstRender(true);
     } else {
+      for (let i = 0; i < numberOfQuestions; i++) {
+        if (
+          testAnswersArray[
+            activeElementNumber + lengthOfMultipleAndTrueOrFalseQuestions
+          ].usersAnswer === "" ||
+          testAnswersArray[
+            activeElementNumber + lengthOfMultipleAndTrueOrFalseQuestions
+          ].usersAnswer === "Select from list below"
+        ) {
+          dispatch(flashcardStoreActions.setAllMatchingAnswersAnswered(false));
+          i = numberOfQuestions + 1;
+        }
+        if (i === numberOfQuestions - 1) {
+          dispatch(flashcardStoreActions.setAllMatchingAnswersAnswered(true));
+        }
+      }
       if (matchingTermClickedTwice) {
         dispatch(flashcardStoreActions.setDottedBoxUpdated(false));
         dispatch(flashcardStoreActions.setMatchingTermClickedTwice(false));
       } else {
         if (numberOfQuestions === activeElementNumber + 1) {
           dispatch(flashcardStoreActions.setEndOfQuestions(true));
-          console.log("End of Questions is TRUE");
         } else {
           if (endOfQuestions) {
-            console.log("End of Questions is TRUE");
-            if (
+            if (allMatchingAnswersAnswered) {
+              dispatch(flashcardStoreActions.setEndOfQuestions(false));
+            } else if (
               testAnswersArray[
                 activeElementNumber + lengthOfMultipleAndTrueOrFalseQuestions
               ].usersAnswer === ""
@@ -129,6 +147,7 @@ const MatchingQuestionsTerms = ({
               setRenderText("Select from list below");
               dispatch(flashcardStoreActions.setActiveElementNumber(answerKey));
               dispatch(flashcardStoreActions.setMatchingTermClicked(false));
+              dispatch(flashcardStoreActions.setEndOfQuestions(false));
             }
           } else {
             if (
@@ -186,9 +205,9 @@ const MatchingQuestionsTerms = ({
           answer: item.answer,
         };
       });
-      console.log("test ARray REst ");
+
       dispatch(flashcardStoreActions.setReturnedTerm(renderText));
-      console.log(renderText);
+
       dispatch(flashcardStoreActions.setReturnedTermKey(termKey));
       dispatch(flashcardStoreActions.setMatchingTermClicked(false));
       setRenderText("Select from list below");
@@ -199,6 +218,31 @@ const MatchingQuestionsTerms = ({
       dispatch(flashcardStoreActions.setTermClickedText(""));
       dispatch(flashcardStoreActions.setTermNumberClicked(""));
       // resetting term test and term number clic kso the useeffect will re trigger when we need them to
+    } else if (allMatchingAnswersAnswered) {
+      let tempObject = testAnswersArray.map((item, index) => {
+        if (answerKey + lengthOfMultipleAndTrueOrFalseQuestions !== index) {
+          return item;
+        }
+
+        return {
+          questionNumber: item.questionNumber,
+          usersAnswer: "",
+          answer: item.answer,
+        };
+      });
+
+      dispatch(flashcardStoreActions.setReturnedTerm(renderText));
+
+      dispatch(flashcardStoreActions.setReturnedTermKey(termKey));
+      dispatch(flashcardStoreActions.setMatchingTermClicked(false));
+      setRenderText("Select from list below");
+      setActiveElement(true);
+      dispatch(flashcardStoreActions.setActiveElementNumber(answerKey));
+
+      dispatch(flashcardStoreActions.setTestAnswersArray(tempObject));
+      dispatch(flashcardStoreActions.setTermClickedText(""));
+      dispatch(flashcardStoreActions.setTermNumberClicked(""));
+      dispatch(flashcardStoreActions.setAllMatchingAnswersAnswered(false));
     }
   };
   // console.log(event.target.closest("div").dataset.matchingId);

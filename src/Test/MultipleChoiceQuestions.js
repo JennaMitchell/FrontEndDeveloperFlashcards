@@ -22,7 +22,10 @@ const MultipleChoiceQuestions = ({
 
   const [firstTimeClicked, setFirstTimeClicked] = useState(false);
   const [sameAnwserClicked, setSameAnswerClicked] = useState(false);
-
+  const [savedQuestionNumber, setSavedQuestionNumber] =
+    useState(questionNumber);
+  const testAnswersArray = useSelector((state) => state.testAnswersArray);
+  const testSubmitClicked = useSelector((state) => state.testSubmitClicked);
   const oneAnswerSelectedHandler = (type) => {
     if (type === "One") {
       setAnswerClickTwo(false);
@@ -43,6 +46,35 @@ const MultipleChoiceQuestions = ({
     }
   };
 
+  const addAnswerToTestAnswerArray = (userAnswer) => {
+    let tempObject = testAnswersArray.map((item, index) => {
+      if (savedQuestionNumber - 1 !== index) {
+        return item;
+      }
+
+      return {
+        questionNumber: item.questionNumber,
+        usersAnswer: userAnswer,
+        answer: item.answer,
+      };
+    });
+    dispatch(flashcardStoreActions.setTestAnswersArray(tempObject));
+  };
+  const removeAnswerFromTestAnswerArray = () => {
+    let tempObject = testAnswersArray.map((item, index) => {
+      if (savedQuestionNumber - 1 !== index) {
+        return item;
+      }
+
+      return {
+        questionNumber: item.questionNumber,
+        usersAnswer: "",
+        answer: item.answer,
+      };
+    });
+    dispatch(flashcardStoreActions.setTestAnswersArray(tempObject));
+  };
+
   const answerClickedHandlerOne = () => {
     if (!answerClickOne && !firstTimeClicked) {
       setFirstTimeClicked(true);
@@ -53,7 +85,7 @@ const MultipleChoiceQuestions = ({
           numberOfQuestionsAnswered + 1
         )
       );
-      console.log("initial");
+      addAnswerToTestAnswerArray(randomAnswersArray[0]);
     } else {
       if (answerClickOne) {
         dispatch(
@@ -64,18 +96,20 @@ const MultipleChoiceQuestions = ({
         oneAnswerSelectedHandler();
         setAnswerClickOne(false);
         setSameAnswerClicked(true);
-        console.log("First Time Same Click");
+        removeAnswerFromTestAnswerArray();
       } else {
         if (!sameAnwserClicked) {
           setAnswerClickOne(true);
           oneAnswerSelectedHandler("One");
           setSameAnswerClicked(false);
+          addAnswerToTestAnswerArray(randomAnswersArray[0]);
         } else {
           dispatch(
             flashcardStoreActions.setNumberOfQuestionsAnswered(
               numberOfQuestionsAnswered + 1
             )
           );
+          addAnswerToTestAnswerArray(randomAnswersArray[0]);
           setAnswerClickOne(true);
           oneAnswerSelectedHandler("One");
           setSameAnswerClicked(false);
@@ -95,6 +129,7 @@ const MultipleChoiceQuestions = ({
           numberOfQuestionsAnswered + 1
         )
       );
+      addAnswerToTestAnswerArray(randomAnswersArray[1]);
     } else {
       if (answerClickTwo) {
         dispatch(
@@ -105,11 +140,13 @@ const MultipleChoiceQuestions = ({
         oneAnswerSelectedHandler();
         setAnswerClickTwo(false);
         setSameAnswerClicked(true);
+        removeAnswerFromTestAnswerArray();
       } else {
         if (!sameAnwserClicked) {
           setAnswerClickTwo(true);
           oneAnswerSelectedHandler("Two");
           setSameAnswerClicked(false);
+          addAnswerToTestAnswerArray(randomAnswersArray[1]);
         } else {
           dispatch(
             flashcardStoreActions.setNumberOfQuestionsAnswered(
@@ -117,6 +154,7 @@ const MultipleChoiceQuestions = ({
             )
           );
           setAnswerClickTwo(true);
+          addAnswerToTestAnswerArray(randomAnswersArray[1]);
 
           oneAnswerSelectedHandler("Two");
           setSameAnswerClicked(false);
@@ -135,6 +173,7 @@ const MultipleChoiceQuestions = ({
           numberOfQuestionsAnswered + 1
         )
       );
+      addAnswerToTestAnswerArray(randomAnswersArray[2]);
     } else {
       if (answerClickThree) {
         dispatch(
@@ -145,11 +184,13 @@ const MultipleChoiceQuestions = ({
         oneAnswerSelectedHandler();
         setAnswerClickThree(false);
         setSameAnswerClicked(true);
+        removeAnswerFromTestAnswerArray();
       } else {
         if (!sameAnwserClicked) {
           setAnswerClickThree(true);
           oneAnswerSelectedHandler("Three");
           setSameAnswerClicked(false);
+          addAnswerToTestAnswerArray(randomAnswersArray[2]);
         } else {
           dispatch(
             flashcardStoreActions.setNumberOfQuestionsAnswered(
@@ -159,6 +200,7 @@ const MultipleChoiceQuestions = ({
           setAnswerClickThree(true);
           oneAnswerSelectedHandler("Three");
           setSameAnswerClicked(false);
+          addAnswerToTestAnswerArray(randomAnswersArray[2]);
         }
       }
     }
@@ -168,6 +210,7 @@ const MultipleChoiceQuestions = ({
     if (!answerClickFour && !firstTimeClicked) {
       setFirstTimeClicked(true);
       setAnswerClickFour(true);
+      addAnswerToTestAnswerArray(randomAnswersArray[3]);
 
       dispatch(
         flashcardStoreActions.setNumberOfQuestionsAnswered(
@@ -184,17 +227,20 @@ const MultipleChoiceQuestions = ({
         oneAnswerSelectedHandler();
         setAnswerClickFour(false);
         setSameAnswerClicked(true);
+        removeAnswerFromTestAnswerArray();
       } else {
         if (!sameAnwserClicked) {
           setAnswerClickFour(true);
           oneAnswerSelectedHandler("Four");
           setSameAnswerClicked(false);
+          addAnswerToTestAnswerArray(randomAnswersArray[3]);
         } else {
           dispatch(
             flashcardStoreActions.setNumberOfQuestionsAnswered(
               numberOfQuestionsAnswered + 1
             )
           );
+          addAnswerToTestAnswerArray(randomAnswersArray[3]);
           setAnswerClickFour(true);
           oneAnswerSelectedHandler("Four");
           setSameAnswerClicked(false);
@@ -209,6 +255,10 @@ const MultipleChoiceQuestions = ({
     wrongChoiceTwo,
     wrongChoiceThree,
   ]);
+  // useEffect(() => {
+  //   console.log(questionNumber);
+  //   console.log(testAnswersArray);
+  // }, [testAnswersArray]);
   useEffect(() => {
     let refreshed = JSON.parse(localStorage.getItem("refreshed"));
     if (refreshed) {
@@ -224,6 +274,15 @@ const MultipleChoiceQuestions = ({
       );
     }
   }, []);
+  useEffect(() => {
+    if (testSubmitClicked) {
+      let localStorageString = `multipleChoice ${index}`;
+      localStorage.setItem(
+        localStorageString,
+        JSON.stringify(randomAnswersArray)
+      );
+    }
+  }, [testSubmitClicked]);
 
   return (
     <div className={classes.questionContainer}>

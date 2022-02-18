@@ -33,6 +33,11 @@ const initialState = {
   returnedTerm: null,
   returnedTermKey: null,
   matchingTermClickedTwice: false,
+  allMatchingAnswersAnswered: false,
+  multipleChoiceQuestions: [],
+  trueOrFalseQuestions: [],
+  matchingQuestions: [],
+  testSubmitClicked: false,
 };
 
 const flashcardSlice = createSlice({
@@ -128,6 +133,21 @@ const flashcardSlice = createSlice({
     },
     setMatchingTermClickedTwice(state, { payload }) {
       state.matchingTermClickedTwice = payload;
+    },
+    setAllMatchingAnswersAnswered(state, { payload }) {
+      state.allMatchingAnswersAnswered = payload;
+    },
+    setMultipleChoiceQuestions(state, { payload }) {
+      state.multipleChoiceQuestions = payload;
+    },
+    setTrueOrFalseQuestions(state, { payload }) {
+      state.trueOrFalseQuestions = payload;
+    },
+    setMatchingQuestions(state, { payload }) {
+      state.matchingQuestions = payload;
+    },
+    setTestSubmitClicked(state, { payload }) {
+      state.testSubmitClicked = payload;
     },
     prevFlashcard(state) {
       if (state.currentCard === 0) {

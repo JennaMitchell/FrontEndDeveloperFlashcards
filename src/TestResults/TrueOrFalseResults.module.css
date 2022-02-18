@@ -1,0 +1,113 @@
+.questionContainer {
+  height: max(24rem, 24rem);
+  width: max(40rem, 40rem);
+  background-color: rgba(36, 35, 35, 0.589);
+  box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.705);
+  color: rgb(211, 211, 211);
+  border-radius: 1.5rem;
+  margin-top: 4rem;
+  position: relative;
+  display: grid;
+  grid-template-rows: 16rem 2rem 6rem;
+  grid-template-columns: 20rem 20rem;
+  align-items: center;
+  justify-content: right;
+}
+.questionNumber {
+  position: absolute;
+  top: 1.5rem;
+  right: 2.5rem;
+
+  transform: translate(50%, -50%);
+  display: block;
+  color: rgb(211, 211, 211);
+}
+.displaySideOne {
+  width: max(100%, 100%);
+  height: max(100%, 100%);
+  grid-row: 1 / span 1;
+  grid-column: 1 / span 1;
+  font-size: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 2px solid rgb(184, 182, 182);
+  border-radius: 0.1rem;
+  margin-top: 1rem;
+}
+.displaySideTwo {
+  grid-row: 1 / span 1;
+  grid-column: 2 / span 1;
+  width: max(100%, 100%);
+  height: max(100%, 100%);
+  font-size: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.choiceText {
+  grid-row: 2 / span 1;
+  grid-column: 1 / span 2;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  width: max(100%, 100%);
+  height: max(max-content, max-content);
+  padding-left: 2rem;
+  color: rgb(211, 211, 211);
+}
+.answerContainer {
+  grid-row: 3 / span 1;
+  grid-column: 1 / span 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 100%;
+  align-items: center;
+  justify-content: center;
+  width: max(100%, 100%);
+  height: max(100%, 100%);
+}
+.answerTrue,
+.answerFalse {
+  border: 1.5px solid rgba(126, 124, 124, 0.823);
+  width: max(80%, 80%);
+  height: max(max-content, max-content);
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding-left: 0.5rem;
+  font-size: 1.2rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  background-color: inherit;
+  color: rgb(211, 211, 211);
+}
+.correctAnswer {
+  border: 1.5px solid rgb(3, 226, 3);
+  width: max(80%, 80%);
+  height: max(max-content, max-content);
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding-left: 0.5rem;
+  font-size: 1.2rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  background-color: inherit;
+  color: rgb(211, 211, 211);
+}
+.wrongAnswer {
+  border: 1.5px solid rgb(226, 18, 3);
+  width: max(80%, 80%);
+  height: max(max-content, max-content);
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding-left: 0.5rem;
+  font-size: 1.2rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  background-color: inherit;
+  color: rgb(211, 211, 211);
+}

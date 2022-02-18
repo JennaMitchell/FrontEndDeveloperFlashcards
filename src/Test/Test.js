@@ -8,6 +8,7 @@ import { useBeforeunload } from "react-beforeunload";
 import { flashcardStoreActions } from "../Store/flashcardSlice";
 import MatchingQuestionsTerms from "./MatchingQuestionsTerms";
 import MatchingQuestionsAnswers from "./MatchingQuestionsAnswers";
+import { NavLink } from "react-router-dom";
 const Test = () => {
   const testFlashcardData = useSelector((state) => state.testFlashcardData);
 
@@ -45,6 +46,26 @@ const Test = () => {
   const [matchingQuestions, setMatchingQuestions] = useState();
   const [randomizedMatchingAnswers, setRandomizedMatchingAnswers] = useState();
   const [initialRender, setInitialRender] = useState(false);
+  const [sumbitButtonEnabler, setSumbitButtonEnabler] = useState(false);
+
+  // this useEffect is for seeing if all the questions have been answered
+  useEffect(() => {
+    console.log("Tests UseEffect testAnswerArray entered");
+    console.log(initialRender);
+    if (!initialRender) {
+      console.log(initialRender);
+    } else {
+      let numberOfQuestionsAnswered = 0;
+      for (let i = 0; i < testAnswersArray.length; i++) {
+        if (testAnswersArray[i].usersAnswer !== "") {
+          numberOfQuestionsAnswered++;
+        }
+      }
+      if (numberOfQuestionsAnswered === testAnswersArray.length) {
+        setSumbitButtonEnabler(true);
+      }
+    }
+  }, [testAnswersArray]);
 
   useEffect(() => {
     let overAllDatabase = [];
@@ -307,6 +328,7 @@ const Test = () => {
       setTestAnswersArrayInitial(
         JSON.parse(localStorage.getItem("testAnswersArray"))
       );
+      setInitialRender(true);
     } else {
       if (initialRender) {
         const tempTestAnswerArray = testAnswersArrayGenerator();
@@ -349,6 +371,17 @@ const Test = () => {
 
   //[`Question ${i}`].questionSelection
 
+  const sumbitButtonHandler = () => {
+    dispatch(flashcardStoreActions.setMatchingQuestions(matchingQuestions));
+    dispatch(
+      flashcardStoreActions.setMultipleChoiceQuestions(multipleChoiceQuestions)
+    );
+    dispatch(
+      flashcardStoreActions.setTrueOrFalseQuestions(trueOrFalseQuestions)
+    );
+    dispatch(flashcardStoreActions.setTestAnswersArray(testAnswersArray));
+    dispatch(flashcardStoreActions.setTestSubmitClicked(true));
+  };
   return (
     <>
       <TestNavBar />
@@ -422,6 +455,18 @@ const Test = () => {
               : ""}
           </div>
         </div>
+
+        <NavLink
+          className={` ${
+            sumbitButtonEnabler
+              ? classes.sumbitButton
+              : classes.sumbitButtonDisabled
+          }`}
+          to="/test-results"
+          onClick={sumbitButtonHandler}
+        >
+          Submit
+        </NavLink>
       </div>
     </>
   );

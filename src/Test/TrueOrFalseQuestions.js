@@ -22,7 +22,37 @@ const TrueOrFalseQuestions = ({
   const numberOfQuestionsAnswered = useSelector(
     (state) => state.numberOfQuestionsAnswered
   );
+  const [savedQuestionNumber, setSavedQuestionNumber] =
+    useState(questionNumber);
+  const testAnswersArray = useSelector((state) => state.testAnswersArray);
+  const addAnswerToTestAnswerArray = (userAnswer) => {
+    let tempObject = testAnswersArray.map((item, index) => {
+      if (savedQuestionNumber - 1 !== index) {
+        return item;
+      }
 
+      return {
+        questionNumber: item.questionNumber,
+        usersAnswer: userAnswer,
+        answer: item.answer,
+      };
+    });
+    dispatch(flashcardStoreActions.setTestAnswersArray(tempObject));
+  };
+  const removeAnswerFromTestAnswerArray = () => {
+    let tempObject = testAnswersArray.map((item, index) => {
+      if (savedQuestionNumber - 1 !== index) {
+        return item;
+      }
+
+      return {
+        questionNumber: item.questionNumber,
+        usersAnswer: "",
+        answer: item.answer,
+      };
+    });
+    dispatch(flashcardStoreActions.setTestAnswersArray(tempObject));
+  };
   const trueClickedHandler = () => {
     if (!firstTimeClicked) {
       setFirstTimeClicked(true);
@@ -31,6 +61,7 @@ const TrueOrFalseQuestions = ({
           numberOfQuestionsAnswered + 1
         )
       );
+      addAnswerToTestAnswerArray(true);
     }
     if (possibleSecondTimeTrueClicked && trueClicked) {
       setTrueClicked(false);
@@ -42,10 +73,12 @@ const TrueOrFalseQuestions = ({
           numberOfQuestionsAnswered - 1
         )
       );
+      removeAnswerFromTestAnswerArray();
     } else {
       setTrueClicked(true);
       setFalseClicked(false);
       setPossibleSecondTimeTrueClicked(true);
+      addAnswerToTestAnswerArray(true);
     }
   };
   const falseClickedHandler = () => {
@@ -56,6 +89,7 @@ const TrueOrFalseQuestions = ({
           numberOfQuestionsAnswered + 1
         )
       );
+      addAnswerToTestAnswerArray(false);
     }
     if (possibleSecondTimeFalseClicked && falseClicked) {
       setTrueClicked(false);
@@ -66,10 +100,12 @@ const TrueOrFalseQuestions = ({
           numberOfQuestionsAnswered - 1
         )
       );
+      removeAnswerFromTestAnswerArray();
     } else {
       setTrueClicked(false);
       setFalseClicked(true);
       setPossibleSecondTimeFalseClicked(true);
+      addAnswerToTestAnswerArray(false);
     }
   };
 

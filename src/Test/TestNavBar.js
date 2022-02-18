@@ -8,8 +8,12 @@ import { XIcon } from "@heroicons/react/outline";
 import { useSelector } from "react-redux";
 import { useBeforeunload } from "react-beforeunload";
 import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+import { flashcardStoreActions } from "../Store/flashcardSlice";
+import { useDispatch } from "react-redux";
 
 const TestNavBar = () => {
+  const dispatch = useDispatch();
   const [title, setTitle] = useState();
 
   const reactFlashcardTestSwitch = useSelector(
@@ -22,6 +26,7 @@ const TestNavBar = () => {
   const numberOfQuestionsAnswered = useSelector(
     (state) => state.numberOfQuestionsAnswered
   );
+  const reactFlashcards = useSelector((state) => state.reactFlashcardData);
 
   useEffect(() => {
     let loadedTitle = localStorage.getItem("title");
@@ -41,6 +46,19 @@ const TestNavBar = () => {
   useBeforeunload(() => {
     localStorage.setItem("title", title);
   });
+  const closingIconHandler = () => {
+    dispatch(flashcardStoreActions.setTestButtonClicked(true));
+    dispatch(flashcardStoreActions.setReactFlashcardTestSwitch(false));
+    dispatch(flashcardStoreActions.setJavascriptFlashcardTestSwitch(false));
+    dispatch(flashcardStoreActions.setMultipuleChoiceSwitch(false));
+    dispatch(flashcardStoreActions.setTrueOrFalseSwitch(false));
+    dispatch(flashcardStoreActions.setMatchingSwitch(false));
+    dispatch(flashcardStoreActions.setTestFlashcardData(null));
+
+    dispatch(
+      flashcardStoreActions.setMaxNumberOfFlashcards(reactFlashcards.length)
+    );
+  };
 
   return (
     <div className={classes.testNavBar}>
@@ -63,9 +81,13 @@ const TestNavBar = () => {
 
         <h3 className={classes.options}>Options</h3>
 
-        <div className={`${classes.closeIcon} ${classes.lastIcon}`}>
+        <NavLink
+          className={`${classes.closeIcon} ${classes.lastIcon}`}
+          to="/"
+          onClick={closingIconHandler}
+        >
           <XIcon className={classes.icon} />
-        </div>
+        </NavLink>
       </div>
     </div>
   );

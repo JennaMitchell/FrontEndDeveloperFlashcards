@@ -20,14 +20,12 @@ const MatchingQuestionsAnswers = ({ answer, index }) => {
 
   const termHandler = () => {
     if (!firstTimeClicked || !matchingTermClicked) {
-      console.log("first time Clicked");
       dispatch(flashcardStoreActions.setTermNumberClicked(termKey));
       dispatch(flashcardStoreActions.setTermClickedText(savedAnswer));
       dispatch(flashcardStoreActions.setMatchingTermClicked(true));
       setTermText("");
       setFirstTimeClicked(true);
     } else if (dottedBoxUpdated) {
-      console.log("Second Clicked Term Box");
       setTermText(savedAnswer);
       dispatch(flashcardStoreActions.setTermNumberClicked(termKey));
       dispatch(flashcardStoreActions.setTermClickedText(savedAnswer));
@@ -47,11 +45,7 @@ const MatchingQuestionsAnswers = ({ answer, index }) => {
     if (!firstRender) {
       setFirstRender(true);
     } else {
-      console.log("returned UseEffect Ran");
-      console.log(termKey);
-      console.log(returnedTermKey);
       if (returnedTerm === savedAnswer) {
-        console.log("Term Text Has Been Reset");
         setTermText(returnedTerm);
         setFirstTimeClicked(false);
         dispatch(flashcardStoreActions.setReturnedTerm(""));
