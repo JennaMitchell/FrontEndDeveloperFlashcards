@@ -137,14 +137,17 @@ const Test = () => {
 
             // Step 2 Grabbing the Other Answer Choices
             let randomAnswers = [];
+            let randomNumbersGenerated = [];
             for (let j = 0; j < 3; j++) {
               const randomNumber2 = getRandomInt(overAllDatabase.length);
 
               if (
                 overAllDatabase[randomNumber2].sideTwo !==
-                testFlashcardData[randomNumber1].sideTwo
+                  testFlashcardData[randomNumber1].sideTwo &&
+                !randomNumbersGenerated.includes(randomNumber2)
               ) {
                 randomAnswers[j] = overAllDatabase[randomNumber2].sideTwo;
+                randomNumbersGenerated[j] = randomNumber2;
               } else {
                 j--;
               }
@@ -184,15 +187,18 @@ const Test = () => {
             let coinFlip = getRandomInt(2);
             let answer = null;
             let randomAnswers = [];
+            let randomNumbersGenerated = [];
             if (coinFlip === 1) {
               answer = false;
               for (let j = 0; j < 1; j++) {
                 const randomNumber2 = getRandomInt(overAllDatabase.length);
                 if (
                   overAllDatabase[randomNumber2].sideTwo !==
-                  testFlashcardData[randomNumber1].sideTwo
+                    testFlashcardData[randomNumber1].sideTwo &&
+                  !randomNumbersGenerated.includes(randomNumber2)
                 ) {
                   randomAnswers[j] = overAllDatabase[randomNumber2].sideTwo;
+                  randomNumbersGenerated[j] = randomNumber2;
                 } else {
                   j--;
                 }

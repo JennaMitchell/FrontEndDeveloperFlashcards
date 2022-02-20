@@ -24,27 +24,31 @@ const TrueOrFalseResults = ({
   const [answeredFalseCorrectly, setAnsweredFalseCorrectly] = useState("blank");
 
   useEffect(() => {
-    if (
-      testAnswersArray[questionNumber - 1].usersAnswer === answer &&
-      answer === true
-    ) {
-      setAnsweredTrueCorrectly(true);
-    } else if (
-      testAnswersArray[questionNumber - 1].usersAnswer === answer &&
-      answer === false
-    ) {
-      setAnsweredFalseCorrectly(true);
-    } else if (
-      testAnswersArray[questionNumber - 1].usersAnswer !== answer &&
-      answer === true
-    ) {
-      setAnsweredTrueCorrectly(false);
-      setAnsweredFalseCorrectly("Wrong");
-    } else {
-      setAnsweredFalseCorrectly(false);
-      setAnsweredTrueCorrectly("Wrong");
+    setAnsweredFalseCorrectly(null);
+    setAnsweredTrueCorrectly(null);
+    if (testAnswersArray) {
+      if (
+        testAnswersArray[questionNumber - 1].usersAnswer === true &&
+        answer === true
+      ) {
+        setAnsweredTrueCorrectly(true);
+      } else if (
+        testAnswersArray[questionNumber - 1].usersAnswer === false &&
+        answer === false
+      ) {
+        setAnsweredFalseCorrectly(true);
+      } else if (
+        testAnswersArray[questionNumber - 1].usersAnswer !== answer &&
+        answer === true
+      ) {
+        setAnsweredTrueCorrectly(false);
+        setAnsweredFalseCorrectly("Wrong");
+      } else {
+        setAnsweredFalseCorrectly(false);
+        setAnsweredTrueCorrectly("Wrong");
+      }
     }
-  }, []);
+  }, [testAnswersArray]);
 
   return (
     <div className={classes.questionContainer}>
@@ -57,14 +61,20 @@ const TrueOrFalseResults = ({
 
       <div className={classes.answerContainer}>
         <button
-          className={`${answeredTrueCorrectly ? classes.correctAnswer : ""} ${
+          className={`${
+            answeredTrueCorrectly === true ? classes.correctAnswer : ""
+          } ${answeredFalseCorrectly === false ? classes.correctAnswer : ""}  ${
             answeredTrueCorrectly === "Wrong" ? classes.wrongAnswer : ""
           } ${classes.answerTrue}`}
         >
           True
         </button>
         <button
-          className={`${answeredFalseCorrectly ? classes.correctAnswer : ""} ${
+          className={`${
+            answeredFalseCorrectly === true ? classes.correctAnswer : ""
+          } ${
+            answeredFalseCorrectly === false ? classes.correctAnswer : ""
+          }   ${
             answeredFalseCorrectly === "Wrong" ? classes.wrongAnswer : ""
           } ${classes.answerFalse}`}
         >

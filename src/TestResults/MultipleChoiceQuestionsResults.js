@@ -46,38 +46,49 @@ const MultipleChoiceQuestionsResults = ({
     );
   }, []);
   useEffect(() => {
+    setUserClickedPositionZero(false);
+    setUserClickedPositionOne(false);
+    setUserClickedPositionTwo(false);
+    setUserClickedPositionThree(false);
+    setAnswerPositionZero(false);
+    setAnswerPositionOne(false);
+    setAnswerPositionTwo(false);
+    setAnswerPositionThree(false);
+    setUserAnswerCorrectly(false);
     for (let i = 0; i < 4; i++) {
-      if (
-        randomAnswersArray[i] ===
-        testAnswersArray[questionNumber - 1].usersAnswer
-      ) {
-        if (i === 0) {
-          setUserClickedPositionZero(true);
-        } else if (i === 1) {
-          setUserClickedPositionOne(true);
-        } else if (i === 2) {
-          setUserClickedPositionTwo(true);
-        } else {
-          setUserClickedPositionThree(true);
+      if (testAnswersArray) {
+        if (
+          randomAnswersArray[i] ===
+          testAnswersArray[questionNumber - 1].usersAnswer
+        ) {
+          if (i === 0) {
+            setUserClickedPositionZero(true);
+          } else if (i === 1) {
+            setUserClickedPositionOne(true);
+          } else if (i === 2) {
+            setUserClickedPositionTwo(true);
+          } else {
+            setUserClickedPositionThree(true);
+          }
         }
-      }
-      if (randomAnswersArray[i] === answer) {
-        if (i === 0) {
-          setAnswerPositionZero(true);
-        } else if (i === 1) {
-          setAnswerPositionOne(true);
-        } else if (i === 2) {
-          setAnswerPositionTwo(true);
-        } else {
-          setAnswerPositionThree(true);
+        if (randomAnswersArray[i] === answer) {
+          if (i === 0) {
+            setAnswerPositionZero(true);
+          } else if (i === 1) {
+            setAnswerPositionOne(true);
+          } else if (i === 2) {
+            setAnswerPositionTwo(true);
+          } else {
+            setAnswerPositionThree(true);
+          }
         }
-      }
-    }
 
-    if (testAnswersArray[questionNumber - 1].usersAnswer !== answer) {
-      setUserAnswerCorrectly(false);
-    } else {
-      setUserAnswerCorrectly(true);
+        if (testAnswersArray[questionNumber - 1].usersAnswer !== answer) {
+          setUserAnswerCorrectly(false);
+        } else {
+          setUserAnswerCorrectly(true);
+        }
+      }
     }
   }, [randomAnswersArray]);
 

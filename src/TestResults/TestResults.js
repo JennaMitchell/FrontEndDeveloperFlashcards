@@ -18,6 +18,52 @@ const TestResults = () => {
   );
   const matchingQuestions = useSelector((state) => state.matchingQuestions);
   const dropDownMenuValue = useSelector((state) => state.dropDownMenuValue);
+  const testAnswersArray = useSelector((state) => state.testAnswersArray);
+  const [refreshedSet, setRefreshedSet] = useState(false);
+  useBeforeunload(() => {
+    localStorage.setItem(
+      "multipleChoice",
+      JSON.stringify(multipleChoiceQuestions)
+    );
+    localStorage.setItem("trueOrFalse", JSON.stringify(trueOrFalseQuestions));
+    localStorage.setItem("matching", JSON.stringify(matchingQuestions));
+    localStorage.setItem("refreshed", "true");
+    localStorage.setItem("dropDownValue", JSON.stringify(dropDownMenuValue));
+    localStorage.setItem("testAnswersArray", JSON.stringify(testAnswersArray));
+  });
+  useEffect(() => {
+    let refreshed = JSON.parse(localStorage.getItem("refreshed"));
+    if (refreshed) {
+      setRefreshedSet(true);
+      dispatch(
+        flashcardStoreActions.setMultipleChoiceQuestions(
+          JSON.parse(localStorage.getItem("multipleChoice"))
+        )
+      );
+      dispatch(
+        flashcardStoreActions.setTrueOrFalseQuestions(
+          JSON.parse(localStorage.getItem("trueOrFalse"))
+        )
+      );
+
+      dispatch(
+        flashcardStoreActions.setMatchingQuestions(
+          JSON.parse(localStorage.getItem("matching"))
+        )
+      );
+
+      dispatch(
+        flashcardStoreActions.setDropDownMenuValue(
+          JSON.parse(localStorage.getItem("dropDownValue"))
+        )
+      );
+      dispatch(
+        flashcardStoreActions.setTestAnswersArray(
+          JSON.parse(localStorage.getItem("testAnswersArray"))
+        )
+      );
+    }
+  }, []);
 
   return (
     <>
@@ -76,10 +122,12 @@ const TestResults = () => {
                     numberOfQuestions={matchingQuestions.length}
                     index={index}
                     key={index}
+                    answer={question.answer}
                   />
                 ))
               : ""}
           </div>
+          <div className={classes.matchingAnswerSection}></div>
         </div>
       </div>
     </>

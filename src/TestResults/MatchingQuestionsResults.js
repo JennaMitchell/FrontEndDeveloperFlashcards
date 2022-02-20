@@ -6,6 +6,7 @@ const MatchingQuestionsTermsResults = ({
   displaySideOne,
   numberOfQuestions,
   index,
+  answer,
 }) => {
   const testAnswersArray = useSelector((state) => state.testAnswersArray);
   const lengthOfMultipleAndTrueOrFalseQuestions = useSelector(
@@ -14,27 +15,36 @@ const MatchingQuestionsTermsResults = ({
   const [answerCorrectly, setAnsweredCorrectly] = useState();
 
   useEffect(() => {
-    if (
-      testAnswersArray[index + lengthOfMultipleAndTrueOrFalseQuestions]
-        .usersAnswer === displaySideOne
-    ) {
-      setAnsweredCorrectly(true);
-    } else {
-      setAnsweredCorrectly(false);
+    setAnsweredCorrectly(null);
+
+    if (testAnswersArray) {
+      if (
+        testAnswersArray[index + lengthOfMultipleAndTrueOrFalseQuestions]
+          .usersAnswer === answer
+      ) {
+        setAnsweredCorrectly(true);
+      } else {
+        setAnsweredCorrectly(false);
+      }
     }
   }, []);
+
   return (
     <div className={classes.questionSection}>
-      <div
-        className={`${classes.dragIntoSections} ${
-          answerCorrectly ? classes.correctAnswer : classes.wrongAnswer
-        } `}
-      >
-        {
-          testAnswersArray[index + lengthOfMultipleAndTrueOrFalseQuestions]
-            .usersAnswer
-        }
-      </div>
+      {testAnswersArray ? (
+        <div
+          className={`${classes.dragIntoSections} ${
+            answerCorrectly ? classes.correctAnswer : classes.wrongAnswer
+          } `}
+        >
+          {
+            testAnswersArray[index + lengthOfMultipleAndTrueOrFalseQuestions]
+              .usersAnswer
+          }
+        </div>
+      ) : (
+        ""
+      )}
       <div className={classes.answerSection}>{displaySideOne}</div>
     </div>
   );
