@@ -12,7 +12,7 @@ import { NavLink } from "react-router-dom";
 import { flashcardStoreActions } from "../Store/flashcardSlice";
 import { useDispatch } from "react-redux";
 
-const TestNavBar = () => {
+const TestNavBar = ({ pageType }) => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState();
 
@@ -26,10 +26,23 @@ const TestNavBar = () => {
   const numberOfQuestionsAnswered = useSelector(
     (state) => state.numberOfQuestionsAnswered
   );
-  const reactFlashcards = useSelector((state) => state.reactFlashcardData);
 
+  const testAnwersArray = useSelector((state) => state.testAnswersArray);
+  const reactFlashcards = useSelector((state) => state.reactFlashcardData);
+  const [numberOfCorrectAnswers, setNumberOfCorrectAnswers] = useState(0);
+  const numberOfCorrectAnswersChecker = () => {
+    let numberOfCorrectAnswers = 0;
+    for (let i = 0; i < testAnwersArray.length; i++) {
+      if (testAnwersArray[i].usersAnswer === testAnwersArray[i].answer) {
+        numberOfCorrectAnswers++;
+      }
+    }
+    return numberOfCorrectAnswers;
+  };
   useEffect(() => {
-    let loadedTitle = localStorage.getItem("title");
+    if (testAnwersArray !== undefined) {
+      setNumberOfCorrectAnswers(numberOfCorrectAnswersChecker());
+    }
 
     if (localStorage.getItem("title")) {
       setTitle(localStorage.getItem("title"));
@@ -66,9 +79,16 @@ const TestNavBar = () => {
         <DocumentTextIcon className={classes.icon} />
       </div>
       <div className={classes.titleContainer}>
-        <p className={classes.questionTracker}>
-          {numberOfQuestionsAnswered} / {dropDownMenuValue}
-        </p>
+        {pageType === "results" ? (
+          <p className={classes.questionTracker}>
+            {" "}
+            {numberOfCorrectAnswers} / {dropDownMenuValue} Correct
+          </p>
+        ) : (
+          <p className={classes.questionTracker}>
+            {numberOfQuestionsAnswered} / {dropDownMenuValue}
+          </p>
+        )}
         <p className={classes.testTitle}>{title}</p>
       </div>
       <div className={classes.testEditContainer}>

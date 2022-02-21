@@ -53,7 +53,7 @@
   border: 1.5px solid white;
 }
 .clickedAnswer {
-  background-color: rgba(48, 47, 47, 0.589);
+  background-color: rgb(31, 31, 43);
   border: 1.5px solid rgba(48, 83, 242, 0.864);
 
   width: max(80%, 80%);

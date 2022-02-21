@@ -1,5 +1,5 @@
 .answerTerm {
-  background-color: rgba(48, 47, 47, 0.589);
+  background-color: rgb(31, 31, 43);
   border: 1px solid rgb(169, 179, 235);
   height: max(max-content, max-content);
   width: max(8rem, 8rem);

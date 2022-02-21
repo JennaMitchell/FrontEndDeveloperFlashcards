@@ -24,6 +24,7 @@ const TrueOrFalseResults = ({
   const [answeredFalseCorrectly, setAnsweredFalseCorrectly] = useState("blank");
 
   useEffect(() => {
+    console.log();
     setAnsweredFalseCorrectly(null);
     setAnsweredTrueCorrectly(null);
     if (testAnswersArray) {
@@ -36,6 +37,7 @@ const TrueOrFalseResults = ({
         testAnswersArray[questionNumber - 1].usersAnswer === false &&
         answer === false
       ) {
+        console.log("setAnsweredFalse to true");
         setAnsweredFalseCorrectly(true);
       } else if (
         testAnswersArray[questionNumber - 1].usersAnswer !== answer &&
@@ -43,13 +45,30 @@ const TrueOrFalseResults = ({
       ) {
         setAnsweredTrueCorrectly(false);
         setAnsweredFalseCorrectly("Wrong");
-      } else {
+        console.log("setAnsweredFalse to Wrong");
+      } else if (
+        testAnswersArray[questionNumber - 1].usersAnswer !== answer &&
+        answer === false
+      ) {
         setAnsweredFalseCorrectly(false);
         setAnsweredTrueCorrectly("Wrong");
+        console.log("setAnsweredFalse to false");
       }
     }
   }, [testAnswersArray]);
+  const correctUserAnswerTag = (
+    <div className={classes.correctAnswerHelperText}>Your Answer</div>
+  );
+  const incorrectUserAnswerTag = (
+    <div className={classes.incorrectUserAnswer}>Your Answer</div>
+  );
 
+  const correctAnswerTag = (
+    <div className={classes.correctAnswerHelperText}>Correct Answer</div>
+  );
+  console.log(index);
+  console.log(answeredFalseCorrectly);
+  console.log(answeredFalseCorrectly === true);
   return (
     <div className={classes.questionContainer}>
       <div className={classes.questionNumber}>
@@ -63,21 +82,29 @@ const TrueOrFalseResults = ({
         <button
           className={`${
             answeredTrueCorrectly === true ? classes.correctAnswer : ""
-          } ${answeredFalseCorrectly === false ? classes.correctAnswer : ""}  ${
-            answeredTrueCorrectly === "Wrong" ? classes.wrongAnswer : ""
-          } ${classes.answerTrue}`}
+          } ${
+            answeredFalseCorrectly === "Wrong" ? classes.correctAnswer : ""
+          }  ${answeredTrueCorrectly === "Wrong" ? classes.wrongAnswer : ""} ${
+            classes.answerTrue
+          }`}
         >
+          {answeredTrueCorrectly === true ? correctUserAnswerTag : ""}
+          {answeredFalseCorrectly === "Wrong" ? correctAnswerTag : ""}
+          {answeredTrueCorrectly === "Wrong" ? incorrectUserAnswerTag : ""}
           True
         </button>
         <button
           className={`${
             answeredFalseCorrectly === true ? classes.correctAnswer : ""
           } ${
-            answeredFalseCorrectly === false ? classes.correctAnswer : ""
+            answeredTrueCorrectly === "Wrong" ? classes.correctAnswer : ""
           }   ${
             answeredFalseCorrectly === "Wrong" ? classes.wrongAnswer : ""
           } ${classes.answerFalse}`}
         >
+          {answeredFalseCorrectly === true ? correctUserAnswerTag : ""}
+          {answeredTrueCorrectly === "Wrong" ? correctAnswerTag : ""}
+          {answeredFalseCorrectly === "Wrong" ? incorrectUserAnswerTag : ""}
           False
         </button>
       </div>

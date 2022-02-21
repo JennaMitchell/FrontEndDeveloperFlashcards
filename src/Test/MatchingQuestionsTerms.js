@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classes from "./MatchingQuestionsTerms.module.css";
 import { flashcardStoreActions } from "../Store/flashcardSlice";
+import { render } from "@testing-library/react";
 
 const MatchingQuestionsTerms = ({
   displaySideOne,
@@ -10,6 +11,9 @@ const MatchingQuestionsTerms = ({
 }) => {
   const dispatch = useDispatch();
   const [answerKey, setAnswerKey] = useState(index);
+  const numberOfQuestionsAnswered = useSelector(
+    (state) => state.numberOfQuestionsAnswered
+  );
 
   const endOfQuestions = useSelector((state) => state.endOfQuestions);
   const termKey = useSelector((state) => state.termNumberClicked);
@@ -35,7 +39,7 @@ const MatchingQuestionsTerms = ({
   const [firstRender, setFirstRender] = useState(false);
   useEffect(() => {
     if (index === 0) {
-      setRenderText("Select from list below ");
+      setRenderText("Select from list below");
       setActiveElement(true);
     }
   }, []);
@@ -47,6 +51,11 @@ const MatchingQuestionsTerms = ({
           testAnswersArray[answerKey + lengthOfMultipleAndTrueOrFalseQuestions]
             .usersAnswer === termText
         ) {
+          dispatch(
+            flashcardStoreActions.setNumberOfQuestionsAnswered(
+              numberOfQuestionsAnswered - 1
+            )
+          );
           setRenderText("");
           let tempObject = testAnswersArray.map((item, index) => {
             if (
@@ -78,11 +87,15 @@ const MatchingQuestionsTerms = ({
         }
         if (answerKey === +activeElementNumber) {
           if (matchingTermClicked) {
-            console.log(`${activeElementNumber}`);
             setRenderText(termText);
+
             setActiveElement(false);
             dispatch(flashcardStoreActions.setDottedBoxUpdated(true));
-
+            dispatch(
+              flashcardStoreActions.setNumberOfQuestionsAnswered(
+                numberOfQuestionsAnswered + 1
+              )
+            );
             let tempObject = testAnswersArray.map((item, index) => {
               if (
                 index !==
@@ -97,7 +110,7 @@ const MatchingQuestionsTerms = ({
                 answer: item.answer,
               };
             });
-            console.log(tempObject);
+
             dispatch(flashcardStoreActions.setTestAnswersArray(tempObject));
           }
         }
@@ -105,6 +118,21 @@ const MatchingQuestionsTerms = ({
     }
   }, [activeElementNumber, termText, matchingTermClickedTwice]);
 
+  const allQuestionsAnsweredChecker = () => {
+    for (let i = 0; i < numberOfQuestions; i++) {
+      if (
+        testAnswersArray[
+          activeElementNumber + lengthOfMultipleAndTrueOrFalseQuestions
+        ].usersAnswer === ""
+      ) {
+        dispatch(flashcardStoreActions.setAllMatchingAnswersAnswered(false));
+        i = numberOfQuestions + 1;
+      }
+      if (i === numberOfQuestions - 1) {
+        dispatch(flashcardStoreActions.setAllMatchingAnswersAnswered(true));
+      }
+    }
+  };
   useEffect(() => {
     // seperating into another useEffect so that we can get access to the newly
     // dispatched testAnswerArray
@@ -112,45 +140,56 @@ const MatchingQuestionsTerms = ({
     if (!firstRender) {
       setFirstRender(true);
     } else {
-      for (let i = 0; i < numberOfQuestions; i++) {
-        if (
-          testAnswersArray[
-            activeElementNumber + lengthOfMultipleAndTrueOrFalseQuestions
-          ].usersAnswer === "" ||
-          testAnswersArray[
-            activeElementNumber + lengthOfMultipleAndTrueOrFalseQuestions
-          ].usersAnswer === "Select from list below"
-        ) {
-          dispatch(flashcardStoreActions.setAllMatchingAnswersAnswered(false));
-          i = numberOfQuestions + 1;
-        }
-        if (i === numberOfQuestions - 1) {
-          dispatch(flashcardStoreActions.setAllMatchingAnswersAnswered(true));
-        }
-      }
+      allQuestionsAnsweredChecker();
+
       if (matchingTermClickedTwice) {
         dispatch(flashcardStoreActions.setDottedBoxUpdated(false));
         dispatch(flashcardStoreActions.setMatchingTermClickedTwice(false));
       } else {
-        if (numberOfQuestions === activeElementNumber + 1) {
+        if (
+          numberOfQuestions === activeElementNumber + 1 &&
+          !endOfQuestions &&
+          renderText !== "Select from list below" &&
+          renderText !== ""
+        ) {
           dispatch(flashcardStoreActions.setEndOfQuestions(true));
         } else {
           if (endOfQuestions) {
+            allQuestionsAnsweredChecker();
+
             if (allMatchingAnswersAnswered) {
-              dispatch(flashcardStoreActions.setEndOfQuestions(false));
-            } else if (
-              testAnswersArray[
-                activeElementNumber + lengthOfMultipleAndTrueOrFalseQuestions
-              ].usersAnswer === ""
-            ) {
-              setActiveElement(true);
-              setRenderText("Select from list below");
-              dispatch(flashcardStoreActions.setActiveElementNumber(answerKey));
-              dispatch(flashcardStoreActions.setMatchingTermClicked(false));
-              dispatch(flashcardStoreActions.setEndOfQuestions(false));
+              if (
+                testAnswersArray[
+                  answerKey + lengthOfMultipleAndTrueOrFalseQuestions
+                ].usersAnswer === "" &&
+                activeElementNumber + 1 === numberOfQuestions &&
+                testAnswersArray[
+                  answerKey - 1 + lengthOfMultipleAndTrueOrFalseQuestions
+                ].usersAnswer !== "" &&
+                testAnswersArray[
+                  answerKey - 1 + lengthOfMultipleAndTrueOrFalseQuestions
+                ].usersAnswer !== "Select from list below"
+              ) {
+                setActiveElement(true);
+                setRenderText("Select from list below");
+                dispatch(
+                  flashcardStoreActions.setActiveElementNumber(answerKey)
+                );
+
+                dispatch(flashcardStoreActions.setMatchingTermClicked(false));
+                dispatch(flashcardStoreActions.setEndOfQuestions(false));
+              }
             }
           } else {
             if (
+              testAnswersArray[
+                activeElementNumber +
+                  lengthOfMultipleAndTrueOrFalseQuestions +
+                  1
+              ] === undefined
+            ) {
+              dispatch(flashcardStoreActions.setEndOfQuestions(true));
+            } else if (
               testAnswersArray[
                 activeElementNumber +
                   lengthOfMultipleAndTrueOrFalseQuestions +
@@ -168,7 +207,7 @@ const MatchingQuestionsTerms = ({
         }
       }
     }
-  }, [testAnswersArray]);
+  }, [testAnswersArray, allMatchingAnswersAnswered]);
 
   const dottedSpaceHandler = (event) => {
     if (
@@ -194,6 +233,11 @@ const MatchingQuestionsTerms = ({
       testAnswersArray[answerKey + lengthOfMultipleAndTrueOrFalseQuestions]
         .usersAnswer !== ""
     ) {
+      dispatch(
+        flashcardStoreActions.setNumberOfQuestionsAnswered(
+          numberOfQuestionsAnswered - 1
+        )
+      );
       let tempObject = testAnswersArray.map((item, index) => {
         if (answerKey + lengthOfMultipleAndTrueOrFalseQuestions !== index) {
           return item;
@@ -252,7 +296,12 @@ const MatchingQuestionsTerms = ({
       <div
         className={`${classes.dragIntoSections} ${
           activeElement ? classes.activeElement : ""
+        } ${
+          renderText !== "" && renderText !== "Select from list below"
+            ? classes.dataEntered
+            : ""
         }`}
+        // add gborder when text inside
         onClick={dottedSpaceHandler}
         data-matching-id={index}
       >

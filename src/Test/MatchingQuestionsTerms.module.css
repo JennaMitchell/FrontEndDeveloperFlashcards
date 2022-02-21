@@ -31,8 +31,10 @@
 
 .activeElement {
   border: 2px solid rgba(48, 83, 242, 0.864);
-  content: "Select from list below";
   color: rgb(211, 211, 211);
-  background-color: rgba(48, 47, 47, 0.589);
+  background-color: rgb(31, 31, 43);
   border-radius: 4px;
+}
+.dataEntered {
+  border: 2px solid rgba(126, 124, 124, 0.823);
 }

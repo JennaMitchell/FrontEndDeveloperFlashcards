@@ -67,7 +67,7 @@ const TestResults = () => {
 
   return (
     <>
-      <TestNavBar />
+      <TestNavBar pageType={"results"} />
       <div className={classes.questionsHolder}>
         {multipleChoiceQuestions
           ? multipleChoiceQuestions.map((question, index) => (

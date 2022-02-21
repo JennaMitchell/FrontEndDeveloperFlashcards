@@ -91,6 +91,16 @@ const MultipleChoiceQuestionsResults = ({
       }
     }
   }, [randomAnswersArray]);
+  const correctUserAnswerTag = (
+    <div className={classes.correctAnswerHelperText}>Your Answer</div>
+  );
+  const incorrectUserAnswerTag = (
+    <div className={classes.incorrectUserAnswer}>Your Answer</div>
+  );
+
+  const correctAnswerTag = (
+    <div className={classes.correctAnswerHelperText}>Correct Answer</div>
+  );
 
   return (
     <div className={classes.questionContainer}>
@@ -115,6 +125,14 @@ const MultipleChoiceQuestionsResults = ({
               : ""
           } ${classes.choiceAnswerOne}`}
         >
+          {userClickedPositionZero && userAnsweredCorrectly
+            ? correctUserAnswerTag
+            : ""}
+          {userClickedPositionZero && !userAnsweredCorrectly
+            ? incorrectUserAnswerTag
+            : ""}
+          {answerPositionZero && !userAnsweredCorrectly ? correctAnswerTag : ""}
+
           {randomAnswersArray[0]}
         </div>
         <div
@@ -132,6 +150,13 @@ const MultipleChoiceQuestionsResults = ({
               : ""
           } ${classes.choiceAnswerTwo}`}
         >
+          {userClickedPositionOne && userAnsweredCorrectly
+            ? correctUserAnswerTag
+            : ""}
+          {userClickedPositionOne && !userAnsweredCorrectly
+            ? incorrectUserAnswerTag
+            : ""}
+          {answerPositionOne && !userAnsweredCorrectly ? correctAnswerTag : ""}
           {randomAnswersArray[1]}
         </div>
         <div
@@ -149,6 +174,13 @@ const MultipleChoiceQuestionsResults = ({
               : ""
           } ${classes.choiceAnswerThree}`}
         >
+          {userClickedPositionTwo && userAnsweredCorrectly
+            ? correctUserAnswerTag
+            : ""}
+          {userClickedPositionTwo && !userAnsweredCorrectly
+            ? incorrectUserAnswerTag
+            : ""}
+          {answerPositionTwo && !userAnsweredCorrectly ? correctAnswerTag : ""}
           {randomAnswersArray[2]}
         </div>
         <div
@@ -166,6 +198,15 @@ const MultipleChoiceQuestionsResults = ({
               : ""
           } ${classes.choiceAnswerFour}`}
         >
+          {userClickedPositionThree && userAnsweredCorrectly
+            ? correctUserAnswerTag
+            : ""}
+          {userClickedPositionThree && !userAnsweredCorrectly
+            ? incorrectUserAnswerTag
+            : ""}
+          {answerPositionThree && !userAnsweredCorrectly
+            ? correctAnswerTag
+            : ""}
           {randomAnswersArray[3]}
         </div>
       </div>
