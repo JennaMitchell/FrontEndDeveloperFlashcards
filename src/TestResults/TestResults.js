@@ -7,6 +7,7 @@ import { flashcardStoreActions } from "../Store/flashcardSlice";
 import MatchingQuestionsTermsResults from "./MatchingQuestionsResults";
 import MultipleChoiceQuestionsResults from "./MultipleChoiceQuestionsResults";
 import TrueOrFalseResults from "./TrueOrFalseResults";
+import TestQuestionListNav from "../Test/TestQuestionListNav";
 
 const TestResults = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,10 @@ const TestResults = () => {
   const dropDownMenuValue = useSelector((state) => state.dropDownMenuValue);
   const testAnswersArray = useSelector((state) => state.testAnswersArray);
   const [refreshedSet, setRefreshedSet] = useState(false);
+  const questionListButtonClicked = useSelector(
+    (state) => state.questionListButtonClicked
+  );
+  const [numberOfQuestionsArray, setNumberOfQuestionArray] = useState([]);
   useBeforeunload(() => {
     localStorage.setItem(
       "multipleChoice",
@@ -33,6 +38,7 @@ const TestResults = () => {
   });
   useEffect(() => {
     let refreshed = JSON.parse(localStorage.getItem("refreshed"));
+
     if (refreshed) {
       setRefreshedSet(true);
       dispatch(
@@ -64,11 +70,38 @@ const TestResults = () => {
       );
     }
   }, []);
+  useEffect(() => {
+    if (testAnswersArray !== undefined && testAnswersArray !== null) {
+      let tempArray = [];
+      for (let i = 0; i < dropDownMenuValue; i++) {
+        tempArray[i] = i;
+      }
+      setNumberOfQuestionArray(tempArray);
+    }
+  }, [testAnswersArray]);
 
   return (
     <>
       <TestNavBar pageType={"results"} />
+
       <div className={classes.questionsHolder}>
+        {multipleChoiceQuestions && (
+          <div
+            className={`${classes.questionListDropDown} ${
+              questionListButtonClicked && classes.questionListMovedOut
+            }`}
+          >
+            {multipleChoiceQuestions
+              ? numberOfQuestionsArray.map((number, index) => (
+                  <TestQuestionListNav
+                    pageType={"results"}
+                    index={index}
+                    key={index}
+                  ></TestQuestionListNav>
+                ))
+              : ""}
+          </div>
+        )}
         {multipleChoiceQuestions
           ? multipleChoiceQuestions.map((question, index) => (
               <MultipleChoiceQuestionsResults

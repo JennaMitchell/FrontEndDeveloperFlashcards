@@ -22,6 +22,8 @@ const TrueOrFalseResults = ({
   const testAnswersArray = useSelector((state) => state.testAnswersArray);
   const [answeredTrueCorrectly, setAnsweredTrueCorrectly] = useState("blank");
   const [answeredFalseCorrectly, setAnsweredFalseCorrectly] = useState("blank");
+  const [savedQuestionNumber, setSavedQuestionNumber] =
+    useState(questionNumber);
 
   useEffect(() => {
     console.log();
@@ -70,7 +72,10 @@ const TrueOrFalseResults = ({
   console.log(answeredFalseCorrectly);
   console.log(answeredFalseCorrectly === true);
   return (
-    <div className={classes.questionContainer}>
+    <div
+      className={classes.questionContainer}
+      id={`Question${savedQuestionNumber}`}
+    >
       <div className={classes.questionNumber}>
         {questionNumber} of {numberOfQuestions}
       </div>

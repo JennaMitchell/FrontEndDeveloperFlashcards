@@ -103,7 +103,7 @@ const MultipleChoiceQuestionsResults = ({
   );
 
   return (
-    <div className={classes.questionContainer}>
+    <div className={classes.questionContainer} id={`Question${index + 1}`}>
       <p className={classes.questionNumber}>
         {questionNumber} of {numberOfQuestions}
       </p>

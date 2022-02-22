@@ -36,6 +36,7 @@ const MatchingQuestionsTermsResults = ({
           className={`${classes.dragIntoSections} ${
             answerCorrectly ? classes.correctAnswer : classes.wrongAnswer
           } `}
+          id={`Question${index + lengthOfMultipleAndTrueOrFalseQuestions + 1}`}
         >
           {
             testAnswersArray[index + lengthOfMultipleAndTrueOrFalseQuestions]

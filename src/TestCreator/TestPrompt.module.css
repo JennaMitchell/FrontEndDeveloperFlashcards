@@ -14,7 +14,7 @@
 
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(5, min-content);
+  grid-template-rows: repeat(5, max-content);
   align-items: center;
   justify-content: center;
 
@@ -105,7 +105,7 @@
   height: max(100%, 100%);
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: repeat(4, auto);
+  grid-template-rows: repeat(4, max-content);
   color: rgb(48, 48, 155);
   font-size: 2.2rem;
 }
@@ -175,6 +175,8 @@
   color: rgb(48, 48, 155);
   border: none;
   font-weight: normal;
+  width: max(7.8rem, 7.8rem);
+  height: max(4.4rem, 4.4rem);
 }
 .submit {
   grid-row: 5 / span 1;
@@ -207,5 +209,5 @@
 .submitNavlink:hover {
   background-color: rgb(48, 48, 155);
   color: white;
-  box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.3);
+  box-shadow: 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.637);
 }

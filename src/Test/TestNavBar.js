@@ -1,9 +1,5 @@
 import classes from "./TestNavBar.module.css";
-import {
-  DocumentTextIcon,
-  PrinterIcon,
-  MenuAlt2Icon,
-} from "@heroicons/react/outline";
+import { PrinterIcon, MenuAlt2Icon } from "@heroicons/react/outline";
 import { XIcon } from "@heroicons/react/outline";
 import { useSelector } from "react-redux";
 import { useBeforeunload } from "react-beforeunload";
@@ -26,7 +22,9 @@ const TestNavBar = ({ pageType }) => {
   const numberOfQuestionsAnswered = useSelector(
     (state) => state.numberOfQuestionsAnswered
   );
-
+  const questionListButtonClicked = useSelector(
+    (state) => state.questionListButtonClicked
+  );
   const testAnwersArray = useSelector((state) => state.testAnswersArray);
   const reactFlashcards = useSelector((state) => state.reactFlashcardData);
   const [numberOfCorrectAnswers, setNumberOfCorrectAnswers] = useState(0);
@@ -35,12 +33,13 @@ const TestNavBar = ({ pageType }) => {
     for (let i = 0; i < testAnwersArray.length; i++) {
       if (testAnwersArray[i].usersAnswer === testAnwersArray[i].answer) {
         numberOfCorrectAnswers++;
+        console.log(numberOfCorrectAnswers);
       }
     }
     return numberOfCorrectAnswers;
   };
   useEffect(() => {
-    if (testAnwersArray !== undefined) {
+    if (testAnwersArray !== undefined && testAnwersArray !== null) {
       setNumberOfCorrectAnswers(numberOfCorrectAnswersChecker());
     }
 
@@ -59,6 +58,11 @@ const TestNavBar = ({ pageType }) => {
   useBeforeunload(() => {
     localStorage.setItem("title", title);
   });
+  useEffect(() => {
+    if (testAnwersArray !== undefined && testAnwersArray !== null) {
+      setNumberOfCorrectAnswers(numberOfCorrectAnswersChecker());
+    }
+  }, [testAnwersArray]);
   const closingIconHandler = () => {
     dispatch(flashcardStoreActions.setTestButtonClicked(true));
     dispatch(flashcardStoreActions.setReactFlashcardTestSwitch(false));
@@ -72,16 +76,39 @@ const TestNavBar = ({ pageType }) => {
       flashcardStoreActions.setMaxNumberOfFlashcards(reactFlashcards.length)
     );
   };
+  const [menuIconClicked, setMenuIconClicked] = useState(false);
+  const listButtonClicked = () => {
+    dispatch(
+      flashcardStoreActions.setQuestionListButtonClicked(
+        !questionListButtonClicked
+      )
+    );
+    setMenuIconClicked(!menuIconClicked);
+  };
 
   return (
     <div className={classes.testNavBar}>
-      <div className={`${classes.testIcon} ${classes.firstIcon}`}>
-        <DocumentTextIcon className={classes.icon} />
+      <div
+        className={`${classes.testIcon} ${classes.firstIcon} `}
+        onClick={listButtonClicked}
+      >
+        {menuIconClicked ? (
+          <XIcon
+            className={`${classes.icon} ${classes.menuIcon} ${
+              menuIconClicked ? classes.listIconClicked : ""
+            }`}
+          />
+        ) : (
+          <MenuAlt2Icon
+            className={`${classes.icon} ${classes.menuIcon} ${
+              menuIconClicked ? classes.listIconClicked : ""
+            }`}
+          />
+        )}
       </div>
       <div className={classes.titleContainer}>
         {pageType === "results" ? (
           <p className={classes.questionTracker}>
-            {" "}
             {numberOfCorrectAnswers} / {dropDownMenuValue} Correct
           </p>
         ) : (
@@ -94,9 +121,6 @@ const TestNavBar = ({ pageType }) => {
       <div className={classes.testEditContainer}>
         <div className={classes.printIcon}>
           <PrinterIcon className={classes.icon} />
-        </div>
-        <div className={classes.questionList}>
-          <MenuAlt2Icon className={classes.icon} />
         </div>
 
         <h3 className={classes.options}>Options</h3>

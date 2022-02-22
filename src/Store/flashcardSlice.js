@@ -38,6 +38,7 @@ const initialState = {
   trueOrFalseQuestions: [],
   matchingQuestions: [],
   testSubmitClicked: false,
+  questionListButtonClicked: false,
 };
 
 const flashcardSlice = createSlice({
@@ -149,6 +150,10 @@ const flashcardSlice = createSlice({
     setTestSubmitClicked(state, { payload }) {
       state.testSubmitClicked = payload;
     },
+    setQuestionListButtonClicked(state, { payload }) {
+      state.questionListButtonClicked = payload;
+    },
+
     prevFlashcard(state) {
       if (state.currentCard === 0) {
         state.currentCard = state.maxNumberOfFlashcards - 1;

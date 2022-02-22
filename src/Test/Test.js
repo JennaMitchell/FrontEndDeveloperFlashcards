@@ -9,6 +9,7 @@ import { flashcardStoreActions } from "../Store/flashcardSlice";
 import MatchingQuestionsTerms from "./MatchingQuestionsTerms";
 import MatchingQuestionsAnswers from "./MatchingQuestionsAnswers";
 import { NavLink } from "react-router-dom";
+import TestQuestionListNav from "./TestQuestionListNav";
 const Test = () => {
   const testFlashcardData = useSelector((state) => state.testFlashcardData);
 
@@ -47,6 +48,9 @@ const Test = () => {
   const [randomizedMatchingAnswers, setRandomizedMatchingAnswers] = useState();
   const [initialRender, setInitialRender] = useState(false);
   const [sumbitButtonEnabler, setSumbitButtonEnabler] = useState(false);
+  const questionListButtonClicked = useSelector(
+    (state) => state.questionListButtonClicked
+  );
 
   // this useEffect is for seeing if all the questions have been answered
   useEffect(() => {
@@ -315,9 +319,15 @@ const Test = () => {
     }
     return tempTestAnswersArray;
   };
-
+  const [numberOfQuestionsArray, setNumberOfQuestionArray] = useState([]);
   useEffect(() => {
     let refreshed = JSON.parse(localStorage.getItem("refreshed"));
+    let tempArray = [];
+    for (let i = 0; i < dropDownMenuValue; i++) {
+      tempArray[i] = i;
+    }
+    setNumberOfQuestionArray(tempArray);
+
     if (refreshed) {
       dispatch(
         flashcardStoreActions.setTestAnswersArray(
@@ -388,10 +398,28 @@ const Test = () => {
     dispatch(flashcardStoreActions.setTestAnswersArray(testAnswersArray));
     dispatch(flashcardStoreActions.setTestSubmitClicked(true));
   };
+
+
   return (
     <>
       <TestNavBar />
       <div className={classes.questionsHolder}>
+        {questionListButtonClicked && (
+          <div
+            className={`${classes.questionListDropDown} ${
+              questionListButtonClicked && classes.questionListMovedOut
+            }`}
+          >
+            {multipleChoiceQuestions
+              ? numberOfQuestionsArray.map((number, index) => (
+                  <TestQuestionListNav
+                    index={index}
+                    key={index}
+                  ></TestQuestionListNav>
+                ))
+              : ""}
+          </div>
+        )}
         {multipleChoiceQuestions
           ? multipleChoiceQuestions.map((question, index) => (
               <MultipleChoiceQuestions
@@ -420,7 +448,7 @@ const Test = () => {
               />
             ))
           : ""}
-        <div className={classes.matchingContainer}>
+        <div className={classes.matchingContainer} id="Question1">
           <div className={classes.matchingTitleSection}>
             <p className={classes.matchingTitle}>Matching Questions</p>
             {!multipleChoiceQuestions ? (

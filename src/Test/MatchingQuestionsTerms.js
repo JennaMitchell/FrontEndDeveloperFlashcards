@@ -301,6 +301,7 @@ const MatchingQuestionsTerms = ({
             ? classes.dataEntered
             : ""
         }`}
+        id={`Question${index + lengthOfMultipleAndTrueOrFalseQuestions + 1}`}
         // add gborder when text inside
         onClick={dottedSpaceHandler}
         data-matching-id={index}
