@@ -76,7 +76,7 @@ const TestNavBar = ({ pageType }) => {
       flashcardStoreActions.setMaxNumberOfFlashcards(reactFlashcards.length)
     );
   };
-  const [menuIconClicked, setMenuIconClicked] = useState(false);
+  const [menuIconClicked, setMenuIconClicked] = useState(true);
   const listButtonClicked = () => {
     dispatch(
       flashcardStoreActions.setQuestionListButtonClicked(

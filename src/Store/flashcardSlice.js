@@ -38,7 +38,7 @@ const initialState = {
   trueOrFalseQuestions: [],
   matchingQuestions: [],
   testSubmitClicked: false,
-  questionListButtonClicked: false,
+  questionListButtonClicked: true,
 };
 
 const flashcardSlice = createSlice({

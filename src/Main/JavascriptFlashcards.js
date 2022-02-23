@@ -10,6 +10,7 @@ import TestPrompt from "../TestCreator/TestPrompt";
 import { useEffect } from "react";
 import NavBar from "../Navigation/Header";
 import { NavLink } from "react-router-dom";
+import { MenuIcon, XIcon } from "@heroicons/react/outline";
 
 const JavascriptFlashcards = () => {
   const currentCard = useSelector((state) => state.currentCard);
@@ -50,11 +51,23 @@ const JavascriptFlashcards = () => {
 
   const decksIconClicked = useSelector((state) => state.decksButtonClicked);
   const menuButtonClicked = useSelector((state) => state.menuClicked);
+
+  const menuButtonClickedHandler = () => {
+    dispatch(flashcardStoreActions.setMenuClicked(!menuButtonClicked));
+  };
   return (
     <>
       <NavBar />
       {testButtonClicked && <TestPrompt cardType="javascript" />}
       <div className={classes.flashcardContainer}>
+        <button
+          className={`${classes.menuButton} ${
+            menuButtonClicked && classes.menuButtonClicked
+          } `}
+          onClick={menuButtonClickedHandler}
+        >
+          {menuButtonClicked ? <XIcon></XIcon> : <MenuIcon></MenuIcon>}
+        </button>
         <div
           className={`${classes.decksMenu} ${
             decksIconClicked ? classes.decksButtonClicked : ""

@@ -14,7 +14,7 @@
 
 .reactLogo {
   height: min(80%, 80%);
-  width: min(7.5vh, 7.5vh);
+  width: min(6.5vh, 6.5vh);
 }
 .titleContainer {
   height: min(100%, 100%);
@@ -34,6 +34,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 0.5rem;
 
   height: min(80%, 80%);
 }

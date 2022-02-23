@@ -3,22 +3,21 @@
   background: rgb(4, 4, 48);
   box-shadow: black;
   display: grid;
-  grid-template-columns: 2.5rem max-content;
+  grid-template-columns: 13% minmax(87%, max-content);
   grid-template-rows: 1fr;
 
-  min-width: 100%;
-  width: 100%;
-  max-width: 100%;
-  min-height: 10%;
-  height: 10%;
-  max-height: 10%;
   margin-right: 0;
+  width: max(100%, 100%);
+  height: max(10%, 10%);
 
   justify-content: space-between;
   align-items: center;
-  border: 1px white solid;
 
-  margin-top: 2.5px;
+  overflow-x: scroll;
+
+  scrollbar-width: thin;
+  overflow-wrap: initial;
+  border-bottom: 1px solid white;
 }
 
 .menuButton {
@@ -32,21 +31,19 @@
 
   grid-column: 1 / span 1;
   grid-row: 1 / span 1;
-  margin-left: 2rem;
+  margin-left: 0.5rem;
 }
 .menuButton:hover {
   box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.705);
 }
 .title {
-  text-align: right;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+  display: grid;
+  place-content: center;
   grid-column: 2 / span 1;
   grid-row: 1 / span 1;
-  font-size: 2rem;
-  margin-right: 2rem;
+  font-size: 1.6rem;
 
   height: max(100%, 100%);
-  width: max(10.5rem, 10.5rem);
+  width: max(100%, 100%);
 }

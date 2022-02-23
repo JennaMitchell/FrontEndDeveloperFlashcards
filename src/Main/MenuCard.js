@@ -15,6 +15,8 @@ const MenuCard = ({ id, title, flashcardData }) => {
   const addSubtractHandler = () => {
     setisClicked(!isClicked);
   };
+  const [savedID, setSavedID] = useState(id);
+  const [titleClicked, setTitleClicked] = useState(false);
 
   useEffect(() => {
     if (firstRender === true) {
@@ -43,6 +45,13 @@ const MenuCard = ({ id, title, flashcardData }) => {
       }
     }
   }, [isClicked]);
+
+  useEffect(() => {
+    if (firstRender == true) {
+    } else {
+      /// Pick up here
+    }
+  });
 
   return (
     <div className={classes.menuCardContainer}>

@@ -4,17 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import MenuCard from "./MenuCard";
 import { useEffect, useState } from "react";
 import { flashcardStoreActions } from "../Store/flashcardSlice";
-import { MenuIcon, XIcon } from "@heroicons/react/outline";
 
 const Menu = ({ flashcardData }) => {
-  const dispatch = useDispatch();
   const menuIconClicked = useSelector((state) => state.menuClicked);
 
   const deckTypeSelected = useSelector((state) => state.deckTypeSelected);
-
-  const menuButtonClickedHandler = () => {
-    dispatch(flashcardStoreActions.setMenuClicked(!menuIconClicked));
-  };
 
   const [menuFlashcardData, setMenuFlashcardData] = useState();
   useEffect(() => {
@@ -36,12 +30,6 @@ const Menu = ({ flashcardData }) => {
         menuIconClicked ? classes.menuMoveOut : ""
       } `}
     >
-      <button
-        className={`${classes.menuButton} `}
-        onClick={menuButtonClickedHandler}
-      >
-        {menuIconClicked ? <XIcon></XIcon> : <MenuIcon></MenuIcon>}
-      </button>
       {menuFlashcardData}
     </div>
   );
