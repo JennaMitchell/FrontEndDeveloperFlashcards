@@ -2,21 +2,23 @@
   display: grid;
   height: max(100%, 100%);
   width: max(100%, 100%);
-  grid-template-columns: max-content 1fr;
+  grid-template-columns: max-content 17.5rem;
   grid-row: 100%;
 
   justify-content: center;
   align-items: center;
 }
 .dragIntoSections {
-  height: max(2.5rem, 2.5rem);
-  width: max(15rem, 15rem);
+  height: min(max-content, max-content);
+  width: max(35rem, 35rem);
   border: 2px dotted rgb(148, 164, 255);
-  margin-left: 2rem;
+
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 4px;
+  text-align: center;
+  padding: 0.9rem;
 }
 
 .answerSection {
@@ -34,6 +36,7 @@
   color: rgb(211, 211, 211);
   background-color: rgb(31, 31, 43);
   border-radius: 4px;
+  padding: 0;
 }
 .dataEntered {
   border: 2px solid rgba(126, 124, 124, 0.823);

@@ -14,7 +14,7 @@
 
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(5, max-content);
+  grid-template-rows: repeat(6, max-content);
   align-items: center;
   justify-content: center;
 
@@ -71,7 +71,7 @@
   height: max(100%, 100%);
 }
 .cardSelectionSection {
-  grid-row: 2 / 3;
+  grid-row: 3 / span 1;
   height: max(20rem, 20rem);
   width: max(100%, 100%);
 
@@ -87,7 +87,7 @@
   width: max(100%, 100%);
   height: max(100%, 100%);
   border-bottom: 2px solid rgb(48, 48, 155);
-  grid-row: 1 / span 1;
+  grid-row: 2 / span 1;
   text-align: center;
   font-size: 2.4rem;
 }
@@ -100,7 +100,7 @@
 }
 
 .testOptionsContainer {
-  grid-row: 3 / span 1;
+  grid-row: 4 / span 1;
   width: max(100%, 100%);
   height: max(100%, 100%);
   display: grid;
@@ -129,7 +129,7 @@
   height: min(100%, 100%);
 }
 .numberOfCardsSelectedHolder {
-  grid-row: 4 / span 1;
+  grid-row: 5 / span 1;
   width: min(100%, 100%);
   height: min(100%, 100%);
   color: rgb(48, 48, 155);
@@ -179,7 +179,7 @@
   height: max(4.4rem, 4.4rem);
 }
 .submit {
-  grid-row: 5 / span 1;
+  grid-row: 6 / span 1;
   width: min(100%, 100%);
   height: min(100%, 100%);
   margin-top: 4rem;
@@ -190,7 +190,7 @@
   font-size: 2.2rem;
 }
 .submitNavlink {
-  grid-row: 5 / span 1;
+  grid-row: 6 / span 1;
   width: min(100%, 100%);
   height: min(6.6rem, 6.6rem);
   margin-top: 4rem;

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classes from "./MatchingQuestionsTerms.module.css";
 import { flashcardStoreActions } from "../Store/flashcardSlice";
-import { render } from "@testing-library/react";
 
 const MatchingQuestionsTerms = ({
   displaySideOne,
@@ -23,6 +22,8 @@ const MatchingQuestionsTerms = ({
   const matchingTermClicked = useSelector((state) => state.matchingTermClicked);
   const dottedBoxUpdated = useSelector((state) => state.dottedBoxUpdated);
   const testAnswersArray = useSelector((state) => state.testAnswersArray);
+  const [savedNumberOfQuestions, setSavedNumberOfQuestions] =
+    useState(numberOfQuestions);
   const matchingTermClickedTwice = useSelector(
     (state) => state.matchingTermClickedTwice
   );
@@ -119,24 +120,42 @@ const MatchingQuestionsTerms = ({
   }, [activeElementNumber, termText, matchingTermClickedTwice]);
 
   const allQuestionsAnsweredChecker = () => {
-    for (let i = 0; i < numberOfQuestions; i++) {
+    let numberOfCorrectTerms = 0;
+    let firstEmptyAnswer = "x";
+    let firstEmptyFound = false;
+
+    for (let i = 0; i < savedNumberOfQuestions; i++) {
       if (
-        testAnswersArray[
-          activeElementNumber + lengthOfMultipleAndTrueOrFalseQuestions
-        ].usersAnswer === ""
+        testAnswersArray[i + lengthOfMultipleAndTrueOrFalseQuestions]
+          .usersAnswer !== "" &&
+        testAnswersArray[i + lengthOfMultipleAndTrueOrFalseQuestions]
+          .usersAnswer !== "Select from list below"
       ) {
-        dispatch(flashcardStoreActions.setAllMatchingAnswersAnswered(false));
-        i = numberOfQuestions + 1;
-      }
-      if (i === numberOfQuestions - 1) {
-        dispatch(flashcardStoreActions.setAllMatchingAnswersAnswered(true));
+        numberOfCorrectTerms++;
+      } else {
+        if (!firstEmptyFound) {
+          firstEmptyFound = true;
+          firstEmptyAnswer = i;
+        }
       }
     }
+    if (numberOfCorrectTerms === savedNumberOfQuestions) {
+      dispatch(flashcardStoreActions.setAllMatchingAnswersAnswered(true));
+    } else if (!endOfQuestions) {
+    } else if (
+      testAnswersArray[testAnswersArray.length - 1].usersAnswer !== "" &&
+      testAnswersArray[testAnswersArray.length - 1].usersAnswer !==
+        "Select from list below"
+    ) {
+      dispatch(flashcardStoreActions.setAllMatchingAnswersAnswered(false));
+      dispatch(flashcardStoreActions.setEndOfQuestions(false));
+    }
+    return [numberOfCorrectTerms, firstEmptyAnswer];
   };
   useEffect(() => {
     // seperating into another useEffect so that we can get access to the newly
     // dispatched testAnswerArray
-
+    console.log(158);
     if (!firstRender) {
       setFirstRender(true);
     } else {
@@ -146,6 +165,7 @@ const MatchingQuestionsTerms = ({
         dispatch(flashcardStoreActions.setDottedBoxUpdated(false));
         dispatch(flashcardStoreActions.setMatchingTermClickedTwice(false));
       } else {
+        console.log(168);
         if (
           numberOfQuestions === activeElementNumber + 1 &&
           !endOfQuestions &&
@@ -153,56 +173,27 @@ const MatchingQuestionsTerms = ({
           renderText !== ""
         ) {
           dispatch(flashcardStoreActions.setEndOfQuestions(true));
+          console.log(176);
         } else {
-          if (endOfQuestions) {
-            allQuestionsAnsweredChecker();
-
-            if (allMatchingAnswersAnswered) {
-              if (
-                testAnswersArray[
-                  answerKey + lengthOfMultipleAndTrueOrFalseQuestions
-                ].usersAnswer === "" &&
-                activeElementNumber + 1 === numberOfQuestions &&
-                testAnswersArray[
-                  answerKey - 1 + lengthOfMultipleAndTrueOrFalseQuestions
-                ].usersAnswer !== "" &&
-                testAnswersArray[
-                  answerKey - 1 + lengthOfMultipleAndTrueOrFalseQuestions
-                ].usersAnswer !== "Select from list below"
-              ) {
-                setActiveElement(true);
-                setRenderText("Select from list below");
-                dispatch(
-                  flashcardStoreActions.setActiveElementNumber(answerKey)
-                );
-
-                dispatch(flashcardStoreActions.setMatchingTermClicked(false));
-                dispatch(flashcardStoreActions.setEndOfQuestions(false));
-              }
-            }
-          } else {
-            if (
-              testAnswersArray[
-                activeElementNumber +
-                  lengthOfMultipleAndTrueOrFalseQuestions +
-                  1
-              ] === undefined
-            ) {
-              dispatch(flashcardStoreActions.setEndOfQuestions(true));
-            } else if (
-              testAnswersArray[
-                activeElementNumber +
-                  lengthOfMultipleAndTrueOrFalseQuestions +
-                  1
-              ].usersAnswer === "" &&
-              activeElementNumber + 1 === answerKey &&
-              matchingTermClicked
-            ) {
-              setActiveElement(true);
-              setRenderText("Select from list below");
-              dispatch(flashcardStoreActions.setActiveElementNumber(answerKey));
-              dispatch(flashcardStoreActions.setMatchingTermClicked(false));
-            }
+          if (
+            testAnswersArray[
+              activeElementNumber + lengthOfMultipleAndTrueOrFalseQuestions + 1
+            ] === undefined
+          ) {
+            dispatch(flashcardStoreActions.setEndOfQuestions(true));
+            console.log(184);
+          } else if (
+            testAnswersArray[
+              activeElementNumber + lengthOfMultipleAndTrueOrFalseQuestions + 1
+            ].usersAnswer === "" &&
+            activeElementNumber + 1 === answerKey &&
+            matchingTermClicked
+          ) {
+            console.log("Next Set 193");
+            setActiveElement(true);
+            setRenderText("Select from list below");
+            dispatch(flashcardStoreActions.setActiveElementNumber(answerKey));
+            dispatch(flashcardStoreActions.setMatchingTermClicked(false));
           }
         }
       }
@@ -249,18 +240,40 @@ const MatchingQuestionsTerms = ({
           answer: item.answer,
         };
       });
+      if (
+        answerKey + lengthOfMultipleAndTrueOrFalseQuestions ===
+          testAnswersArray.length - 1 &&
+        !activeElement &&
+        renderText !== "" &&
+        testAnswersArray[answerKey + lengthOfMultipleAndTrueOrFalseQuestions]
+          .usersAnswer !== ""
+      ) {
+        console.log(250);
+        console.log(endOfQuestions);
+        dispatch(flashcardStoreActions.setReturnedTerm(renderText));
 
-      dispatch(flashcardStoreActions.setReturnedTerm(renderText));
+        dispatch(flashcardStoreActions.setReturnedTermKey(termKey));
+        dispatch(flashcardStoreActions.setMatchingTermClicked(false));
+        setRenderText("Select from list below");
+        setActiveElement(true);
+        dispatch(flashcardStoreActions.setActiveElementNumber(answerKey));
 
-      dispatch(flashcardStoreActions.setReturnedTermKey(termKey));
-      dispatch(flashcardStoreActions.setMatchingTermClicked(false));
-      setRenderText("Select from list below");
-      setActiveElement(true);
-      dispatch(flashcardStoreActions.setActiveElementNumber(answerKey));
+        dispatch(flashcardStoreActions.setTestAnswersArray(tempObject));
+        dispatch(flashcardStoreActions.setTermClickedText(""));
+        dispatch(flashcardStoreActions.setTermNumberClicked(""));
+      } else {
+        dispatch(flashcardStoreActions.setReturnedTerm(renderText));
 
-      dispatch(flashcardStoreActions.setTestAnswersArray(tempObject));
-      dispatch(flashcardStoreActions.setTermClickedText(""));
-      dispatch(flashcardStoreActions.setTermNumberClicked(""));
+        dispatch(flashcardStoreActions.setReturnedTermKey(termKey));
+        dispatch(flashcardStoreActions.setMatchingTermClicked(false));
+        setRenderText("Select from list below");
+        setActiveElement(true);
+        dispatch(flashcardStoreActions.setActiveElementNumber(answerKey));
+
+        dispatch(flashcardStoreActions.setTestAnswersArray(tempObject));
+        dispatch(flashcardStoreActions.setTermClickedText(""));
+        dispatch(flashcardStoreActions.setTermNumberClicked(""));
+      }
       // resetting term test and term number clic kso the useeffect will re trigger when we need them to
     } else if (allMatchingAnswersAnswered) {
       let tempObject = testAnswersArray.map((item, index) => {
@@ -290,6 +303,52 @@ const MatchingQuestionsTerms = ({
     }
   };
   // console.log(event.target.closest("div").dataset.matchingId);
+  useEffect(() => {
+    if (!firstRender) {
+    } else {
+      let [numberOfCorrectAnswer, firstEmptyAnswer] =
+        allQuestionsAnsweredChecker();
+      if (endOfQuestions) {
+        console.log(activeElementNumber);
+        console.log(313);
+        if (
+          testAnswersArray[
+            lengthOfMultipleAndTrueOrFalseQuestions + numberOfQuestions - 1
+          ].usersAnswer === ""
+        ) {
+          // added this so when the users clicks thae last elemetn and the first elemnt is empty it doesn't double set the active element
+        } else {
+          if (
+            numberOfCorrectAnswer !== savedNumberOfQuestions &&
+            answerKey === firstEmptyAnswer &&
+            activeElementNumber + lengthOfMultipleAndTrueOrFalseQuestions ===
+              testAnswersArray.length - 1
+          ) {
+            dispatch(flashcardStoreActions.setReturnedTerm(renderText));
+
+            dispatch(flashcardStoreActions.setReturnedTermKey(termKey));
+            dispatch(flashcardStoreActions.setMatchingTermClicked(false));
+            setRenderText("Select from list below");
+            setActiveElement(true);
+            dispatch(flashcardStoreActions.setEndOfQuestions(false));
+          } else if (
+            numberOfCorrectAnswer !== savedNumberOfQuestions &&
+            answerKey === firstEmptyAnswer &&
+            firstEmptyAnswer + lengthOfMultipleAndTrueOrFalseQuestions !==
+              testAnswersArray.length - 1
+          ) {
+            dispatch(flashcardStoreActions.setReturnedTerm(renderText));
+
+            dispatch(flashcardStoreActions.setReturnedTermKey(termKey));
+            dispatch(flashcardStoreActions.setMatchingTermClicked(false));
+            setRenderText("Select from list below");
+            setActiveElement(true);
+            dispatch(flashcardStoreActions.setEndOfQuestions(false));
+          }
+        }
+      }
+    }
+  }, [endOfQuestions]);
 
   return (
     <div className={classes.questionSection}>

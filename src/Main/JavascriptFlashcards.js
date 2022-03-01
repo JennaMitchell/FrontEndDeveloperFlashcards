@@ -19,6 +19,9 @@ const JavascriptFlashcards = () => {
   const javascriptFlashcards = useSelector(
     (state) => state.javascriptFlashcardData
   );
+  const menuTitleCardNumberClicked = useSelector(
+    (state) => state.menuTitleCardNumberClicked
+  );
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -38,6 +41,10 @@ const JavascriptFlashcards = () => {
     );
   }, [deckTypeSelected, dispatch, javascriptFlashcards]);
 
+  useEffect(() => {
+    dispatch(flashcardStoreActions.setCurrentCard(menuTitleCardNumberClicked));
+  }, [menuTitleCardNumberClicked, dispatch]);
+
   const maxNumberOfFlashcards = useSelector(
     (state) => state.maxNumberOfFlashcards
   );
@@ -53,7 +60,11 @@ const JavascriptFlashcards = () => {
   const menuButtonClicked = useSelector((state) => state.menuClicked);
 
   const menuButtonClickedHandler = () => {
-    dispatch(flashcardStoreActions.setMenuClicked(!menuButtonClicked));
+    if (menuButtonClicked === false) {
+      dispatch(flashcardStoreActions.setMenuClicked(true));
+    } else if (menuButtonClicked === true) {
+      dispatch(flashcardStoreActions.setMenuClicked(false));
+    }
   };
   return (
     <>

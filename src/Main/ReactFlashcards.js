@@ -10,6 +10,7 @@ import Menu from "./Menu";
 import TestPrompt from "../TestCreator/TestPrompt";
 import NavBar from "../Navigation/Header";
 import { NavLink } from "react-router-dom";
+import { MenuIcon, XIcon } from "@heroicons/react/outline";
 
 const ReactFlashcards = () => {
   const currentCard = useSelector((state) => state.currentCard);
@@ -43,12 +44,27 @@ const ReactFlashcards = () => {
   };
   // dispatch(flashcardStoreActions.setDeckTypeSelected("react"));
   const menuButtonClicked = useSelector((state) => state.menuClicked);
+  const menuButtonClickedHandler = () => {
+    if (menuButtonClicked === false) {
+      dispatch(flashcardStoreActions.setMenuClicked(true));
+    } else if (menuButtonClicked === true) {
+      dispatch(flashcardStoreActions.setMenuClicked(false));
+    }
+  };
   return (
     <>
       <NavBar />
 
       {testButtonClicked && <TestPrompt cardType="react" />}
       <div className={classes.flashcardContainer}>
+      <button
+          className={`${classes.menuButton} ${
+            menuButtonClicked && classes.menuButtonClicked
+          } `}
+          onClick={menuButtonClickedHandler}
+        >
+          {menuButtonClicked ? <XIcon></XIcon> : <MenuIcon></MenuIcon>}
+        </button>
         <div
           className={`${classes.decksMenu} ${
             decksIconClicked ? classes.decksButtonClicked : ""

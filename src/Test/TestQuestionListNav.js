@@ -8,9 +8,7 @@ const TestQuestionListNav = ({ index, pageType }) => {
   const testAnswersArray = useSelector((state) => state.testAnswersArray);
   const [renderItem, setRenderItem] = useState();
   useEffect(() => {
-    console.log(testAnswersArray);
-
-    if (testAnswersArray !== undefined) {
+    if (testAnswersArray !== undefined && testAnswersArray !== null) {
       if (pageType !== "results") {
         if (
           testAnswersArray[index].usersAnswer !== null &&

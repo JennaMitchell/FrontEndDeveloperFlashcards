@@ -93,3 +93,29 @@
   height: min(80%, 80%);
   text-align: center;
 }
+.menuButton {
+  width: 3.5rem;
+  height: 5rem;
+  max-width: 3.5rem;
+  max-height: 5rem;
+
+  color: white;
+  background-color: rgba(48, 47, 47, 0.589);
+
+  border: none;
+  margin-left: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  transform: translate(-27.5%, 50%);
+  z-index: 10;
+  transition: all 0.5s;
+}
+.menuButton:hover {
+  box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.705);
+}
+.menuButtonClicked {
+  left: 20rem;
+  transition: all 0.5s;
+}

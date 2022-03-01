@@ -9,7 +9,7 @@
   border-bottom: 2px solid rgb(48, 48, 155);
 }
 .testCardTitle {
-  font-size: 2rem;
+  font-size: 1.6rem;
   color: rgb(48, 48, 155);
   grid-column: 1 / span 1;
   grid-row: 1 / span 1;

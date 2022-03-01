@@ -54,10 +54,7 @@ const Test = () => {
 
   // this useEffect is for seeing if all the questions have been answered
   useEffect(() => {
-    console.log("Tests UseEffect testAnswerArray entered");
-    console.log(initialRender);
     if (!initialRender) {
-      console.log(initialRender);
     } else {
       let numberOfQuestionsAnswered = 0;
       for (let i = 0; i < testAnswersArray.length; i++) {
@@ -348,7 +345,7 @@ const Test = () => {
     } else {
       if (initialRender) {
         const tempTestAnswerArray = testAnswersArrayGenerator();
-        console.log(tempTestAnswerArray);
+
         dispatch(
           flashcardStoreActions.setTestAnswersArray(tempTestAnswerArray)
         );
@@ -398,7 +395,6 @@ const Test = () => {
     dispatch(flashcardStoreActions.setTestAnswersArray(testAnswersArray));
     dispatch(flashcardStoreActions.setTestSubmitClicked(true));
   };
-
 
   return (
     <>

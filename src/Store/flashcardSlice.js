@@ -7,6 +7,7 @@ const initialState = {
   currentCard: 0,
   maxNumberOfFlashcards: 0,
   menuClicked: false,
+  menuTitleCardNumberClicked: 0,
   decksButtonClicked: false,
   testButtonClicked: false,
   totalNumberOfFlashcards: 0,
@@ -57,8 +58,8 @@ const flashcardSlice = createSlice({
     setMaxNumberOfFlashcards(state, action) {
       state.maxNumberOfFlashcards = action.payload;
     },
-    setMenuClicked(state) {
-      state.menuClicked = !state.menuClicked;
+    setMenuClicked(state, { payload }) {
+      state.menuClicked = payload;
     },
     setDecksButtonClicked(state) {
       state.decksButtonClicked = !state.decksButtonClicked;
@@ -153,7 +154,12 @@ const flashcardSlice = createSlice({
     setQuestionListButtonClicked(state, { payload }) {
       state.questionListButtonClicked = payload;
     },
-
+    setMenuTitleCardNumberClicked(state, { payload }) {
+      state.menuTitleCardNumberClicked = payload;
+    },
+    setCurrentCard(state, { payload }) {
+      state.currentCard = payload;
+    },
     prevFlashcard(state) {
       if (state.currentCard === 0) {
         state.currentCard = state.maxNumberOfFlashcards - 1;

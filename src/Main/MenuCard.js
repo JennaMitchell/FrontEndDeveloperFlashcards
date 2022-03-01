@@ -17,6 +17,9 @@ const MenuCard = ({ id, title, flashcardData }) => {
   };
   const [savedID, setSavedID] = useState(id);
   const [titleClicked, setTitleClicked] = useState(false);
+  const titleClickedHandler = () => {
+    setTitleClicked(true);
+  };
 
   useEffect(() => {
     if (firstRender === true) {
@@ -47,15 +50,21 @@ const MenuCard = ({ id, title, flashcardData }) => {
   }, [isClicked]);
 
   useEffect(() => {
-    if (firstRender == true) {
+    if (firstRender === true) {
     } else {
-      /// Pick up here
+      if (titleClicked === true) {
+        dispatch(flashcardStoreActions.setMenuTitleCardNumberClicked(savedID));
+        //s end the id of the card clicked to the store
+        setTitleClicked(false);
+      }
     }
-  });
+  }, [titleClicked]);
 
   return (
     <div className={classes.menuCardContainer}>
-      <p className={classes.title}>{title}</p>
+      <p className={classes.title} onClick={titleClickedHandler}>
+        {title}
+      </p>
       <button className={classes.menuButton} onClick={addSubtractHandler}>
         {isClicked ? <PlusSmIcon /> : <MinusSmIcon />}
       </button>

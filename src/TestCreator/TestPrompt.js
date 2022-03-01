@@ -292,8 +292,8 @@ const TestPrompt = ({ cardType }) => {
         </div>
 
         {/* Card Selection */}
+        <h3 className={classes.cardSelectorTitle}>Card Selection</h3>
         <div className={classes.cardSelectionSection}>
-          <h3 className={classes.cardSelectorTitle}>Card Selection</h3>
           <div className={classes.cardSelector}>
             {displayedTestSelectorCards}
           </div>
