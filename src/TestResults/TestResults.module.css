@@ -9,8 +9,8 @@
   position: relative;
 }
 .matchingContainer {
-  height: min(max-content, 60rem);
-  width: min(40rem, 40rem);
+  height: max(65%, 65%);
+  width: max(55%, 55%);
   background-color: rgba(36, 35, 35, 0.589);
   box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.705);
   color: rgb(211, 211, 211);
@@ -18,8 +18,7 @@
   margin-top: 4rem;
   position: relative;
   display: grid;
-  grid-template-rows: 6.5rem max-content max-content;
-  grid-template-columns: 20rem 20rem;
+  grid-template-rows: 6.5rem max-content;
   align-items: center;
   justify-content: right;
   margin-bottom: 3rem;
@@ -63,7 +62,7 @@
   grid-row: 2 / span 1;
 }
 .matchingSection {
-  height: max(100%, 100%);
+  height: max(max-content, max-content);
   width: max(100%, 100%);
 
   padding-top: 1rem;
@@ -73,23 +72,7 @@
   display: grid;
   gap: 1rem;
 }
-.matchingAnswerSection {
-  height: max(2rem, 2rem);
-  width: max(37.5rem, 37.5rem);
 
-  padding-top: 1rem;
-  color: rgb(211, 211, 211);
-  grid-column: 1 / span 2;
-  grid-row: 3 / span 1;
-  row-gap: 1rem;
-  column-gap: 0.5rem;
-  display: flex;
-
-  margin-left: 1.3rem;
-
-  align-items: center;
-  justify-content: center;
-}
 .sumbitButton {
   height: max(4rem, 4rem);
   width: max(12rem, 12rem);
@@ -146,4 +129,23 @@
   top: 7.5vh;
   transition: all 0.2s;
   visibility: visible;
+}
+@media (max-width: 700px) {
+  .questionListDropDown {
+    width: max(6.5rem, 6.5rem);
+    font-size: 0.8rem;
+  }
+}
+@media (max-width: 390px) {
+  .matchingHelperText {
+    font-size: 0.8rem;
+  }
+}
+@media (max-width: 360px) {
+  .matchingTitle {
+    font-size: 0.8rem;
+  }
+  .numberOfQuestions {
+    font-size: 0.8rem;
+  }
 }

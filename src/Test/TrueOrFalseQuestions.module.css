@@ -1,7 +1,6 @@
 .questionContainer {
-  height: max(35rem, 35rem);
-
-  width: max(70rem, 70rem);
+  height: max(92.5%, 92.5%);
+  width: max(55%, 55%);
   background-color: rgb(31, 31, 43);
   box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.705);
   color: rgb(211, 211, 211);
@@ -9,8 +8,8 @@
   margin-top: 4rem;
   position: relative;
   display: grid;
-  grid-template-rows: 27rem 2rem 6rem;
-  grid-template-columns: 35rem 35rem;
+  grid-template-rows: 77% 5% 18%;
+  grid-template-columns: 50% 50%;
   align-items: flex-end;
   justify-content: center;
 }
@@ -60,7 +59,7 @@
   justify-content: left;
   width: max(100%, 100%);
   height: max(max-content, max-content);
-  padding-left: 2rem;
+  padding-left: 5%;
   color: rgb(211, 211, 211);
 }
 .answerContainer {
@@ -108,4 +107,33 @@
   font-size: 1.2rem;
   border-radius: 0.5rem;
   padding: 0.5rem;
+}
+@media (max-width: 825px) {
+  .displaySideOne,
+  .displaySideTwo {
+    font-size: 1.6rem;
+  }
+}
+@media (max-width: 700px) {
+  .displaySideOne,
+  .displaySideTwo {
+    font-size: 1.4rem;
+  }
+}
+@media (max-width: 564px) {
+  .displaySideOne,
+  .displaySideTwo {
+    font-size: 1.2rem;
+  }
+}
+@media (max-width: 540px) {
+  .displaySideOne,
+  .displaySideTwo {
+    font-size: 1rem;
+  }
+  .questionNumber {
+    font-size: 0.8rem;
+    top: 1.6rem;
+    right: 2.5rem;
+  }
 }

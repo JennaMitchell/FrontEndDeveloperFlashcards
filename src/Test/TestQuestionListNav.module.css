@@ -47,3 +47,24 @@
   align-items: center;
   justify-content: center;
 }
+@media (max-width: 700px) {
+  .questionListContainer {
+    display: grid;
+    height: max(100%, 100%);
+    width: max(100%, 100%);
+    grid-template-columns: max-content 2rem;
+  }
+  .checkIcon {
+    height: max(1rem, 1rem);
+    width: max(1em, 1rem);
+  }
+  .xIcon {
+    height: max(1rem, 1rem);
+    width: max(1rem, 1rem);
+  }
+  .questionLink {
+    font-size: 0.8rem;
+    width: max(4rem, 4rem);
+    height: max(3rem, 3rem);
+  }
+}

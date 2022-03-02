@@ -86,3 +86,151 @@
   width: max(90%, 90%);
   height: max(max-content, max-content);
 }
+@media (max-height: 477px) {
+  .answerBlock {
+    width: max(95%, 95%);
+    height: max(80%, 80%);
+
+    gap: 10px;
+  }
+  .choiceAnswerOne,
+  .choiceAnswerTwo,
+  .choiceAnswerThree,
+  .choiceAnswerFour {
+    font-size: 1rem;
+  }
+}
+@media (max-height: 380px) {
+  .answerBlock {
+    width: max(95%, 95%);
+    height: max(80%, 80%);
+
+    gap: 10px;
+  }
+  .choiceAnswerOne,
+  .choiceAnswerTwo,
+  .choiceAnswerThree,
+  .choiceAnswerFour {
+    font-size: 0.8rem;
+  }
+  .answerSide {
+    font-size: 1.8rem;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    width: max(90%, 90%);
+    height: max(max-content, max-content);
+  }
+  .questionContainer {
+    height: max(92.5%, 92.5%);
+
+    grid-template-rows: 18% 4% 78%;
+  }
+}
+@media (max-width: 700px) {
+  .answerBlock {
+    width: max(95%, 95%);
+    height: max(80%, 80%);
+
+    gap: 10px;
+  }
+  .choiceAnswerOne,
+  .choiceAnswerTwo,
+  .choiceAnswerThree,
+  .choiceAnswerFour {
+    font-size: 0.8rem;
+  }
+  .answerSide {
+    font-size: 1.8rem;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    width: max(90%, 90%);
+    height: max(max-content, max-content);
+  }
+  .questionContainer {
+    height: max(92.5%, 92.5%);
+
+    grid-template-rows: 18% 4% 78%;
+  }
+  .clickedAnswer {
+    font-size: 0.8rem;
+  }
+}
+@media (max-width: 530px) {
+  .answerBlock {
+    width: max(95%, 95%);
+    height: max(80%, 80%);
+
+    gap: 10px;
+  }
+  .choiceAnswerOne,
+  .choiceAnswerTwo,
+  .choiceAnswerThree,
+  .choiceAnswerFour {
+    font-size: 0.8rem;
+  }
+  .answerSide {
+    font-size: 1.6rem;
+
+    margin-top: 0;
+  }
+  .questionContainer {
+    height: max(92.5%, 92.5%);
+
+    grid-template-rows: 18% 1% 81%;
+  }
+  .clickedAnswer {
+    font-size: 0.8rem;
+  }
+}
+@media (max-width: 475px) {
+  .answerBlock {
+    width: max(95%, 95%);
+    height: max(80%, 80%);
+
+    gap: 10px;
+  }
+  .choiceAnswerOne,
+  .choiceAnswerTwo,
+  .choiceAnswerThree,
+  .choiceAnswerFour {
+    font-size: 0.6rem;
+  }
+  .answerSide {
+    font-size: 1.2rem;
+  }
+  .questionContainer {
+    height: max(92.5%, 92.5%);
+
+    grid-template-rows: 18% 1% 81%;
+  }
+  .clickedAnswer {
+    font-size: 0.6rem;
+  }
+}
+@media (max-width: 330px) {
+  .answerBlock {
+    width: max(95%, 95%);
+    height: max(80%, 80%);
+
+    gap: 10px;
+  }
+  .choiceAnswerOne,
+  .choiceAnswerTwo,
+  .choiceAnswerThree,
+  .choiceAnswerFour {
+    font-size: 0.5rem;
+  }
+  .answerSide {
+    font-size: 1rem;
+  }
+  .questionContainer {
+    height: max(92.5%, 92.5%);
+
+    grid-template-rows: 18% 1% 81%;
+  }
+  .clickedAnswer {
+    font-size: 0.5rem;
+  }
+}

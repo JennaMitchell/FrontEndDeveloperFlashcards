@@ -160,7 +160,6 @@ const TestResults = () => {
                 ))
               : ""}
           </div>
-          <div className={classes.matchingAnswerSection}></div>
         </div>
       </div>
     </>
