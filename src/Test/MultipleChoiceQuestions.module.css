@@ -1,6 +1,6 @@
 .questionContainer {
-  height: max(60rem, 60rem);
-  width: max(60rem, 60rem);
+  height: max(92.5%, 92.5%);
+  width: max(55%, 55%);
   background-color: rgb(31, 31, 43);
   box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.705);
   color: rgb(211, 211, 211);
@@ -8,8 +8,8 @@
   margin-top: 4rem;
   position: relative;
   display: grid;
-  grid-template-rows: 10rem 2rem 48rem;
-  grid-template-columns: 60rem;
+  grid-template-rows: 20% 4% 76%;
+  grid-template-columns: 100%;
   align-items: center;
   justify-content: right;
 }
@@ -58,8 +58,8 @@
   background-color: rgb(31, 31, 43);
   border: 1.5px solid rgba(48, 83, 242, 0.864);
 
-  width: max(90%, 90%);
-  height: max(max-content, max-content);
+  width: max(100%, 100%);
+  height: max(100%, 100%);
   display: grid;
   place-items: center;
   font-size: 1.2rem;

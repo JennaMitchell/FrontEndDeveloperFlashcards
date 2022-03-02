@@ -11,7 +11,7 @@
 }
 .matchingContainer {
   height: min(45rem, 45rem);
-  width: max(60rem, 60rem);
+  width: max(70rem, 70rem);
   background-color: rgb(31, 31, 43);
   box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.705);
   color: rgb(211, 211, 211);
@@ -20,7 +20,7 @@
   position: relative;
   display: grid;
   grid-template-rows: 6.5rem max-content max-content;
-  grid-template-columns: 30rem 30rem;
+  grid-template-columns: 35rem 35rem;
   align-items: center;
   justify-content: center;
   margin-bottom: 3rem;
@@ -78,8 +78,8 @@
   overflow-y: scroll;
 }
 .matchingAnswerSection {
-  height: max(100%, 100%);
-  width: max(100%, 100%);
+  height: min(15rem, 15rem);
+  width: max(max-content, max-content);
   overflow-y: scroll;
 
   padding-top: 1rem;

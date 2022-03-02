@@ -13,7 +13,8 @@
   justify-content: space-between;
   align-items: center;
 
-  overflow-x: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 
   scrollbar-width: thin;
   overflow-wrap: initial;
@@ -47,4 +48,45 @@
   height: max(100%, 100%);
   width: max(100%, 100%);
   margin-left: 1rem;
+}
+@media (max-width: 1050px) {
+  .menuCardContainer {
+    font-size: 1.4rem;
+  }
+  .title {
+    font-size: 1.4rem;
+  }
+}
+@media (max-width: 950px) {
+  .menuCardContainer {
+    font-size: 1.2rem;
+  }
+  .title {
+    font-size: 1.2rem;
+  }
+}
+@media (max-width: 830px) {
+  .menuCardContainer {
+    font-size: 1rem;
+  }
+  .title {
+    font-size: 1rem;
+  }
+}
+@media (max-width: 725px) {
+  .menuCardContainer {
+    font-size: 0.8rem;
+  }
+  .title {
+    font-size: 0.8rem;
+  }
+  .menuButton {
+    width: max(1.4rem, 1.4rem);
+
+    height: max(1.4rem, 1.4rem);
+  }
+  .menuCardContainer {
+    overflow-x: scroll;
+    scrollbar-width: thin;
+  }
 }

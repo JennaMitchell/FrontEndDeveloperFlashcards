@@ -18,6 +18,9 @@ const ReactFlashcards = () => {
   const maxNumberOfFlashcards = useSelector(
     (state) => state.maxNumberOfFlashcards
   );
+  const menuTitleCardNumberClicked = useSelector(
+    (state) => state.menuTitleCardNumberClicked
+  );
 
   const decksIconClicked = useSelector((state) => state.decksButtonClicked);
 
@@ -25,6 +28,9 @@ const ReactFlashcards = () => {
   const reactFlashcards = useSelector((state) => state.reactFlashcardData);
   const deckTypeSelected = useSelector((state) => state.deckTypeSelected);
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(flashcardStoreActions.setCurrentCard(menuTitleCardNumberClicked));
+  }, [menuTitleCardNumberClicked, dispatch]);
   useEffect(() => {
     dispatch(flashcardStoreActions.setDeckTypeSelected("react"));
     dispatch(flashcardStoreActions.setDisplayedFlashcardData(reactFlashcards));
@@ -57,7 +63,7 @@ const ReactFlashcards = () => {
 
       {testButtonClicked && <TestPrompt cardType="react" />}
       <div className={classes.flashcardContainer}>
-      <button
+        <button
           className={`${classes.menuButton} ${
             menuButtonClicked && classes.menuButtonClicked
           } `}

@@ -38,7 +38,7 @@
 
   width: max(90%, 90%);
   height: max(90%, 90%);
-  margin: 10px auto;
+  margin: 5px auto;
 
   display: grid;
   place-content: center;
@@ -51,4 +51,46 @@
 }
 .hidden {
   display: none;
+}
+@media (max-width: 950px) {
+  .card {
+    height: max(60%, 60%);
+    width: max(70%, 70%);
+    top: 19.5%;
+    left: 15%;
+  }
+}
+@media (max-width: 725px) {
+  .card {
+    height: max(60%, 60%);
+    width: max(70%, 70%);
+  }
+}
+@media (max-width: 550px) {
+  .card {
+    height: max(45%, 45%);
+    width: max(70%, 70%);
+    top: 26.5%;
+    left: 15%;
+  }
+  .textFrontSide {
+    font-size: 1.2rem;
+  }
+  .textBackSide {
+    font-size: 1.2rem;
+  }
+}
+@media (max-width: 400px) {
+  .card {
+    height: max(30%, 30%);
+    width: max(60%, 60%);
+    top: 35%;
+    left: 20%;
+  }
+  .textFrontSide {
+    font-size: 1rem;
+  }
+  .textBackSide {
+    font-size: 1rem;
+  }
 }

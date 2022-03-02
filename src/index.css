@@ -18,7 +18,7 @@ body {
   font-weight: 300;
   color: #ffffff;
   line-height: 1.9;
-  width: 100rem;
+  width: 100%;
   overflow: hidden;
   background-color: black;
 }
@@ -27,4 +27,44 @@ body {
 }
 #root {
   overflow: hidden;
+}
+@media (max-width: 950px) {
+  body {
+    font-weight: 300;
+    color: #ffffff;
+    line-height: 1.9;
+    width: 100%;
+    overflow: hidden;
+    background-color: black;
+  }
+}
+@media (max-width: 725px) {
+  body {
+    font-weight: 300;
+    color: #ffffff;
+    line-height: 1.9;
+    width: 100%;
+    overflow: hidden;
+    background-color: black;
+  }
+}
+@media (max-width: 550px) {
+  body {
+    font-weight: 300;
+    color: #ffffff;
+    line-height: 1.9;
+    width: 100%;
+    overflow: hidden;
+    background-color: black;
+  }
+}
+@media (max-width: 400px) {
+  body {
+    font-weight: 300;
+    color: #ffffff;
+    line-height: 1.9;
+    width: 100%;
+    overflow: hidden;
+    background-color: black;
+  }
 }

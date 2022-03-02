@@ -1,10 +1,10 @@
 .flashcardContainer {
-  width: 100rem;
+  width: max(100%, 100%);
   height: 92.5vh;
   background-color: rgb(4, 4, 48);
   perspective: 1500rem;
   position: relative;
-  transition: all 0.5s;
+  transition: all 1s;
   z-index: 1;
   overflow: hidden;
 }
@@ -48,14 +48,14 @@
   transform: translateX(-50%);
 }
 .decksMenu {
-  height: max(8.5vh, 8.5vh);
+  height: max(9.5vh, 9.5vh);
   width: max(10.5%, 10.5%);
   border-radius: 5px;
 
   z-index: 100;
   visibility: hidden;
   position: absolute;
-  top: -7.5vh;
+  top: -8.5vh;
   right: 0;
   background-color: rgba(48, 47, 47, 0.589);
   color: white;
@@ -69,7 +69,7 @@
   align-items: center;
   justify-content: center;
 
-  margin-right: 5.55%;
+  margin-right: 8.75%;
   margin-left: auto;
 }
 .decksButtonClicked {
@@ -116,6 +116,76 @@
   box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.705);
 }
 .menuButtonClicked {
-  left: 20rem;
+  left: 23rem;
   transition: all 0.5s;
+}
+@media (max-width: 1050px) {
+  .menuButtonClicked {
+    left: 17.4rem;
+    transition: all 0.5s;
+  }
+}
+@media (max-width: 950px) {
+  .pageCounter {
+    font-size: 1.8rem;
+  }
+  .flashcardButton {
+    height: max(3rem, 3rem);
+    width: max(3rem, 3rem);
+  }
+  .menuButton {
+    height: max(3rem, 3rem);
+    width: max(3rem, 3rem);
+    transform: translate(-33.5%, 50%);
+  }
+  .decksMenu {
+    font-size: 0.8rem;
+    margin-right: 4.55%;
+  }
+  .menuButtonClicked {
+    left: 12.45rem;
+    transition: all 0.5s;
+  }
+}
+@media (max-width: 830px) {
+  .menuButtonClicked {
+    left: 10.45rem;
+    transition: all 0.5s;
+  }
+}
+
+@media (max-width: 725px) {
+  .pageCounter {
+    font-size: 1.8rem;
+  }
+  .flashcardButton {
+    height: max(2.5rem, 2.5rem);
+    width: max(2.5rem, 2.5rem);
+  }
+  .menuButton {
+    height: max(2.5rem, 2.5rem);
+    width: max(2.5rem, 2.5rem);
+
+    transform: translate(-39.5%, 50%);
+  }
+  .decksMenu {
+    font-size: 0.7rem;
+    margin-right: 2%;
+  }
+  .menuButtonClicked {
+    left: 8.45rem;
+    transition: all 0.5s;
+  }
+}
+@media (max-width: 550px) {
+  .decksMenu {
+    font-size: 0.7rem;
+    margin-right: 2%;
+  }
+}
+@media (max-width: 400px) {
+  .decksMenu {
+    font-size: 0.6rem;
+    margin-right: 2.75%;
+  }
 }
