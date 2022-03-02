@@ -26,7 +26,6 @@ const TrueOrFalseResults = ({
     useState(questionNumber);
 
   useEffect(() => {
-    console.log();
     setAnsweredFalseCorrectly(null);
     setAnsweredTrueCorrectly(null);
     if (testAnswersArray) {
@@ -39,7 +38,6 @@ const TrueOrFalseResults = ({
         testAnswersArray[questionNumber - 1].usersAnswer === false &&
         answer === false
       ) {
-        console.log("setAnsweredFalse to true");
         setAnsweredFalseCorrectly(true);
       } else if (
         testAnswersArray[questionNumber - 1].usersAnswer !== answer &&
@@ -47,14 +45,12 @@ const TrueOrFalseResults = ({
       ) {
         setAnsweredTrueCorrectly(false);
         setAnsweredFalseCorrectly("Wrong");
-        console.log("setAnsweredFalse to Wrong");
       } else if (
         testAnswersArray[questionNumber - 1].usersAnswer !== answer &&
         answer === false
       ) {
         setAnsweredFalseCorrectly(false);
         setAnsweredTrueCorrectly("Wrong");
-        console.log("setAnsweredFalse to false");
       }
     }
   }, [testAnswersArray]);
@@ -68,9 +64,7 @@ const TrueOrFalseResults = ({
   const correctAnswerTag = (
     <div className={classes.correctAnswerHelperText}>Correct Answer</div>
   );
-  console.log(index);
-  console.log(answeredFalseCorrectly);
-  console.log(answeredFalseCorrectly === true);
+
   return (
     <div
       className={classes.questionContainer}

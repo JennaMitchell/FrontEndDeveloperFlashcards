@@ -24,7 +24,6 @@ const TestPromptCard = ({ id, title, cardData, firstRender }) => {
       return;
     } else {
       if (checkMarkClicked === false) {
-        console.log("ADD");
         dispatch(
           flashcardStoreActions.addToTestFlashcardData({
             card: {
@@ -34,7 +33,6 @@ const TestPromptCard = ({ id, title, cardData, firstRender }) => {
           })
         );
       } else if (checkMarkClicked === true) {
-        console.log("SUBTRACT");
         dispatch(
           flashcardStoreActions.removeTestFlashcardData({
             card: {

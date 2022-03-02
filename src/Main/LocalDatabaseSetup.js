@@ -46,7 +46,6 @@ const LocalDatabaseSetup = () => {
               setIsLoading(false);
             }
           } else {
-            console.log("No data availables");
           }
         } catch (error) {
           setIsLoading(false);

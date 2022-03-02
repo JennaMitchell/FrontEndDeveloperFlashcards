@@ -33,7 +33,6 @@ const TestNavBar = ({ pageType }) => {
     for (let i = 0; i < testAnwersArray.length; i++) {
       if (testAnwersArray[i].usersAnswer === testAnwersArray[i].answer) {
         numberOfCorrectAnswers++;
-        console.log(numberOfCorrectAnswers);
       }
     }
     return numberOfCorrectAnswers;

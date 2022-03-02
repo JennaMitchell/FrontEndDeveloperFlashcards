@@ -155,7 +155,7 @@ const MatchingQuestionsTerms = ({
   useEffect(() => {
     // seperating into another useEffect so that we can get access to the newly
     // dispatched testAnswerArray
-    console.log(158);
+
     if (!firstRender) {
       setFirstRender(true);
     } else {
@@ -165,7 +165,6 @@ const MatchingQuestionsTerms = ({
         dispatch(flashcardStoreActions.setDottedBoxUpdated(false));
         dispatch(flashcardStoreActions.setMatchingTermClickedTwice(false));
       } else {
-        console.log(168);
         if (
           numberOfQuestions === activeElementNumber + 1 &&
           !endOfQuestions &&
@@ -173,7 +172,6 @@ const MatchingQuestionsTerms = ({
           renderText !== ""
         ) {
           dispatch(flashcardStoreActions.setEndOfQuestions(true));
-          console.log(176);
         } else {
           if (
             testAnswersArray[
@@ -181,7 +179,6 @@ const MatchingQuestionsTerms = ({
             ] === undefined
           ) {
             dispatch(flashcardStoreActions.setEndOfQuestions(true));
-            console.log(184);
           } else if (
             testAnswersArray[
               activeElementNumber + lengthOfMultipleAndTrueOrFalseQuestions + 1
@@ -189,7 +186,6 @@ const MatchingQuestionsTerms = ({
             activeElementNumber + 1 === answerKey &&
             matchingTermClicked
           ) {
-            console.log("Next Set 193");
             setActiveElement(true);
             setRenderText("Select from list below");
             dispatch(flashcardStoreActions.setActiveElementNumber(answerKey));
@@ -248,8 +244,6 @@ const MatchingQuestionsTerms = ({
         testAnswersArray[answerKey + lengthOfMultipleAndTrueOrFalseQuestions]
           .usersAnswer !== ""
       ) {
-        console.log(250);
-        console.log(endOfQuestions);
         dispatch(flashcardStoreActions.setReturnedTerm(renderText));
 
         dispatch(flashcardStoreActions.setReturnedTermKey(termKey));
@@ -309,8 +303,6 @@ const MatchingQuestionsTerms = ({
       let [numberOfCorrectAnswer, firstEmptyAnswer] =
         allQuestionsAnsweredChecker();
       if (endOfQuestions) {
-        console.log(activeElementNumber);
-        console.log(313);
         if (
           testAnswersArray[
             lengthOfMultipleAndTrueOrFalseQuestions + numberOfQuestions - 1
